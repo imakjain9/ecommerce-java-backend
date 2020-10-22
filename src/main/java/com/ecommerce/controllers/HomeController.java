@@ -31,7 +31,7 @@ public class HomeController {
 
     @RequestMapping(value="registerSubmit",method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
-        System.out.println(registerRequestDTO.getFirstName());
-        return null;
+        userService.register(registerRequestDTO);
+        return "home.jsp";
     }
 }
