@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.dto.RegisterRequestDTO;
+import com.ecommerce.entity.User;
 import com.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap){
         modelMap.addAttribute("title","E-commerce");
+        modelMap.addAttribute("userList", userService.getUsers());
         return "home.jsp";
     }
 

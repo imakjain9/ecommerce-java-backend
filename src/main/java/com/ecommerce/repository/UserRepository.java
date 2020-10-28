@@ -5,6 +5,8 @@ import com.ecommerce.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class UserRepository {
 
     private SessionFactory sessionFactory;
@@ -24,5 +26,13 @@ public class UserRepository {
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
+        session.close();
+    }
+
+    public List<User> list() {
+        Session session = sessionFactory.openSession();
+        List<User> users = session.createQuery("from User").list();
+        session.close();
+        return users;
     }
 }
