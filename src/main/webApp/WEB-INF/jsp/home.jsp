@@ -4,21 +4,43 @@
 <html>
 <head>
 <title>home</title>
+    <link rel="stylesheet" type="text/css"
+    			  href="${pageContext.request.contextPath}/resource/css/home.css">
+
+    <script type="text/javascript" src=
+    			"${pageContext.request.contextPath}/resource/js/home.js">
+    </script>
 </head>
 <body>
-<h1>${title}</h1>
-<a href="http://localhost:8080/ecommerce/registerForm">register</a>
+<header>
+    <div class="container" id="containerContent">
+        <span style="font-size:30px;cursor:pointer;margin-right:10px;display:inline-block;color:#111;" onclick="openNav()">&#9776;</span>
+            <h1  id="logo">${title}</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#">signin</li>
+                        <li><a href="#">login</li>
+                    </ul>
+    </div>
+ </header>
 
-<h1>Employees List</h1>
-<table border="2" width="70%" cellpadding="2">
-<tr><th>email</th><th>firstName</th><th>lastName</th></tr>
-   <c:forEach var="user" items="${userList}">
-   <tr>
-   <td>${user.email}</td>
-   <td>${user.firstName}</td>
-   <td>${user.lastName}</td>
-   </tr>
-   </c:forEach>
-   </table>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="http://localhost:8081/ecommerce/registerForm">Register</a>
+  <a href="http://localhost:8081/ecommerce/addCustomerForm">Add Customers</a>
+  <a href="#">Contact</a>
+    <hr>
+  <h3 style="color:#a6a6a6;font-size:21px;margin-bottom:10px;">Admin</h3>
+      <c:forEach var="user" items="${userList}">
+        <a href="#">${user.firstName}</a>
+       </c:forEach>
+</div>
+
+<div id="main">
+</div>
+
+
+
 </body>
 </html>

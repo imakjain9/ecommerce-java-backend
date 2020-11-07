@@ -1,7 +1,9 @@
 package com.ecommerce.controllers;
 
+import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.User;
+import com.ecommerce.services.CustomerService;
 import com.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,22 +20,40 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String home(ModelMap modelMap){
-        modelMap.addAttribute("title","E-commerce");
+    public String home(ModelMap modelMap) {
+        modelMap.addAttribute("title", "Daily-Hisabh");
         modelMap.addAttribute("userList", userService.getUsers());
         return "home.jsp";
     }
 
-    @RequestMapping(value="registerForm",method = RequestMethod.GET)
-    public String registerForm(ModelMap modelMap){
+    @RequestMapping(value = "registerForm", method = RequestMethod.GET)
+    public String registerForm(ModelMap modelMap) {
         return "registerForm.jsp";
     }
 
-    @RequestMapping(value="registerSubmit",method = RequestMethod.POST)
+    @RequestMapping(value = "registerSubmit", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
         userService.register(registerRequestDTO);
         return "home.jsp";
+    }
+
+    @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
+    public String addCustomerForm(ModelMap modelMap) {
+        return "addCustomerForm.jsp";
+    }
+
+    @RequestMapping(value = "addCustomerSubmit", method = RequestMethod.POST)
+    public String registerCustomer(@ModelAttribute("customerRegisterDTO") CustomerRegisterDTO customerRegisterDTO) {
+        customerService.register(customerRegisterDTO);
+        return "home.jsp";
+    }
+
+    @RequestMapping(value = "addCustomerSubscription", method = RequestMethod.GET)
+    public String addCustomerSubscription(ModelMap modelMap) {
+        return "subscriptionForm.jsp";
     }
 }
