@@ -5,6 +5,8 @@ import com.ecommerce.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class CustomerRepository {
     private SessionFactory sessionFactory;
 
@@ -14,6 +16,7 @@ public class CustomerRepository {
 
     public void addCustomer(CustomerRegisterDTO customerRegisterDTO) {
         Customer customer=new Customer();
+        customer.setId(customerRegisterDTO.getId());
         customer.setCustomer_name(customerRegisterDTO.getCustomer_name());
         customer.setCustomer_email(customerRegisterDTO.getCustomer_email());
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
@@ -27,5 +30,12 @@ public class CustomerRepository {
         session.save(customer);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public List<Customer> customerList(){
+      Session session=sessionFactory.openSession();
+      List<Customer> customers=session.createQuery("from Customer").list();
+      session.close();
+      return customers;
     }
 }

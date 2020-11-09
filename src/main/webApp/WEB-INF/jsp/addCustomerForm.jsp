@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css"
             			  href="${pageContext.request.contextPath}/resource/css/form.css">
   </head>
-<body>
+<body style="background-image:url(${pageContext.request.contextPath}/resource/images/addCustomerFormBackground.jpg);">
 
 	<div class="form-style">
 <div class="form-style-heading"><h1>Provide Custmer's information </h1></div>
@@ -30,8 +30,9 @@
 
 <label for="user"><span>Under Registration <span class="required">*</span></span>
 <select name="registered_user" class="select-field">
-<option value="General Question">User1</option>
-<option value="Advertise">User2</option>
+     <c:forEach var="user" items="${userList}">
+<option value="user">${user.firstName}</option>
+    </c:forEach>
 </select>
 </label>
 

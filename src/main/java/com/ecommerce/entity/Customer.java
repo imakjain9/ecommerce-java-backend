@@ -4,8 +4,10 @@ import javax.persistence.*;
 
 @Entity
 public class Customer {
-    private String customer_name;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  Long id;
+    private String customer_name;
     private String customer_email;
     private String customer_phone;
     private String customer_address;
@@ -60,5 +62,13 @@ public class Customer {
 
     public void setRegistered_user(String registered_user) {
         this.registered_user = registered_user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

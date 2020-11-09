@@ -17,6 +17,7 @@ public class UserRepository {
 
     public void addUser(RegisterRequestDTO registerRequestDTO){
         User user=new User();
+        user.setId(registerRequestDTO.getId());
         user.setFirstName(registerRequestDTO.getFirstName());
         user.setEmail(registerRequestDTO.getEmail());
         user.setLastName(registerRequestDTO.getLastName());

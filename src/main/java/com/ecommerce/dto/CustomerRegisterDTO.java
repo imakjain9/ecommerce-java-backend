@@ -3,6 +3,7 @@ package com.ecommerce.dto;
 import java.util.List;
 
 public class CustomerRegisterDTO {
+    private Long id;
     private String customer_name;
     private String customer_email;
     private String customer_phone;
@@ -57,5 +58,13 @@ public class CustomerRegisterDTO {
 
     public void setRegistered_user(String registered_user) {
         this.registered_user = registered_user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

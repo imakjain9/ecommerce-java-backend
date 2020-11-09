@@ -33,6 +33,7 @@ http://www.springframework.org/schema/mvc
             <list>
                 <value>com.ecommerce.entity.User</value>
                 <value>com.ecommerce.entity.Customer</value>
+                <value>com.ecommerce.entity.Item</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -49,7 +50,10 @@ http://www.springframework.org/schema/mvc
     </bean>
     <bean id="customerRepository" class="com.ecommerce.repository.CustomerRepository">
     <property name="sessionFactory" ref="sessionFactory" />
-
     </bean>
+    <bean id="itemRepository" class="com.ecommerce.repository.ItemRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
 
 </beans>

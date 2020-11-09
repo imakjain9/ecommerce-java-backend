@@ -31,9 +31,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "registerForm", method = RequestMethod.GET)
-    public String registerForm(ModelMap modelMap) {
-        return "registerForm.jsp";
-    }
+    public String registerForm(ModelMap modelMap) { return "registerForm.jsp"; }
 
     @RequestMapping(value = "registerSubmit", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
@@ -43,6 +41,7 @@ public class HomeController {
 
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap) {
+        modelMap.addAttribute("userList","getUsers");
         return "addCustomerForm.jsp";
     }
 
@@ -52,8 +51,19 @@ public class HomeController {
         return "home.jsp";
     }
 
+    @RequestMapping(value = "addItem", method = RequestMethod.GET)
+    public String addItem(ModelMap modelMap) { return "addItem.jsp"; }
+
+
     @RequestMapping(value = "addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap) {
-        return "subscriptionForm.jsp";
+        modelMap.addAttribute("customerList","getCustomerList");
+        modelMap.addAttribute("itemList","getItem");
+        return "itemSubscription.jsp";
+    }
+
+    @RequestMapping(value = "getCustomerSubscription", method = RequestMethod.GET)
+    public String getCustomerSubscription(ModelMap modelMap) {
+        return "home.jsp";
     }
 }
