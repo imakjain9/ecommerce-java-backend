@@ -65,8 +65,8 @@ public class HomeController {
 
     @RequestMapping(value = "addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap) {
-        modelMap.addAttribute("customerList","getCustomerList");
-        modelMap.addAttribute("itemList","getItem");
+        modelMap.addAttribute("customerList",customerService.getCustomerList());
+        modelMap.addAttribute("itemList",itemService.getItem());
         return "itemSubscription.jsp";
     }
 

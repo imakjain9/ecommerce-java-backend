@@ -20,7 +20,7 @@
   <h1>Name</h1>
   <h3>999635272</h3>
   <a href="https://imgbb.com/">
-  <img src="mom.jpg" alt="profile-picture" border="0" /></a>
+  <img src="${pageContext.request.contextPath}/resource/images/mom.jpg" alt="profile-picture" border="0" /></a>
  <h4>Products I Deal</h4>
   <div class="listFlex">
     <div>
