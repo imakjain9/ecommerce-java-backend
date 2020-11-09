@@ -1,6 +1,7 @@
 package com.ecommerce.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -10,6 +11,9 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
+
+    @OneToMany(mappedBy="registered_user")
+    private Set<Customer> customers;
 
     public String getEmail() {
         return email;
@@ -41,5 +45,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 }

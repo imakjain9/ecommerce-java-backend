@@ -6,13 +6,16 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private Long id;
     private String customer_name;
     private String customer_email;
     private String customer_phone;
     private String customer_address;
     private String customer_type;
-    private  String registered_user;
+
+    @ManyToOne
+    @JoinColumn(name="registered_user", nullable=false)
+    private User registered_user;
 
     public String getCustomer_name() {
         return customer_name;
@@ -56,11 +59,11 @@ public class Customer {
         this.customer_type = customer_type;
     }
 
-    public String getRegistered_user() {
+    public User getRegistered_user() {
         return registered_user;
     }
 
-    public void setRegistered_user(String registered_user) {
+    public void setRegistered_user(User registered_user) {
         this.registered_user = registered_user;
     }
 
