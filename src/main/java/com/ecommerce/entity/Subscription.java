@@ -11,8 +11,9 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long customerId;
-    private  Long UserId;
+    private Customer customerId;
+    private User UserId;
+    private Item itemId;
     private Double quantity;
     private Date startDate;
     private Boolean active;
@@ -25,19 +26,11 @@ public class Subscription {
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getUserId() {
+    public User getUserId() {
         return UserId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         UserId = userId;
     }
 

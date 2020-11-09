@@ -22,6 +22,8 @@ public class CustomerRepository {
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
         customer.setCustomer_phone(customerRegisterDTO.getCustomer_phone());
         customer.setCustomer_type(customerRegisterDTO.getCustomer_type());
+
+
 //        customer.setRegistered_user(customerRegisterDTO.getRegistered_user());
 
 

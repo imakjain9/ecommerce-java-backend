@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLOutput;
 
@@ -42,7 +43,7 @@ public class HomeController {
         return "home.jsp";
     }
     @RequestMapping(value="userProfile",method = RequestMethod.GET)
-    public String userProfile(ModelMap modelMap){
+    public String userProfile(ModelMap modelMap, @RequestParam String userId){
         modelMap.addAttribute("userList", userService.getUsers());
         return "userProfile.jsp";
     }
