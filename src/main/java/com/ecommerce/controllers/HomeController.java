@@ -4,6 +4,7 @@ import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.User;
 import com.ecommerce.services.CustomerService;
+import com.ecommerce.services.ItemService;
 import com.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private ItemService itemService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
@@ -38,10 +41,15 @@ public class HomeController {
         userService.register(registerRequestDTO);
         return "home.jsp";
     }
+    @RequestMapping(value="userProfile",method = RequestMethod.GET)
+    public String userProfile(ModelMap modelMap){
+        modelMap.addAttribute("userList", userService.getUsers());
+        return "userProfile.jsp";
+    }
 
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap) {
-        modelMap.addAttribute("userList","getUsers");
+        modelMap.addAttribute("userList", userService.getUsers());
         return "addCustomerForm.jsp";
     }
 

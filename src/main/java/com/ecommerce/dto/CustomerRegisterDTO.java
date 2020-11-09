@@ -8,7 +8,6 @@ public class CustomerRegisterDTO {
     private String customer_email;
     private String customer_phone;
     private String customer_address;
-
     private String customer_type;
     private  String registered_user;
 
@@ -24,8 +23,8 @@ public class CustomerRegisterDTO {
         return customer_email;
     }
 
-    public void setCustomer_email(String customer_emai) {
-        this.customer_email = customer_emai;
+    public void setCustomer_email(String customer_email) {
+        this.customer_email = customer_email;
     }
 
     public String getCustomer_phone() {
@@ -60,11 +59,7 @@ public class CustomerRegisterDTO {
         this.registered_user = registered_user;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 }

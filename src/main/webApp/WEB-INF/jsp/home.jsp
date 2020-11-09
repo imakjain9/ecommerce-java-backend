@@ -28,12 +28,12 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="#">About</a>
   <a href="http://localhost:8081/ecommerce/registerForm">Register</a>
-  <a href="http://localhost:8081/ecommerce/addCustomerForm">Add Customers</a>
+
   <a href="#">Contact</a>
     <hr>
   <h3 style="color:#a6a6a6;font-size:21px;margin-bottom:10px;">Admin</h3>
       <c:forEach var="user" items="${userList}">
-        <a href="#">${user.firstName}</a>
+        <a href="http://localhost:8081/ecommerce/userProfile">${user.firstName}</a>
        </c:forEach>
 </div>
 
