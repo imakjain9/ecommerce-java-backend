@@ -12,18 +12,18 @@
 		<div class="form-style">
 		<div class="form-style-heading">Provide Item Details</div>
 
-			<form action="http://localhost:8081/ecommerce/registerSubmit" method="post">
+			<form action="http://localhost:8081/ecommerce/submitItem" method="post">
         
                 <label for="iimage"><span>Item image:</span>
-                <input type="text" class="input-field"  name="itemimage" placeholder="itemImageUrl"><br>
+                <input type="text" class="input-field"  name="url" placeholder="itemImageUrl"><br>
 				</label>
 				
                 <label for="iname"><span>Item name:</span>
-                <input type="text" class="input-field"  name="itemName" placeholder="itemName"><br>
+                <input type="text" class="input-field"  name="name" placeholder="itemName"><br>
 				</label>
 				
                 <label for="iprice"><span>Item Price:</span>
-                <input type="text" class="input-field"  name="itemPrice" placeholder="itemPrice"><br><br>
+                <input type="text" class="input-field"  name="price" placeholder="itemPrice"><br><br>
 				</label>
 				
                 <label><span> </span><input type="submit" value="Submit" />

@@ -20,5 +20,10 @@ public class ItemService {
     public List<Item> getItem(){
         return itemRepository.itemList();
     }
+
+    public void deleteItem(String id){
+        Long itemid=Long.parseLong(id);
+         itemRepository.deleteItem(itemid);
+    }
 }
 

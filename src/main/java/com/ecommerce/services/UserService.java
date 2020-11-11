@@ -21,4 +21,9 @@ public class UserService {
     public List<User> getUsers(){
         return userRepository.list();
     }
+
+    public User getUser(String userid){
+        Long id=Long.parseLong(userid);
+        return userRepository.getUser(id);
+    }
 }

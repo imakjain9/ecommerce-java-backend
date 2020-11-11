@@ -17,8 +17,8 @@
 </LSection>
 <MSection>
 <div class="container">
-  <h1>Name</h1>
-  <h3>999635272</h3>
+  <h1>${user.firstName}</h1>
+  <h3>${user.phoneNumber}</h3>
   <a href="https://imgbb.com/">
   <img src="${pageContext.request.contextPath}/resource/images/mom.jpg" alt="profile-picture" border="0" /></a>
  <h4>Products I Deal</h4>
@@ -39,17 +39,16 @@
     </div>
   </div>
       <h4>Social Media</h4> 
-  You can mail me- <a href="#">@gmil.com</a>
+  You can mail me- <a href="${user.email}">${user.email}</a>
 </div>
 
 </MSection>
 <RSection>
 	<h2>My Customers</h2>
 	<ul>
-		<li><a href="">Rahul</a></li>
-		<li><a href="">Sandeep</a></li>
-		<li></li>
-		<li></li>
+
+		    <li><a href="">Rahul</a></li>
+		    <li><a href="">Sandeep</a></li>
 	</ul>
 </RSection>
 </section> 

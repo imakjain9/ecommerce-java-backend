@@ -41,15 +41,11 @@ public class Customer {
         this.customer_phone = customer_phone;
     }
 
-    public String getCustomer_address() {
-        return customer_address;
-    }
+    public String getCustomer_address() {return customer_address;}
 
     public void setCustomer_address(String customer_address) {
         this.customer_address = customer_address;
     }
-
-
 
     public String getCustomer_type() {
         return customer_type;

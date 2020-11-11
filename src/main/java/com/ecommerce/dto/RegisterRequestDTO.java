@@ -5,7 +5,7 @@ public class RegisterRequestDTO {
     private String email;
     private String firstName;
     private String lastName;
-
+    private String phoneNumber;
     public String getEmail() {
         return email;
     }
@@ -30,11 +30,11 @@ public class RegisterRequestDTO {
         this.lastName = lastName;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
+
+    public String getPhoneNumber() {return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber;}
 }

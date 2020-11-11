@@ -33,7 +33,7 @@
     <hr>
   <h3 style="color:#a6a6a6;font-size:21px;margin-bottom:10px;">Admin</h3>
       <c:forEach var="user" items="${userList}">
-        <a href="http://localhost:8081/ecommerce/userProfile?userId="+user.id>${user.firstName}</a>
+        <a href="http://localhost:8081/ecommerce/userProfile?userId=${user.id}">${user.firstName}</a>
        </c:forEach>
 </div>
 

@@ -24,6 +24,10 @@
                     <input type="text" class="input-field"  name="lastName" placeholder="Doe"><br><br>
     				</label>
 
+    				<label for="phoneNumber"><span>Phone Number</span>
+                    <input type="tel" class="tel-number-field" name="phoneNumber" pattern="[0-9]{10}" maxlength=10 />
+                    </label>
+
                     <label><span> </span><input type="submit" value="Submit" />
     				</label>
 

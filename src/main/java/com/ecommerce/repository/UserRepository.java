@@ -21,7 +21,7 @@ public class UserRepository {
         user.setFirstName(registerRequestDTO.getFirstName());
         user.setEmail(registerRequestDTO.getEmail());
         user.setLastName(registerRequestDTO.getLastName());
-
+        user.setPhoneNumber(registerRequestDTO.getPhoneNumber());
 //        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -35,6 +35,13 @@ public class UserRepository {
         List<User> users = session.createQuery("from User").list();
         session.close();
         return users;
+    }
+
+    public  User getUser(Long id){
+        Session session = sessionFactory.openSession();
+        User user=session.get(User.class, id);
+        session.close();
+        return user;
     }
 
 }

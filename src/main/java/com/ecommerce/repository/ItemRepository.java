@@ -33,4 +33,31 @@ public class ItemRepository {
         session.close();
         return  items;
     }
+    public Item item(Long id){
+       Session session=sessionFactory.openSession();
+       Item item=session.get(Item.class,id);
+      // Item item=session.createQuery("form Item i" + "where i.id=" ,id);
+       session.close();
+       return item;
+    }
+    public  void deleteItem(Long id){
+        Session session=sessionFactory.openSession();
+        Item item=session.get(Item.class,id);
+        session.delete(item);
+        session.close();
+    }
+    /*
+    public Item editItem(Long id,String name,Double price,String ur){
+        Session session=sessionFactory.openSession();
+        Item item=session.get(Item.class,id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setUrl(url);
+        session.beginTransaction();
+        session.save(item);
+        session.getTransaction().commit();
+        session.close();
+        return item;
+    }
+    */
 }

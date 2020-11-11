@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.dto.CustomerRegisterDTO;
+import com.ecommerce.dto.ItemAddDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.User;
 import com.ecommerce.services.CustomerService;
@@ -40,10 +41,11 @@ public class HomeController {
     @RequestMapping(value = "registerSubmit", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
         userService.register(registerRequestDTO);
-        return "home.jsp";
+        return "redirect:" + "/";
     }
     @RequestMapping(value="userProfile",method = RequestMethod.GET)
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
+        modelMap.addAttribute("user",userService.getUser(userId));
         modelMap.addAttribute("userList", userService.getUsers());
         return "userProfile.jsp";
     }
@@ -57,12 +59,23 @@ public class HomeController {
     @RequestMapping(value = "addCustomerSubmit", method = RequestMethod.POST)
     public String registerCustomer(@ModelAttribute("customerRegisterDTO") CustomerRegisterDTO customerRegisterDTO) {
         customerService.register(customerRegisterDTO);
-        return "home.jsp";
+        return "redirect:" + "/";
     }
 
     @RequestMapping(value = "addItem", method = RequestMethod.GET)
     public String addItem(ModelMap modelMap) { return "addItem.jsp"; }
 
+    @RequestMapping(value = "submitItem", method = RequestMethod.POST)
+    public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO) {
+        itemService.register(itemAddDTO);
+        return "redirect:" + "addCustomerSubscription";
+    }
+
+    @RequestMapping(value="deleteItem",method = RequestMethod.GET)
+    public String deleteItem(ModelMap modelMap, @RequestParam String itemId){
+      itemService.deleteItem(itemId);
+        return "redirect:" + "addCustomerSubscription";
+    }
 
     @RequestMapping(value = "addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap) {
@@ -71,8 +84,8 @@ public class HomeController {
         return "itemSubscription.jsp";
     }
 
-    @RequestMapping(value = "getCustomerSubscription", method = RequestMethod.GET)
+    @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.GET)
     public String getCustomerSubscription(ModelMap modelMap) {
-        return "home.jsp";
+        return "redirect:" + "/";
     }
 }

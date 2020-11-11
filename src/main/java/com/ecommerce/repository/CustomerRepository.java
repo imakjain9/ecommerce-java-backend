@@ -1,7 +1,9 @@
 package com.ecommerce.repository;
 
 import com.ecommerce.dto.CustomerRegisterDTO;
+import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -15,6 +17,7 @@ public class CustomerRepository {
     }
 
     public void addCustomer(CustomerRegisterDTO customerRegisterDTO) {
+        User user=new User();
         Customer customer=new Customer();
         customer.setId(customerRegisterDTO.getId());
         customer.setCustomer_name(customerRegisterDTO.getCustomer_name());
@@ -22,13 +25,11 @@ public class CustomerRepository {
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
         customer.setCustomer_phone(customerRegisterDTO.getCustomer_phone());
         customer.setCustomer_type(customerRegisterDTO.getCustomer_type());
-
-
-//        customer.setRegistered_user(customerRegisterDTO.getRegistered_user());
-
+        customer.setRegistered_user(user);
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        session.save(user);
         session.save(customer);
         session.getTransaction().commit();
         session.close();
