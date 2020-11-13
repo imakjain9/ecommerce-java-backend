@@ -109,9 +109,9 @@ select{
 </head>
 <body>
 	<div class="form-style">
-<div class="form-style-heading"><a href="http://localhost:8081/ecommerce/items/new"><button class="addItem">Add</button></a>
+<div class="form-style-heading"><a href="http://localhost:8082/ecommerce/items/new"><button class="addItem">Add</button></a>
 Items</div>
-<form action="http://localhost:8081/ecommerce/submitCustomerSubscription" method="post">
+<form action="http://localhost:8082/ecommerce/submitCustomerSubscription" method="post">
 	<div  id="select-field">
 		<select name="registered_customer" class="select-field">
 		 <c:forEach var="customers" items="${customerList}">
@@ -125,8 +125,8 @@ Items</div>
 			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" onclick="selected()"/></div>
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
-		 <div class="col-md-3"><a class="title" href="http://localhost:8081/ecommerce/item/itemedit?itemId=${item.id}">edit</a>
-		 <a class="title" href="http://localhost:8081/ecommerce/item/itemdelete?itemId=${item.id}">delete</a></div>
+		 <div class="col-md-3"><a class="title" href="http://localhost:8082/ecommerce/item/itemedit?itemId=${item.id}">edit</a>
+		 <a class="title" href="http://localhost:8082/ecommerce/item/itemdelete?itemId=${item.id}">delete</a></div>
 		 <div class="date">${item.name}</div>
 		 <div class="date">${item.price}/liter</div>
 	</div>

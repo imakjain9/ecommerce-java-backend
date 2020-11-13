@@ -50,13 +50,15 @@ public class ItemRepository {
     }
 
     public Item editItem(ItemAddDTO itemAddDTO,String id){
+        //Item item=new ItemRepository().item(Long.parseLong(id));
+        Item item=new Item();
         Session session=sessionFactory.openSession();
-        Item item=new ItemRepository().item(Long.parseLong(id));
         item.setName(itemAddDTO.getName());
         item.setPrice(itemAddDTO.getPrice());
         item.setUrl(itemAddDTO.getUrl());
+        item.setId(Long.parseLong(id));
         session.beginTransaction();
-        session.update(item);
+        session.merge(item);
         session.getTransaction().commit();
         session.close();
         return item;

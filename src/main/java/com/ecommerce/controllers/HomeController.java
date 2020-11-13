@@ -40,6 +40,7 @@ public class HomeController {
 
     @RequestMapping(value = "registerSubmit", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
+        System.out.println(registerRequestDTO.getFirstName());
         userService.register(registerRequestDTO);
         return "redirect:" + "/";
     }
@@ -58,9 +59,8 @@ public class HomeController {
 
     @RequestMapping(value = "addCustomerSubmit", method = RequestMethod.POST)
     public String registerCustomer(@ModelAttribute("customerRegisterDTO") CustomerRegisterDTO customerRegisterDTO) {
-        System.out.println(customerRegisterDTO.getCustomer_name());
-        customerService.register(customerRegisterDTO);
-        return "redirect:" + "userProfile";
+        Long userId = customerService.register(customerRegisterDTO);
+        return "redirect:" + "userProfile?userId="+userId;
     }
 
     @RequestMapping(value = "items/new", method = RequestMethod.GET)

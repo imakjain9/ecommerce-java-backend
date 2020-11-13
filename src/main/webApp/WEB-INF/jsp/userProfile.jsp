@@ -10,9 +10,9 @@
 <section>
 <LSection>
 	<ul>
-		<li><a href="http://localhost:8081/ecommerce/addCustomerForm">Add a Customer</a></li>
-      <li><a href="http://localhost:8081/ecommerce/items/new">Add a Item</a></li>
-      <li><a href="http://localhost:8081/ecommerce/addCustomerSubscription">Subscribe a item</a></li>
+		<li><a href="http://localhost:8082/ecommerce/addCustomerForm">Add a Customer</a></li>
+      <li><a href="http://localhost:8082/ecommerce/items/new">Add a Item</a></li>
+      <li><a href="http://localhost:8082/ecommerce/addCustomerSubscription">Subscribe a item</a></li>
 	</ul>
 </LSection>
 <MSection>

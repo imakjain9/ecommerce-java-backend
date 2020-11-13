@@ -14,7 +14,7 @@
 	<div class="form-style">
 <div class="form-style-heading"><h1>Provide Custmer's information </h1></div>
 
-<form action="http://localhost:8081/ecommerce/addCustomerSubmit" method="post">
+<form action="http://localhost:8082/ecommerce/addCustomerSubmit" method="post">
 
 <label for="field1"><span>Name <span class="required">*</span></span>
 <input type="text" class="input-field" name="customer_name" value="" /></label>
@@ -33,7 +33,7 @@
 <label for="user"><span>Under Registration <span class="required">*</span></span>
 <select name="registered_user" class="select-field">
      <c:forEach var="user" items="${userList}">
-<option value="user">${user.firstName}</option>
+<option value=${user.id}>${user.firstName}</option>
     </c:forEach>
 </select>
 </label>

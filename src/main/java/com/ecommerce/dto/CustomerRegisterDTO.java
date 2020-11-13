@@ -11,7 +11,7 @@ public class CustomerRegisterDTO {
     private String customer_phone;
     private String customer_address;
     private String customer_type;
-    private User registered_user;
+    private Long registered_user;
 
     public String getCustomer_name() {
         return customer_name;
@@ -53,11 +53,11 @@ public class CustomerRegisterDTO {
         this.customer_type = customer_type;
     }
 
-    public User getRegistered_user() {
+    public Long getRegistered_user() {
         return registered_user;
     }
 
-    public void setRegistered_user(User registered_user) {
+    public void setRegistered_user(Long registered_user) {
         this.registered_user = registered_user;
     }
 

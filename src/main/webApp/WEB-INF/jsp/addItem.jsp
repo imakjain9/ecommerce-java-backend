@@ -12,7 +12,7 @@
 		<div class="form-style">
 		<div class="form-style-heading">Provide Item Details</div>
 
-			<form action="http://localhost:8081/ecommerce/items" method="post">
+			<form action="http://localhost:8082/ecommerce/items" method="post">
         
                 <label for="iimage"><span>Item image:</span>
                 <input type="text" class="input-field"  name="url" placeholder="itemImageUrl"><br>
