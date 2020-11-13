@@ -58,34 +58,48 @@ public class HomeController {
 
     @RequestMapping(value = "addCustomerSubmit", method = RequestMethod.POST)
     public String registerCustomer(@ModelAttribute("customerRegisterDTO") CustomerRegisterDTO customerRegisterDTO) {
+        System.out.println(customerRegisterDTO.getCustomer_name());
         customerService.register(customerRegisterDTO);
-        return "redirect:" + "/";
+        return "redirect:" + "userProfile";
     }
 
-    @RequestMapping(value = "addItem", method = RequestMethod.GET)
+    @RequestMapping(value = "items/new", method = RequestMethod.GET)
     public String addItem(ModelMap modelMap) { return "addItem.jsp"; }
 
-    @RequestMapping(value = "submitItem", method = RequestMethod.POST)
+    @RequestMapping(value = "items", method = RequestMethod.POST)
     public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO) {
         itemService.register(itemAddDTO);
         return "redirect:" + "addCustomerSubscription";
     }
 
-    @RequestMapping(value="deleteItem",method = RequestMethod.GET)
-    public String deleteItem(ModelMap modelMap, @RequestParam String itemId){
-      itemService.deleteItem(itemId);
+    @RequestMapping(value="item/itemdelete",method=RequestMethod.GET)
+    public String deleteItem(@RequestParam String itemId){
+     // modelMap.addAttribute("item",itemService.getItem(itemId));
+     itemService.deleteItem(itemId);
+        return "redirect:" + "addCustomerSubscription";
+    }
+    @RequestMapping(value = "item/itemedit", method = RequestMethod.GET)
+    public String editItem(ModelMap modelMap,@RequestParam String itemId) {
+        modelMap.addAttribute("item",itemService.getItem(itemId));
+        return "editItem.jsp";
+    }
+
+    @RequestMapping(value="item/updateItem",method = RequestMethod.POST)
+    public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId) {
+      itemService.updateItem(itemAddDTO,itemId);
         return "redirect:" + "addCustomerSubscription";
     }
 
-    @RequestMapping(value = "addCustomerSubscription", method = RequestMethod.GET)
+
+    @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap) {
         modelMap.addAttribute("customerList",customerService.getCustomerList());
-        modelMap.addAttribute("itemList",itemService.getItem());
+        modelMap.addAttribute("itemList",itemService.getItems());
         return "itemSubscription.jsp";
     }
 
-    @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.GET)
+    @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
     public String getCustomerSubscription(ModelMap modelMap) {
-        return "redirect:" + "/";
+        return "redirect:" + "userProfile";
     }
 }

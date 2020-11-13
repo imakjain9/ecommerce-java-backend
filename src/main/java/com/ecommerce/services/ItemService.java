@@ -17,13 +17,21 @@ public class ItemService {
         itemRepository.addItem(itemAddDTO);
     }
 
-    public List<Item> getItem(){
+    public List<Item> getItems(){
         return itemRepository.itemList();
     }
+
+    public Item getItem(String id){
+        Long itemid=Long.parseLong(id);
+        return  itemRepository.item(itemid); }
 
     public void deleteItem(String id){
         Long itemid=Long.parseLong(id);
          itemRepository.deleteItem(itemid);
+    }
+
+    public Item updateItem(ItemAddDTO itemAddDTO,String id){
+        return itemRepository.editItem(itemAddDTO,id);
     }
 }
 

@@ -85,11 +85,13 @@ select{
 			box-shadow:1px 1px rgba(0,0,0,.2);
 		}
 		.title{
-			color:#477DAF;
-			font-weight:bold;
-			text-decoration:none;
-			font-size:10px;
-			
+			color:black;
+            font-weight:bold;
+            background-color:white;
+           padding: 4px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
 		}
 		.date{
 			margin-top:8px;
@@ -107,7 +109,7 @@ select{
 </head>
 <body>
 	<div class="form-style">
-<div class="form-style-heading"><a href="http://localhost:8081/ecommerce/addItem"><button class="addItem">Add</button></a>
+<div class="form-style-heading"><a href="http://localhost:8081/ecommerce/items/new"><button class="addItem">Add</button></a>
 Items</div>
 <form action="http://localhost:8081/ecommerce/submitCustomerSubscription" method="post">
 	<div  id="select-field">
@@ -123,8 +125,8 @@ Items</div>
 			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" onclick="selected()"/></div>
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
-		 <div class="col-md-3"><a class="title" href="title"><button id="right">edit</button></a>
-		 <a class="title" href="http://localhost:8081/ecommerce/deleteItem?itemId=${item.id}"><button>delete</button></a></div>
+		 <div class="col-md-3"><a class="title" href="http://localhost:8081/ecommerce/item/itemedit?itemId=${item.id}">edit</a>
+		 <a class="title" href="http://localhost:8081/ecommerce/item/itemdelete?itemId=${item.id}">delete</a></div>
 		 <div class="date">${item.name}</div>
 		 <div class="date">${item.price}/liter</div>
 	</div>

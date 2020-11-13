@@ -33,6 +33,8 @@ public class ItemRepository {
         session.close();
         return  items;
     }
+
+
     public Item item(Long id){
        Session session=sessionFactory.openSession();
        Item item=session.get(Item.class,id);
@@ -42,22 +44,22 @@ public class ItemRepository {
     }
     public  void deleteItem(Long id){
         Session session=sessionFactory.openSession();
-        Item item=session.get(Item.class,id);
+        Item item=new ItemRepository().item(id);
         session.delete(item);
         session.close();
     }
-    /*
-    public Item editItem(Long id,String name,Double price,String ur){
+
+    public Item editItem(ItemAddDTO itemAddDTO,String id){
         Session session=sessionFactory.openSession();
-        Item item=session.get(Item.class,id);
-        item.setName(name);
-        item.setPrice(price);
-        item.setUrl(url);
+        Item item=new ItemRepository().item(Long.parseLong(id));
+        item.setName(itemAddDTO.getName());
+        item.setPrice(itemAddDTO.getPrice());
+        item.setUrl(itemAddDTO.getUrl());
         session.beginTransaction();
-        session.save(item);
+        session.update(item);
         session.getTransaction().commit();
         session.close();
         return item;
     }
-    */
+
 }

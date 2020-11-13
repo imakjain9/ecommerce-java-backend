@@ -1,5 +1,7 @@
 package com.ecommerce.dto;
 
+import com.ecommerce.entity.User;
+
 import java.util.List;
 
 public class CustomerRegisterDTO {
@@ -9,7 +11,7 @@ public class CustomerRegisterDTO {
     private String customer_phone;
     private String customer_address;
     private String customer_type;
-    private  String registered_user;
+    private User registered_user;
 
     public String getCustomer_name() {
         return customer_name;
@@ -51,11 +53,11 @@ public class CustomerRegisterDTO {
         this.customer_type = customer_type;
     }
 
-    public String getRegistered_user() {
+    public User getRegistered_user() {
         return registered_user;
     }
 
-    public void setRegistered_user(String registered_user) {
+    public void setRegistered_user(User registered_user) {
         this.registered_user = registered_user;
     }
 

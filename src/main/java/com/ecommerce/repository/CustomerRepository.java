@@ -17,19 +17,20 @@ public class CustomerRepository {
     }
 
     public void addCustomer(CustomerRegisterDTO customerRegisterDTO) {
-        User user=new User();
+
         Customer customer=new Customer();
         customer.setId(customerRegisterDTO.getId());
         customer.setCustomer_name(customerRegisterDTO.getCustomer_name());
+        System.out.println(customerRegisterDTO.getCustomer_email());
         customer.setCustomer_email(customerRegisterDTO.getCustomer_email());
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
         customer.setCustomer_phone(customerRegisterDTO.getCustomer_phone());
         customer.setCustomer_type(customerRegisterDTO.getCustomer_type());
-        customer.setRegistered_user(user);
-
+        customer.setRegistered_user(customerRegisterDTO.getRegistered_user());
+        System.out.println(customerRegisterDTO.getRegistered_user().getFirstName());
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(user);
+
         session.save(customer);
         session.getTransaction().commit();
         session.close();
