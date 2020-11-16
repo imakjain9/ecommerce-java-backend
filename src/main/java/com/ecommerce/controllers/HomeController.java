@@ -98,16 +98,15 @@ public class HomeController {
 
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO) {
-        subscriptionService.addSubscription(subscriptionDTO);
+    public String addCustomerSubscription(ModelMap modelMap) {
         modelMap.addAttribute("customerList",customerService.getCustomerList());
         modelMap.addAttribute("itemList",itemService.getItems());
         return "itemSubscription.jsp";
     }
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription(ModelMap modelMap) {
-
+    public String submitCustomerSubscription(ModelMap modelMap,@ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO) {
+        subscriptionService.addSubscription(subscriptionDTO);
         return "redirect:" + "/";
     }
 }
