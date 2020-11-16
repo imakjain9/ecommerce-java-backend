@@ -1,5 +1,5 @@
 package com.ecommerce.repository;
-
+import org.hibernate.query.Query;
 import com.ecommerce.dto.ItemAddDTO;
 import com.ecommerce.entity.Item;
 import org.hibernate.Session;
@@ -43,10 +43,15 @@ public class ItemRepository {
        return item;
     }
     public  void deleteItem(Long id){
-        Session session=sessionFactory.openSession();
-        Item item=new ItemRepository().item(id);
-        session.delete(item);
-        session.close();
+        // get the current hibernate session
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
+        // delete object with primary key
+        Query theQuery = currentSession.createQuery("delete from Item where id=:itemId");
+        theQuery.setParameter("itemId", id);
+        theQuery.executeUpdate();
+        currentSession.getTransaction().commit();
+        currentSession.close();
     }
 
     public Item editItem(ItemAddDTO itemAddDTO,String id){

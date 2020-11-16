@@ -12,10 +12,10 @@
 		<div class="form-style">
 		<div class="form-style-heading">Provide Item Details</div>
 
-			<form action="http://localhost:8082/ecommerce/items" method="post">
+			<form action="${pageContext.request.contextPath}/items" method="post">
         
                 <label for="iimage"><span>Item image:</span>
-                <input type="text" class="input-field"  name="url" placeholder="itemImageUrl"><br>
+                <input type="url" class="input-field"  name="url" placeholder="itemImageUrl"><br>
 				</label>
 				
                 <label for="iname"><span>Item name:</span>

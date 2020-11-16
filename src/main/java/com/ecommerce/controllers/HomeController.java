@@ -3,9 +3,11 @@ package com.ecommerce.controllers;
 import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.dto.ItemAddDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
+import com.ecommerce.dto.SubscriptionDTO;
 import com.ecommerce.entity.User;
 import com.ecommerce.services.CustomerService;
 import com.ecommerce.services.ItemService;
+import com.ecommerce.services.SubscriptionService;
 import com.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,9 @@ public class HomeController {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
         modelMap.addAttribute("title", "Daily-Hisabh");
@@ -48,6 +53,7 @@ public class HomeController {
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
         modelMap.addAttribute("user",userService.getUser(userId));
         modelMap.addAttribute("userList", userService.getUsers());
+        modelMap.addAttribute("userCustomersList",userService.getUserCustomers(userId));
         return "userProfile.jsp";
     }
 
@@ -72,19 +78,19 @@ public class HomeController {
         return "redirect:" + "addCustomerSubscription";
     }
 
-    @RequestMapping(value="item/itemdelete",method=RequestMethod.GET)
-    public String deleteItem(@RequestParam String itemId){
-     // modelMap.addAttribute("item",itemService.getItem(itemId));
-     itemService.deleteItem(itemId);
+    @RequestMapping(value="itemdelete",method=RequestMethod.GET)
+    public String deleteItem(ModelMap modelMap,@RequestParam String itemId){
+        modelMap.addAttribute("item",itemService.getItem(itemId));
+             itemService.deleteItem(itemId);
         return "redirect:" + "addCustomerSubscription";
     }
-    @RequestMapping(value = "item/itemedit", method = RequestMethod.GET)
+    @RequestMapping(value = "itemedit", method = RequestMethod.GET)
     public String editItem(ModelMap modelMap,@RequestParam String itemId) {
         modelMap.addAttribute("item",itemService.getItem(itemId));
         return "editItem.jsp";
     }
 
-    @RequestMapping(value="item/updateItem",method = RequestMethod.POST)
+    @RequestMapping(value="updateItem",method = RequestMethod.POST)
     public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId) {
       itemService.updateItem(itemAddDTO,itemId);
         return "redirect:" + "addCustomerSubscription";
@@ -92,7 +98,8 @@ public class HomeController {
 
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap) {
+    public String addCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO) {
+        subscriptionService.addSubscription(subscriptionDTO);
         modelMap.addAttribute("customerList",customerService.getCustomerList());
         modelMap.addAttribute("itemList",itemService.getItems());
         return "itemSubscription.jsp";
@@ -100,6 +107,7 @@ public class HomeController {
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
     public String getCustomerSubscription(ModelMap modelMap) {
-        return "redirect:" + "userProfile";
+
+        return "redirect:" + "/";
     }
 }

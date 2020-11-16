@@ -1,9 +1,5 @@
 package com.ecommerce.dto;
 
-import com.ecommerce.entity.User;
-
-import java.util.List;
-
 public class CustomerRegisterDTO {
     private Long id;
     private String customer_name;

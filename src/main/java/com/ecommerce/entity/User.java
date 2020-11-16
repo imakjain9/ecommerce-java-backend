@@ -12,7 +12,7 @@ public class User {
     private String firstName;
     private String lastName;
     private  String phoneNumber;
-    @OneToMany(mappedBy="registered_user")
+    @OneToMany(mappedBy="registered_user",fetch = FetchType.EAGER)
     private Set<Customer> customers;
 
     public String getEmail() {

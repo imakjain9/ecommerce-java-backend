@@ -1,11 +1,17 @@
 package com.ecommerce.dto;
 
+import com.ecommerce.entity.Customer;
+
+import java.util.Set;
+
 public class RegisterRequestDTO {
     private Long id;
     private String email;
     private String firstName;
     private String lastName;
     private String phoneNumber;
+
+
     public String getEmail() {
         return email;
     }
@@ -37,4 +43,6 @@ public class RegisterRequestDTO {
     public String getPhoneNumber() {return phoneNumber; }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber;}
+
+
 }

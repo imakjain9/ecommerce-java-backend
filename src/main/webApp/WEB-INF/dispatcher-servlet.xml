@@ -24,7 +24,7 @@ http://www.springframework.org/schema/mvc
         <property name="url"
                   value="jdbc:mysql://localhost:3306/ecommerce"/>
         <property name="username" value="root"/>
-        <property name="password" value="cool@123"/>
+        <property name="password" value="root"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -34,6 +34,7 @@ http://www.springframework.org/schema/mvc
                 <value>com.ecommerce.entity.User</value>
                 <value>com.ecommerce.entity.Customer</value>
                 <value>com.ecommerce.entity.Item</value>
+                <value>com.ecommerce.entity.Subscription</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -54,6 +55,8 @@ http://www.springframework.org/schema/mvc
     <bean id="itemRepository" class="com.ecommerce.repository.ItemRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
+    <bean id="subscriptionRepository" class="com.ecommerce.repository.SubscriptionRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
 </beans>

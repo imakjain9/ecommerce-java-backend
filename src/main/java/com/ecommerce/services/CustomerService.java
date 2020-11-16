@@ -23,7 +23,7 @@ public class CustomerService {
         Customer customer=new Customer();
         customer.setId(customerRegisterDTO.getId());
         customer.setCustomer_name(customerRegisterDTO.getCustomer_name());
-        System.out.println(customerRegisterDTO.getCustomer_email());
+       // System.out.println(customerRegisterDTO.getCustomer_email());
         customer.setCustomer_email(customerRegisterDTO.getCustomer_email());
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
         customer.setCustomer_phone(customerRegisterDTO.getCustomer_phone());

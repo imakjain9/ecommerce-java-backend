@@ -1,19 +1,26 @@
 package com.ecommerce.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Customer customerId;
-    private User UserId;
+
+     @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name="customer_id")
+    private Customer customer_id;
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="itemId")
     private Item itemId;
+
     private Double quantity;
     private Date startDate;
     private Boolean active;
@@ -22,16 +29,15 @@ public class Subscription {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long id) { this.id = id;}
+
+
+    public Item getItemId() {
+        return itemId;
     }
 
-    public User getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(User userId) {
-        UserId = userId;
+    public void setItemId(Item itemId) {
+        this.itemId = itemId;
     }
 
     public Double getQuantity() {
@@ -56,5 +62,13 @@ public class Subscription {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Customer getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(Customer customer_id) {
+        this.customer_id = customer_id;
     }
 }

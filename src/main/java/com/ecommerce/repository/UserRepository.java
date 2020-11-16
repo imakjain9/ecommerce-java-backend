@@ -1,11 +1,13 @@
 package com.ecommerce.repository;
 
 import com.ecommerce.dto.RegisterRequestDTO;
+import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Set;
 
 public class UserRepository {
 
@@ -42,6 +44,12 @@ public class UserRepository {
         User user=session.get(User.class, id);
         session.close();
         return user;
+    }
+    public Set<Customer> getUserCustomers(Long id){
+        Session session = sessionFactory.openSession();
+        User user=session.get(User.class, id);
+        session.close();
+        return  user.getCustomers();
     }
 
 }

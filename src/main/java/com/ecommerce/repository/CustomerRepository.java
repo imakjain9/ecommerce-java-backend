@@ -30,4 +30,11 @@ public class CustomerRepository {
       session.close();
       return customers;
     }
+
+    public Customer getCustomerById(Long id){
+        Session session=sessionFactory.openSession();
+        Customer customer=session.get(Customer.class,id);
+        session.close();
+        return customer;
+    }
 }

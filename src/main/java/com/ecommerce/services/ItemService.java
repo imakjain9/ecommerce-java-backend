@@ -27,6 +27,7 @@ public class ItemService {
 
     public void deleteItem(String id){
         Long itemid=Long.parseLong(id);
+        System.out.println("this is from item service item id: " + itemid);
          itemRepository.deleteItem(itemid);
     }
 

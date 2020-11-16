@@ -10,9 +10,9 @@
 <section>
 <LSection>
 	<ul>
-		<li><a href="http://localhost:8082/ecommerce/addCustomerForm">Add a Customer</a></li>
-      <li><a href="http://localhost:8082/ecommerce/items/new">Add a Item</a></li>
-      <li><a href="http://localhost:8082/ecommerce/addCustomerSubscription">Subscribe a item</a></li>
+		<li><a href="${pageContext.request.contextPath}/addCustomerForm">Add a Customer</a></li>
+      <li><a href="${pageContext.request.contextPath}/items/new">Add a Item</a></li>
+      <li><a href="${pageContext.request.contextPath}/addCustomerSubscription">Subscribe a item</a></li>
 	</ul>
 </LSection>
 <MSection>
@@ -46,9 +46,9 @@
 <RSection>
 	<h2>My Customers</h2>
 	<ul>
-
-		    <li><a href="">Rahul</a></li>
-		    <li><a href="">Sandeep</a></li>
+         <c:forEach var="customer" items="${userCustomersList}">
+		    <li><a href="">${customer.customer_name}</a></li>
+		  </c:forEach>
 	</ul>
 </RSection>
 </section> 

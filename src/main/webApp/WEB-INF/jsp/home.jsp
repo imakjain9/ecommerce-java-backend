@@ -12,8 +12,8 @@
     </script>
 </head>
 <body>
-<header>
-    <div class="container" id="containerContent">
+<header >
+    <div  class="container" id="containerContent">
         <span style="font-size:30px;cursor:pointer;margin-right:10px;display:inline-block;color:#111;" onclick="openNav()">&#9776;</span>
             <h1  id="logo">${title}</h1>
                 <nav>
@@ -27,13 +27,13 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="#">About</a>
-  <a href="http://localhost:8082/ecommerce/registerForm">Register</a>
+  <a href="${pageContext.request.contextPath}/registerForm">Register</a>
 
   <a href="#">Contact</a>
     <hr>
   <h3 style="color:#a6a6a6;font-size:21px;margin-bottom:10px;">Admin</h3>
       <c:forEach var="user" items="${userList}">
-        <a href="http://localhost:8082/ecommerce/userProfile?userId=${user.id}">${user.firstName}</a>
+        <a href="${pageContext.request.contextPath}/userProfile?userId=${user.id}">${user.firstName}</a>
        </c:forEach>
 </div>
 

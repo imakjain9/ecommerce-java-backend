@@ -86,57 +86,65 @@ select{
 		}
 		.title{
 			color:black;
-            font-weight:bold;
             background-color:white;
-           padding: 4px 5px;
+           padding: 2px 3px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            border:solid 1px;
+            font-size:10px;
 		}
 		.date{
+            display: flex;
+            justify-content: space-between;
 			margin-top:8px;
-			font-size:10px;
-			
+			font-size:20px;
+			font-weight:bold;
+
 		}
+
 	</style>
 	<script>
     
     function selected() {
-        document.getElementById("checkbox_class").style.background = "red";
-        document.getElementById("image_block").style.border="3px solid red";
+        document.getElementsByClassName("image_block").style.border="3px solid red";
     }
 </script>
 </head>
 <body>
 	<div class="form-style">
-<div class="form-style-heading"><a href="http://localhost:8082/ecommerce/items/new"><button class="addItem">Add</button></a>
+<div class="form-style-heading"><a href="${pageContext.request.contextPath}/items/new"><button class="addItem">Add</button></a>
 Items</div>
-<form action="http://localhost:8082/ecommerce/submitCustomerSubscription" method="post">
+<form action="${pageContext.request.contextPath}/submitCustomerSubscription" method="post">
 	<div  id="select-field">
 		<select name="registered_customer" class="select-field">
 		 <c:forEach var="customers" items="${customerList}">
-			<option>${customers.customer_name}</option>
+			<option value="${customers.id}">${customers.customer_name}</option>
 		 </c:forEach>
 		</select>
 	</div>
 	<c:forEach var="item" items="${itemList}">
 	<div class="image_block" id="image_block">
 		<div class="image_block_inner">
-			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" onclick="selected()"/></div>
+			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="active" value="${item.id}" onclick="selected()"/></div>
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
-		 <div class="col-md-3"><a class="title" href="http://localhost:8082/ecommerce/item/itemedit?itemId=${item.id}">edit</a>
-		 <a class="title" href="http://localhost:8082/ecommerce/item/itemdelete?itemId=${item.id}">delete</a></div>
-		 <div class="date">${item.name}</div>
-		 <div class="date">${item.price}/liter</div>
+		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}">edit</a>
+		 <a class="title" href="${pageContext.request.contextPath}/itemdelete?itemId=${item.id}">delete</a>
+
+        <div class="date">
+		    <div >${item.name}</div>
+		    <div >${item.price}/liter</div>
+        </div>
+        <div>
+            <label for="quantity">Quantity: </label>
+            <input type="number" id="quantity" name="quantity" min="0.25" max="3" step="0.25">
+        </div>
 	</div>
-	<div>
 	 </c:forEach>
 	<br>
 	<label><span> </span><input type="submit" value="Subscribe" /></label>
-	
-	
-</form>	
+</form>
 </div>
 </body>
 </html>

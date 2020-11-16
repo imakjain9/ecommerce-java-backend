@@ -10,7 +10,7 @@
     <div class="form-style">
     		<div class="form-style-heading"><h1>Provide Your information</h1></div>
 
-    			<form action="http://localhost:8082/ecommerce/registerSubmit" method="post">
+    			<form action="${pageContext.request.contextPath}/registerSubmit" method="post">
 
                     <label for="email"><span>Email :</span>
                     <input type="text"  class="input-field" name="email" placeholder="John"><br>
