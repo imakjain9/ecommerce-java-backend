@@ -15,9 +15,7 @@ public class Subscription {
    @JoinColumn(name="customer_id")
     private Customer customer_id;
 
-
-
-    @OneToOne(cascade = CascadeType.ALL)
+     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="itemId")
     private Item itemId;
 

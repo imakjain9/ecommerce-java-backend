@@ -117,7 +117,7 @@ select{
 Items</div>
 <form action="${pageContext.request.contextPath}/submitCustomerSubscription" method="post">
 	<div  id="select-field">
-		<select name="registered_customer" class="select-field">
+		<select name="customer_id" class="select-field">
 		 <c:forEach var="customers" items="${customerList}">
 			<option value="${customers.id}">${customers.customer_name}</option>
 		 </c:forEach>
@@ -126,7 +126,7 @@ Items</div>
 	<c:forEach var="item" items="${itemList}">
 	<div class="image_block" id="image_block">
 		<div class="image_block_inner">
-			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="active" value="${item.id}" onclick="selected()"/></div>
+			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="item_id" value="${item.id}" onclick="selected()"/></div>
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
 		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}">edit</a>
