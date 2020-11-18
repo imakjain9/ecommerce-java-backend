@@ -3,6 +3,7 @@ package com.ecommerce.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -18,7 +19,6 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name="registered_user", nullable=false)
     private User registered_user;
-
 
     @OneToMany(mappedBy="customer_id")
     private List<Subscription> subscriptions = new ArrayList<Subscription>();
@@ -75,5 +75,15 @@ public class Customer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 }

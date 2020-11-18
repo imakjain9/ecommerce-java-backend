@@ -17,6 +17,7 @@ public class AnomaliesService {
         anomalies.setId(anomaliesDTO.getId());
        // anomalies.setSubscription_id();
         anomalies.setQuantity(anomaliesDTO.getQuantity());
+        anomalies.setDate(anomaliesDTO.getDate());
         anomaliesRepository.addAnomalies(anomalies);
     }
 }

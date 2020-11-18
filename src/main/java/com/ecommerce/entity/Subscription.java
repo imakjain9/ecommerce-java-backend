@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Subscription {
@@ -18,6 +19,12 @@ public class Subscription {
      @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="itemId")
     private Item itemId;
+
+    private  String subscriptionName;
+
+    @OneToMany(mappedBy = "subscription_id",fetch = FetchType.EAGER)
+    private Set<Anomalies> anomalies;
+
      private Double price;
     private Double quantity;
     private Date startDate;
@@ -73,4 +80,20 @@ public class Subscription {
     public Double getPrice() { return price; }
 
     public void setPrice(Double price) { this.price = price; }
+
+    public String getSubscriptionName() {
+        return subscriptionName;
+    }
+
+    public void setSubscriptionName(String subscriptionName) {
+        this.subscriptionName = subscriptionName;
+    }
+
+    public Set<Anomalies> getAnomalies() {
+        return anomalies;
+    }
+
+    public void setAnomalies(Set<Anomalies> anomalies) {
+        this.anomalies = anomalies;
+    }
 }
