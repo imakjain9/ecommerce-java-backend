@@ -1,10 +1,10 @@
 package com.ecommerce.repository;
 
-import com.ecommerce.entity.Subscription;
+import com.ecommerce.entity.Anomalies;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class SubscriptionRepository {
+public class AnomaliesRepository {
 
     private SessionFactory sessionFactory;
 
@@ -12,19 +12,11 @@ public class SubscriptionRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void addSubscription(Subscription subscription){
+    public  void  addAnomalies(Anomalies anomalies){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(subscription);
+        session.save(anomalies);
         session.getTransaction().commit();
         session.close();
     }
-
-    public Subscription getSubscriptionById(Long id){
-        Session session=sessionFactory.openSession();
-        Subscription subscription=session.get(Subscription.class,id);
-        session.close();
-        return subscription;
-    }
-
 }

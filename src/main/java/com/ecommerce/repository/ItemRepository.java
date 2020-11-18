@@ -69,4 +69,17 @@ public class ItemRepository {
         return item;
     }
 
+
+    public Double itemPrice(Long id){
+       Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        Query theQuery=session.createQuery("SELECT price FROM Item WHERE id = :itemId");
+     theQuery.setParameter("itemId", id);
+     Object price=theQuery;
+     session.getTransaction().commit();
+       session.close();
+        return (Double)price;
+    }
+
+
 }

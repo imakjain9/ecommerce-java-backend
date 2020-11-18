@@ -1,14 +1,8 @@
 package com.ecommerce.controllers;
 
-import com.ecommerce.dto.CustomerRegisterDTO;
-import com.ecommerce.dto.ItemAddDTO;
-import com.ecommerce.dto.RegisterRequestDTO;
-import com.ecommerce.dto.SubscriptionDTO;
+import com.ecommerce.dto.*;
 import com.ecommerce.entity.User;
-import com.ecommerce.services.CustomerService;
-import com.ecommerce.services.ItemService;
-import com.ecommerce.services.SubscriptionService;
-import com.ecommerce.services.UserService;
+import com.ecommerce.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +27,9 @@ public class HomeController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    @Autowired
+    private AnomaliesService anomaliesService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
         modelMap.addAttribute("title", "Daily-Hisabh");
@@ -55,7 +52,11 @@ public class HomeController {
         modelMap.addAttribute("userCustomersList",userService.getUserCustomers(userId));
         return "userProfile.jsp";
     }
-
+    @RequestMapping(value="customerProfile",method = RequestMethod.GET)
+    public String customerrProfile(ModelMap modelMap,@RequestParam Long customerId){
+        modelMap.addAttribute("customerId",customerService.getCustomerById(customerId));
+        return "CustomerProfile.jsp";
+    }
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap) {
         modelMap.addAttribute("userList", userService.getUsers());
@@ -100,13 +101,24 @@ public class HomeController {
     public String addCustomerSubscription(ModelMap modelMap) {
         modelMap.addAttribute("customerList",customerService.getCustomerList());
         modelMap.addAttribute("itemList",itemService.getItems());
-
         return "itemSubscription.jsp";
     }
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
     public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO) {
         subscriptionService.addSubscription(subscriptionDTO);
+        return "redirect:" + "/";
+    }
+
+    @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
+    public String getAnomailes(ModelMap modelMap) {
+
+        return "anomaliesForm.jsp";
+    }
+
+    @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
+    public String addAnomailes(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO){
+        anomaliesService.register(anomaliesDTO);
         return "redirect:" + "/";
     }
 }

@@ -6,7 +6,7 @@ public class SubscriptionDTO {
     private Long customer_id;
     private Long itemId;
     private Double quantity;
-
+    private Double price;
 
     public Long getCustomer_id() {
         return customer_id;
@@ -32,4 +32,7 @@ public class SubscriptionDTO {
         this.quantity = quantity;
     }
 
+    public Double getPrice() { return price; }
+
+    public void setPrice(Double price) { this.price = price; }
 }

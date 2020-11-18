@@ -47,7 +47,7 @@
 	<h2>My Customers</h2>
 	<ul>
          <c:forEach var="customer" items="${userCustomersList}">
-		    <li><a href="">${customer.customer_name}</a></li>
+		    <li><a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}">${customer.customer_name}</a></li>
 		  </c:forEach>
 	</ul>
 </RSection>

@@ -126,11 +126,11 @@ Items</div>
 	<c:forEach var="item" items="${itemList}">
 	<div class="image_block" id="image_block">
 		<div class="image_block_inner">
-<<<<<<< HEAD
-			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="item_id" value="${item.id}" onclick="selected()"/></div>
-=======
+
+			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="item_id" value=${item.id} onclick="selected()"/></div>
+
 			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="itemId" value=${item.id} onclick="selected()"/></div>
->>>>>>> 4c644d06ae77facc746494d89813d1695188c682
+
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
 		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}">edit</a>

@@ -21,6 +21,7 @@ public class SubscriptionService {
 
     @Autowired
     CustomerRepository customerRepository;
+
     public void addSubscription(SubscriptionDTO subscriptionDTO){
         Subscription subscription=new Subscription();
         subscription.setItemId( itemRepository.item(subscriptionDTO.getItemId()));
@@ -28,6 +29,9 @@ public class SubscriptionService {
         subscription.setCustomer_id(customerRepository.getCustomerById(subscriptionDTO.getCustomer_id()));
         subscription.setActive(true);
         subscription.setStartDate(new Date());
+        subscription.setPrice(itemRepository.itemPrice(subscriptionDTO.getItemId()));
         subscriptionRepository.addSubscription(subscription);
     }
+
+    public Subscription getSubscriptionById(Long id){ return  subscriptionRepository.getSubscriptionById(id);}
 }

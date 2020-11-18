@@ -18,7 +18,7 @@ public class Subscription {
      @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="itemId")
     private Item itemId;
-
+     private Double price;
     private Double quantity;
     private Date startDate;
     private Boolean active;
@@ -69,4 +69,8 @@ public class Subscription {
     public void setCustomer_id(Customer customer_id) {
         this.customer_id = customer_id;
     }
+
+    public Double getPrice() { return price; }
+
+    public void setPrice(Double price) { this.price = price; }
 }
