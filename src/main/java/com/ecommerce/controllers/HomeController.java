@@ -113,7 +113,7 @@ public class HomeController {
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
     public String getAnomailes(ModelMap modelMap) {
 
-        return "anomaliesForm.jsp";
+        return "dailyAnomailies.jsp";
     }
 
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
