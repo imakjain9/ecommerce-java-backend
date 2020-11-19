@@ -3,7 +3,7 @@ package com.ecommerce.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 public class Customer {
@@ -20,7 +20,7 @@ public class Customer {
     @JoinColumn(name="registered_user", nullable=false)
     private User registered_user;
 
-    @OneToMany(mappedBy="customer_id")
+    @OneToMany(mappedBy="customer_id",fetch = FetchType.EAGER)
     private List<Subscription> subscriptions = new ArrayList<Subscription>();
 
     public String getCustomer_name() {

@@ -2,6 +2,7 @@ package com.ecommerce.services;
 
 import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.Subscription;
 import com.ecommerce.entity.User;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.UserRepository;
@@ -38,4 +39,6 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id){ return  customerRepository.getCustomerById(id);}
+
+    public List<Subscription> getCustomerSubscriptions(Long id){return  customerRepository.getCustomerSubscriptions(id);}
 }

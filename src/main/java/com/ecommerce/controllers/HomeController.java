@@ -111,13 +111,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
-    public String getAnomailes(ModelMap modelMap) {
-
-        return "dailyAnomailies.jsp";
+    public String getAnomailes(ModelMap modelMap,@RequestParam Long customerId) {
+    modelMap.addAttribute("customerSubscriptionList",customerService.getCustomerSubscriptions(customerId));
+        return "dailyAnomilies.jsp";
     }
 
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
-    public String addAnomailes(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO){
+    public String addAnomailes(@ModelAttribute("anomaliesDTO") AnomaliesDTO anomaliesDTO){
         anomaliesService.register(anomaliesDTO);
         return "redirect:" + "/";
     }

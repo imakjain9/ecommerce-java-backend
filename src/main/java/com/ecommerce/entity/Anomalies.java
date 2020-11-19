@@ -11,7 +11,8 @@ public class Anomalies {
     private  Long id;
     @ManyToOne
     @JoinColumn(name = "subscription_id",nullable = false)
-    private Long subscription_id;
+    private Subscription subscription_id;
+
     private Double quantity;
     private Date date;
 
@@ -23,11 +24,11 @@ public class Anomalies {
         this.id = id;
     }
 
-    public Long getSubscription_id() {
+    public Subscription getSubscription_id() {
         return subscription_id;
     }
 
-    public void setSubscription_id(Long subscription_id) {
+    public void setSubscription_id(Subscription subscription_id) {
         this.subscription_id = subscription_id;
     }
 

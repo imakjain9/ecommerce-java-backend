@@ -3,6 +3,7 @@ package com.ecommerce.repository;
 import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.Subscription;
 import com.ecommerce.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,4 +38,11 @@ public class CustomerRepository {
         session.close();
         return customer;
     }
+    public List<Subscription> getCustomerSubscriptions(Long id){
+        Session session=sessionFactory.openSession();
+        Customer customer=session.get(Customer.class,id);
+        session.close();
+        return customer.getSubscriptions();
+    }
+
 }

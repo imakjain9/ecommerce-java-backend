@@ -1,56 +1,60 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType = "text/html; charset = UTF-8" %>
-
+<!DOCTYPE HTML>
 <html>
-<head><title>user-profile</title></head>
-<link rel="stylesheet" type="text/css"
+<head>
+	 <title>User profile</title>
+        <link rel="stylesheet" type="text/css"
             			  href="${pageContext.request.contextPath}/resource/css/profile.css">
+</head>
 <body>
-<section>
-<LSection>
-	<ul>
-		<li><a href="${pageContext.request.contextPath}/addCustomerForm">Add a Customer</a></li>
-      <li><a href="${pageContext.request.contextPath}/items/new">Add a Item</a></li>
-      <li><a href="${pageContext.request.contextPath}/addCustomerSubscription">Subscribe a item</a></li>
-	</ul>
-</LSection>
-<MSection>
-<div class="container">
-  <h1>${user.firstName}</h1>
-  <h3>${user.phoneNumber}</h3>
-  <a href="https://imgbb.com/">
-  <img src="${pageContext.request.contextPath}/resource/images/mom.jpg" alt="profile-picture" border="0" /></a>
- <h4>Products I Deal</h4>
-  <div class="listFlex">
-    <div>
-  <ul>
-    <li>Milk</li>
-    <li>Ghee</li>
-    <li>Paneer</li>
-  </ul>
+	<div class="card">
+      <div class="card__header">
+        <div class="card__profile">
+          <img src="${pageContext.request.contextPath}/resource/images/mom.jpg" alt="A man smiling" />
+        </div>
+        <div class="card__name">
+          <h2>${user.firstName}</h2>
+          <div class="card__handle">
+            <span class="handle">${user.email}</span>
+            <span class="circle"></span>
+            <span class="category">${user.phoneNumber}</span>
+          </div>
+        </div>
+      </div>
+      <hr class="border" />
+      <nav>
+        <ul class="navlinks">
+          <li class="link__item">Home</li>
+          <li class="link__item"><a href="${pageContext.request.contextPath}/items/new">Add a Item</a></li>
+        </ul>
+      </nav>
+      <div class="card__insights">
+        <div class="card__heading">
+          <div class="heading">My Customers</div>
+          <div class="date">
+          <a href="${pageContext.request.contextPath}/addCustomerForm"> Add new Customer </a>
+          </div> 
+        </div>
+        <div class="insights">
+		<c:forEach var="customer" items="${userCustomersList}">
+		<div class="dropdown">
+          <div class="insight">
+           <div class="number">
+              ${customer.customer_name}
+           </div>
+          </div>
+		  <div class="dropdown-content">
+			<a href="${pageContext.request.contextPath}/getAnomalies?customerId=${customer.id}">Add Anomilies</a>
+			<a href="${pageContext.request.contextPath}/addCustomerSubscription">Add Subscription</a>
+			<a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}">Visit Profie</a>
+			</div>
+		</div>
+		</c:forEach>
+		</div>
+      </div>
     </div>
- <div>
-  <ul>
-    <li>Curd</li>
-    <li>Lasii</li>
-    <li>Khoya</li>
-  </ul>
-    </div>
-  </div>
-      <h4>Social Media</h4> 
-  You can mail me- <a href="${user.email}">${user.email}</a>
-</div>
 
-</MSection>
-<RSection>
-	<h2>My Customers</h2>
-	<ul>
-         <c:forEach var="customer" items="${userCustomersList}">
-		    <li><a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}">${customer.customer_name}</a></li>
-		  </c:forEach>
-	</ul>
-</RSection>
-</section> 
 </body>
 </html>
