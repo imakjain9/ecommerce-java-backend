@@ -120,7 +120,7 @@ body {
   </svg>
   <form class="form" action="${pageContext.request.contextPath}/addPayment" method="post">
     
-	 <input type="number" class="input" name="quantity" min="0.00" max="3" step="0.25" placeholder="0.00" required>
+	 <input type="txt" class="input" name="amount"  placeholder="0.00" required>
   </form>
 </div>
 <script>

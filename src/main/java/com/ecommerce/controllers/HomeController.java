@@ -30,6 +30,9 @@ public class HomeController {
     @Autowired
     private AnomaliesService anomaliesService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
         modelMap.addAttribute("title", "Daily-Hisabh");
@@ -119,6 +122,17 @@ public class HomeController {
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
     public String addAnomailes(@ModelAttribute("anomaliesDTO") AnomaliesDTO anomaliesDTO){
         anomaliesService.register(anomaliesDTO);
+        return "redirect:" + "/";
+    }
+
+    @RequestMapping(value = "getPayment",method = RequestMethod.GET)
+    public String getPayment(ModelMap modelMap,@RequestParam Long customerId){
+        return "payment.jsp";
+    }
+
+    @RequestMapping
+    public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO){
+        paymentService.register(paymentDTO);
         return "redirect:" + "/";
     }
 }

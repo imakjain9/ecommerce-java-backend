@@ -49,6 +49,8 @@
 			<a href="${pageContext.request.contextPath}/getAnomalies?customerId=${customer.id}">Add Anomilies</a>
 			<a href="${pageContext.request.contextPath}/addCustomerSubscription">Add Subscription</a>
 			<a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}">Visit Profie</a>
+			<a href="${pageContext.request.contextPath}/getBill?customerId=${customer.id}">Genrate Bill</a>
+			<a href="${pageContext.request.contextPath}/getAllPayments?customerId=${customer.id}">Payment HISTORY</a>
 			</div>
 		</div>
 		</c:forEach>

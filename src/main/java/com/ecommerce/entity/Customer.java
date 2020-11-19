@@ -3,6 +3,7 @@ package com.ecommerce.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +22,10 @@ public class Customer {
     private User registered_user;
 
     @OneToMany(mappedBy="customer_id",fetch = FetchType.EAGER)
-    private List<Subscription> subscriptions = new ArrayList<Subscription>();
+    private List<Subscription> subscriptions;
+
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    private Set<Payment> payments;
 
     public String getCustomer_name() {
         return customer_name;
@@ -77,7 +81,13 @@ public class Customer {
         this.id = id;
     }
 
+    public Set<Payment> getPayments() {
+        return payments;
+    }
 
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
 
     public List<Subscription> getSubscriptions() {
         return subscriptions;
@@ -86,4 +96,6 @@ public class Customer {
     public void setSubscriptions(List<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
     }
+
+
 }

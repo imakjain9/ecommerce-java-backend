@@ -36,13 +36,14 @@ http://www.springframework.org/schema/mvc
                 <value>com.ecommerce.entity.Item</value>
                 <value>com.ecommerce.entity.Subscription</value>
                 <value>com.ecommerce.entity.Anomalies</value>
+                <value>com.ecommerce.entity.Payment</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">drop/create</prop>
             </props>
         </property>
     </bean>
@@ -60,6 +61,9 @@ http://www.springframework.org/schema/mvc
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <bean id="anomaliesRepository" class="com.ecommerce.repository.AnomaliesRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="paymentRepository" class="com.ecommerce.repository.PaymentRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 </beans>
