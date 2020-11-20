@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -40,5 +41,5 @@ public class CustomerService {
 
     public Customer getCustomerById(Long id){ return  customerRepository.getCustomerById(id);}
 
-    public List<Subscription> getCustomerSubscriptions(Long id){return  customerRepository.getCustomerSubscriptions(id);}
+    public Set<Subscription> getCustomerSubscriptions(Long id){return  customerRepository.getCustomerSubscriptions(id);}
 }

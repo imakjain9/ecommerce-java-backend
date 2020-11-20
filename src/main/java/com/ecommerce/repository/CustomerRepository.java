@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Set;
 
 public class CustomerRepository {
     private SessionFactory sessionFactory;
@@ -38,7 +39,7 @@ public class CustomerRepository {
         session.close();
         return customer;
     }
-    public List<Subscription> getCustomerSubscriptions(Long id){
+    public Set<Subscription> getCustomerSubscriptions(Long id){
         Session session=sessionFactory.openSession();
         Customer customer=session.get(Customer.class,id);
         session.close();

@@ -22,7 +22,7 @@ public class Customer {
     private User registered_user;
 
     @OneToMany(mappedBy="customer_id",fetch = FetchType.EAGER)
-    private List<Subscription> subscriptions;
+    private Set<Subscription> subscriptions;
 
     @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
     private Set<Payment> payments;
@@ -89,13 +89,11 @@ public class Customer {
         this.payments = payments;
     }
 
-    public List<Subscription> getSubscriptions() {
+    public Set<Subscription> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(List<Subscription> subscriptions) {
+    public void setSubscriptions(Set<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
     }
-
-
 }

@@ -175,7 +175,7 @@ button:hover {
 
 <div class="cardContainer">
 <div class="imgBorder">
-<div class="profileImg"><a href="https://www.sololearn.com/Profile/14832357"><img src="mom.jpg" width=150px >
+<div class="profileImg"><a href="https://www.sololearn.com/Profile/14832357"><img src="${pageContext.request.contextPath}/resource/images/mom.jpg" width=150px >
 <!-- src="https://lh3.googleusercontent.com/NN4I9CY3sLNq6Gpr9rxbWsKFTaa3XGiBzrCRLA4SoTvhmsHqqxUxGpshBdsyRGKdGepKgNiWXgKSquS9gdzjWL6hmbzxdDcSLebJPDoEaTugXk3AHa8f8Q4hZd3clxu5nQCQBsdGdg=w2400" 
 --> 
 </a>    
@@ -206,7 +206,7 @@ button:hover {
 					<p>11 Jan 2020</p>
         </div>                
   <div>
-     <button id="btn_change" onClick="changeFollow()"><a href="${pageContext.request.contextPath}/getPayment?customerId=${customerId.id}">Payment</a></button>
+     <button id="btn_change"><a href="${pageContext.request.contextPath}/getPayment?customerId=${customerId.id}">Payment</a></button>
      <div class="profileFooter">
          <div class="contains-Txt">
              <i class="fab fa-facebook-f"></i>

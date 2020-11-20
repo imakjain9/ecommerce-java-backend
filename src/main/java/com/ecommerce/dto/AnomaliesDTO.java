@@ -32,11 +32,7 @@ public class AnomaliesDTO {
         this.quantity = quantity;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public Date getDate() { return date; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(Date date) { this.date = date; }
 }

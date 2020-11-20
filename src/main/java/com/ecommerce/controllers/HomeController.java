@@ -120,7 +120,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
-    public String addAnomailes(@ModelAttribute("anomaliesDTO") AnomaliesDTO anomaliesDTO){
+    public String addAnomalies(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO){
         anomaliesService.register(anomaliesDTO);
         return "redirect:" + "/";
     }
@@ -130,7 +130,7 @@ public class HomeController {
         return "payment.jsp";
     }
 
-    @RequestMapping
+    @RequestMapping(value = "addPayment",method = RequestMethod.POST)
     public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO){
         paymentService.register(paymentDTO);
         return "redirect:" + "/";

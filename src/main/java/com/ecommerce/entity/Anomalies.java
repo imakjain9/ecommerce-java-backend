@@ -1,6 +1,8 @@
 package com.ecommerce.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class Anomalies {
     private Subscription subscription_id;
 
     private Double quantity;
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date date;
 
     public Long getId() {

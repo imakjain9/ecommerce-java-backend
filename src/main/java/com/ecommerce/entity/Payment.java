@@ -1,16 +1,19 @@
 package com.ecommerce.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="customer")
+    @JoinColumn(name="customer",nullable=false)
     private  Customer customer;
 
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date date;
     private Double amount;
 

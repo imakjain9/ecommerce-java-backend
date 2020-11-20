@@ -1,5 +1,7 @@
 package com.ecommerce.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +29,8 @@ public class Subscription {
 
      private Double price;
     private Double quantity;
+
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date startDate;
     private Boolean active;
 
