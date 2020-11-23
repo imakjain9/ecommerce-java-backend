@@ -28,7 +28,7 @@ public class UserService {
         Long id=Long.parseLong(userid);
         return userRepository.getUser(id);
     }
-    public Set<Customer> getUserCustomers(String id) {
-        return userRepository.getUserCustomers(Long.parseLong(id));
+    public Set<Customer> getUserCustomers(Long id) {
+        return userRepository.getUserCustomers(id);
     }
 }

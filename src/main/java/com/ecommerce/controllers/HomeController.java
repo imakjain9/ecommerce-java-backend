@@ -52,7 +52,7 @@ public class HomeController {
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
         modelMap.addAttribute("user",userService.getUser(userId));
         modelMap.addAttribute("userList", userService.getUsers());
-        modelMap.addAttribute("userCustomersList",userService.getUserCustomers(userId));
+        modelMap.addAttribute("userCustomersList",userService.getUserCustomers(Long.parseLong(userId)));
         return "userProfile.jsp";
     }
     @RequestMapping(value="customerProfile",method = RequestMethod.GET)
@@ -73,37 +73,41 @@ public class HomeController {
     }
 
     @RequestMapping(value = "items/new", method = RequestMethod.GET)
-    public String addItem(ModelMap modelMap) { return "addItem.jsp"; }
+    public String addItem(ModelMap modelMap) {
+        return "addItem.jsp"; }
 
     @RequestMapping(value = "items", method = RequestMethod.POST)
-    public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO) {
+    public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam Long userId) {
         itemService.register(itemAddDTO);
-        return "redirect:" + "addCustomerSubscription";
+        return "redirect:" + "addCustomerSubscription"+userId;
     }
 
     @RequestMapping(value="itemdelete",method=RequestMethod.GET)
-    public String deleteItem(ModelMap modelMap,@RequestParam String itemId){
+    public String deleteItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId){
         modelMap.addAttribute("item",itemService.getItem(itemId));
              itemService.deleteItem(itemId);
-        return "redirect:" + "addCustomerSubscription";
+        return "redirect:" + "addCustomerSubscription"+userId;
     }
     @RequestMapping(value = "itemedit", method = RequestMethod.GET)
-    public String editItem(ModelMap modelMap,@RequestParam String itemId) {
+    public String editItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId) {
         modelMap.addAttribute("item",itemService.getItem(itemId));
+        modelMap.addAttribute("userId",userId);
         return "editItem.jsp";
     }
 
     @RequestMapping(value="updateItem",method = RequestMethod.POST)
-    public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId) {
+    public String updateItem(ModelMap modelMap,@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId,@RequestParam Long userId) {
       itemService.updateItem(itemAddDTO,itemId);
-        return "redirect:" + "addCustomerSubscription";
+        modelMap.addAttribute("userId",userId);
+        return "redirect:" + "addCustomerSubscription"+userId;
     }
 
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap) {
-        modelMap.addAttribute("customerList",customerService.getCustomerList());
+    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId) {
+        modelMap.addAttribute("customerList",userService.getUserCustomers(userId));
         modelMap.addAttribute("itemList",itemService.getItems());
+        modelMap.addAttribute("userId",userId);
         return "itemSubscription.jsp";
     }
 
@@ -116,23 +120,26 @@ public class HomeController {
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
     public String getAnomailes(ModelMap modelMap,@RequestParam Long customerId) {
     modelMap.addAttribute("customerSubscriptionList",customerService.getCustomerSubscriptions(customerId));
+    modelMap.addAttribute("customerId",customerId);
         return "dailyAnomilies.jsp";
     }
 
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
-    public String addAnomalies(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO){
-        anomaliesService.register(anomaliesDTO);
-        return "redirect:" + "/";
+    public String addAnomalies(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO,@ModelAttribute("customerId")@RequestParam Long customerId)throws Exception{
+      Long userId=  anomaliesService.register(anomaliesDTO,customerId);
+        return "redirect:" + "userProfile?userId="+userId;
     }
 
     @RequestMapping(value = "getPayment",method = RequestMethod.GET)
     public String getPayment(ModelMap modelMap,@RequestParam Long customerId){
+       modelMap.addAttribute("customer",customerId);
         return "payment.jsp";
     }
 
     @RequestMapping(value = "addPayment",method = RequestMethod.POST)
-    public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO){
-        paymentService.register(paymentDTO);
-        return "redirect:" + "/";
+    public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO,@ModelAttribute("customer")@RequestParam Long customer){
+
+        paymentService.register(paymentDTO,customer);
+        return "redirect:" + "customerProfile?customerId="+customer;
     }
 }

@@ -133,8 +133,8 @@ Items</div>
 
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
-		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}">edit</a>
-		 <a class="title" href="${pageContext.request.contextPath}/itemdelete?itemId=${item.id}">delete</a>
+		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}&userId=${userId}">edit</a>
+		 <a class="title" href="${pageContext.request.contextPath}/itemdelete?itemId=${item.id}&userId=${userId}">delete</a>
 
         <div class="date">
 		    <div >${item.name}</div>

@@ -41,5 +41,13 @@ public class CustomerService {
 
     public Customer getCustomerById(Long id){ return  customerRepository.getCustomerById(id);}
 
-    public Set<Subscription> getCustomerSubscriptions(Long id){return  customerRepository.getCustomerSubscriptions(id);}
+    public Set<Subscription> getCustomerSubscriptions(Long id){
+        return  customerRepository.getCustomerSubscriptions(id);
+    }
+
+    public Long getRegisteredUser(Long id){
+        return customerRepository.getCustomerRegisteredUserId(id);
+    }
+
+
 }

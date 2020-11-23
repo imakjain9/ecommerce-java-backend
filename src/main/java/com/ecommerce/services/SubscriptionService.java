@@ -38,7 +38,11 @@ public class SubscriptionService {
         subscription.setSubscriptionName(subscriptionName);
         subscription.setPrice(item.getPrice());
         subscriptionRepository.addSubscription(subscription);
+
     }
 
     public Subscription getSubscriptionById(Long id){ return  subscriptionRepository.getSubscriptionById(id);}
+
+
+
 }

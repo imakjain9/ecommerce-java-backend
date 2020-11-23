@@ -99,7 +99,7 @@ body {
 </head>
 <body>
 	<div id="container"><h2>FOR</h2>
-	<form action="${pageContext.request.contextPath}/addAnomalies" method="post">
+	<form action="${pageContext.request.contextPath}/addAnomalies?customerId=${customerId}" method="post">
   <select id="subscriptionName" placeholder="something" name="subscription_id">
     <c:forEach var="subscription" items="${customerSubscriptionList}">
 	<option class="subscriptionOption" name="subscription_id" value=${subscription.id}> ${subscription.subscriptionName} </option>

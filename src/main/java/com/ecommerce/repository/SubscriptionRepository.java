@@ -1,5 +1,6 @@
 package com.ecommerce.repository;
 
+import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Subscription;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,5 @@ public class SubscriptionRepository {
         session.close();
         return subscription;
     }
-
-
 
 }

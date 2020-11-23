@@ -19,9 +19,9 @@ public class PaymentService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public void register(PaymentDTO paymentDTO){
+    public void register(PaymentDTO paymentDTO,Long customerId){
         Payment payment=new Payment();
-        Customer customer=customerRepository.getCustomerById(paymentDTO.getCustomer());
+        Customer customer=customerRepository.getCustomerById(customerId);
         payment.setAmount(paymentDTO.getAmount());
         payment.setDate(new Date());
         payment.setCustomer(customer);

@@ -4,18 +4,10 @@ import java.util.Date;
 
 public class PaymentDTO {
 
-    private  Long id;
+
     private Long customer;
     private Date date;
     private Double amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getCustomer() {
         return customer;

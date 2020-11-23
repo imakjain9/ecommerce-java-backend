@@ -54,6 +54,16 @@ body {
   stroke-dasharray: 1095 1903;
   transition: stroke-dasharray 1500ms, stroke-dashoffset 1500ms;
 }
+.card .closebtn {
+  position: absolute;
+  top: 0;
+  text-decoration:none;
+  text-color:black;
+  visibility: hidden;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
 .line2 {
   height: 52px;
   left: 150px;
@@ -110,6 +120,7 @@ body {
 </head>
 <body>
 	<div class="card">
+	<a href="javascript:void(0)" class="closebtn" onclick="submitForm();" >&times;</a>
   <h2 class="title">SAVE</h2>
   <p class="text">payment on 18/11/2020  and press enter</p>
   <svg class="line" viewBox="0 0 340 110">
@@ -118,26 +129,34 @@ body {
   <svg class="line2" viewBox="0 0 50 52">
     <path style="fill:none;stroke:#000000;stroke-width:2" d="m 38.391765,17.110953 -16.66751,16.667516 -7.81073,-7.201053 c -2.56639,-2.366065 -3.80148,-3.574166 -6.56097,-5.722314 l -4.6426304,-1.736535"/>
   </svg>
-  <form class="form" action="${pageContext.request.contextPath}/addPayment" method="post">
+  <form class="form" action="${pageContext.request.contextPath}/addPayment?customer=${customer}" method="post">
     
 	 <input type="txt" class="input" name="amount"  placeholder="0.00" required>
   </form>
 </div>
 <script>
+
 		const card = document.querySelector('.card'),
       input = document.querySelector('.input'),
-      line2 = document.querySelector('.line2');
+       btn=document.querySelector('.closebtn'),
+        line2 = document.querySelector('.line2');
 document.querySelector('.form').addEventListener('submit', function(e) {
+
   input.blur();
   card.classList.add('saving');
 e.preventDefault();
+e.stopPropagation();
 });
 line2.addEventListener('animationend', function(e) {
   setTimeout(() => {
     card.classList.add('done');
   }, 1000);
-
+btn.style.visibility="initial";
 });
+function submitForm(){
+	 document.querySelector('.form').submit();
+}
+
 	</script>
 </body>
 </html>
