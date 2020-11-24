@@ -115,7 +115,7 @@ select{
 	<div class="form-style">
 <div class="form-style-heading"><a href="${pageContext.request.contextPath}/items/new"><button class="addItem">Add</button></a>
 Items</div>
-<form action="${pageContext.request.contextPath}/submitCustomerSubscription" method="post">
+<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}" method="post">
 	<div  id="select-field">
 		<select name="customer_id" class="select-field">
 		 <c:forEach var="customers" items="${customerList}">

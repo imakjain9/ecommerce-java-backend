@@ -73,20 +73,21 @@ public class HomeController {
     }
 
     @RequestMapping(value = "items/new", method = RequestMethod.GET)
-    public String addItem(ModelMap modelMap) {
+    public String addItem(ModelMap modelMap,@RequestParam Long userId) {
+        modelMap.addAttribute("userId",userId);
         return "addItem.jsp"; }
 
     @RequestMapping(value = "items", method = RequestMethod.POST)
     public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam Long userId) {
         itemService.register(itemAddDTO);
-        return "redirect:" + "addCustomerSubscription"+userId;
+        return "redirect:" + "addCustomerSubscription?userId="+userId;
     }
 
     @RequestMapping(value="itemdelete",method=RequestMethod.GET)
     public String deleteItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId){
         modelMap.addAttribute("item",itemService.getItem(itemId));
              itemService.deleteItem(itemId);
-        return "redirect:" + "addCustomerSubscription"+userId;
+        return "redirect:" + "addCustomerSubscription?userId="+userId;
     }
     @RequestMapping(value = "itemedit", method = RequestMethod.GET)
     public String editItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId) {
@@ -96,10 +97,9 @@ public class HomeController {
     }
 
     @RequestMapping(value="updateItem",method = RequestMethod.POST)
-    public String updateItem(ModelMap modelMap,@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId,@RequestParam Long userId) {
+    public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId,@RequestParam Long userId) {
       itemService.updateItem(itemAddDTO,itemId);
-        modelMap.addAttribute("userId",userId);
-        return "redirect:" + "addCustomerSubscription"+userId;
+      return "redirect:" + "addCustomerSubscription?userId="+userId;
     }
 
 
@@ -112,9 +112,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO) {
+    public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId) {
         subscriptionService.addSubscription(subscriptionDTO);
-        return "redirect:" + "/";
+        return "redirect:" + "userProfile?userId="+userId;
     }
 
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
