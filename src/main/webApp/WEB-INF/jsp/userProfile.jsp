@@ -35,7 +35,7 @@
         <div class="card__heading">
           <div class="heading">My Customers</div>
           <div class="date">
-          <a href="${pageContext.request.contextPath}/addCustomerForm"> Add new Customer </a>
+          <a href="${pageContext.request.contextPath}/addCustomerForm?userId=${user.id}"> Add new Customer </a>
           </div> 
         </div>
         <div class="insights">

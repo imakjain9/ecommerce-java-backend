@@ -3,7 +3,6 @@ package com.ecommerce.services;
 import com.ecommerce.dto.AnomaliesDTO;
 import com.ecommerce.entity.Anomalies;
 import com.ecommerce.entity.Subscription;
-import com.ecommerce.entity.User;
 import com.ecommerce.repository.AnomaliesRepository;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.SubscriptionRepository;

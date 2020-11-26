@@ -4,13 +4,10 @@ package com.ecommerce.repository;
 
 import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Subscription;
-import com.ecommerce.entity.User;
+import com.ecommerce.entity.Seller;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+
 import java.util.List;
 import java.util.Set;
 
@@ -54,7 +51,7 @@ public class CustomerRepository {
         Customer customer=session.get(Customer.class,id);
      session.getTransaction().commit();
        session.close();
-        User user= customer.getRegistered_user();
-        return user.getId();
+        Seller seller = customer.getRegistered_seller();
+        return seller.getId();
     }
 }

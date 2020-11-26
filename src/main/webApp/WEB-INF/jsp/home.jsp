@@ -19,7 +19,9 @@
                 <nav>
                     <ul>
                         <li><a href="#">signin</li>
-                        <li><a href="#">login</li>
+                        <li><select>Login<option> <a href="${pageContext.request.contextPath}/adminProfile">Admin</option>
+                        <option> <a href="${pageContext.request.contextPath}/userProfile">User</option></select>
+                        </li>
                     </ul>
     </div>
  </header>

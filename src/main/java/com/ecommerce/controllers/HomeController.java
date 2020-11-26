@@ -1,7 +1,6 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.dto.*;
-import com.ecommerce.entity.User;
 import com.ecommerce.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLOutput;
-
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
     @Autowired
-    private UserService userService;
+    private SellerService sellerService;
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -33,26 +30,46 @@ public class HomeController {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private SellerTargetService sellerTargetService;
+
+    @Autowired
+    private  LoginService loginService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
         modelMap.addAttribute("title", "Daily-Hisabh");
-        modelMap.addAttribute("userList", userService.getUsers());
+        modelMap.addAttribute("userList", sellerService.getUsers());
         return "home.jsp";
     }
 
+
+
+    @RequestMapping(value = "getlogin",method = RequestMethod.GET)
+    public String loginForm(){
+        return "LoginForm.jsp";
+    }
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    public String login(@ModelAttribute("loginDTO") LoginDTO loginDTO){
+        if(loginDTO.getRole()=="admin"){
+            loginService.userAuthantication(loginDTO);
+        }
+
+            return null ;
+    }
     @RequestMapping(value = "registerForm", method = RequestMethod.GET)
     public String registerForm(ModelMap modelMap) { return "registerForm.jsp"; }
 
     @RequestMapping(value = "registerSubmit", method = RequestMethod.POST)
     public String register(@ModelAttribute("registerRequestDTO") RegisterRequestDTO registerRequestDTO) {
-        userService.register(registerRequestDTO);
+        sellerService.register(registerRequestDTO);
         return "redirect:" + "/";
     }
     @RequestMapping(value="userProfile",method = RequestMethod.GET)
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
-        modelMap.addAttribute("user",userService.getUser(userId));
-        modelMap.addAttribute("userList", userService.getUsers());
-        modelMap.addAttribute("userCustomersList",userService.getUserCustomers(Long.parseLong(userId)));
+        modelMap.addAttribute("user", sellerService.getUser(userId));
+        modelMap.addAttribute("userList", sellerService.getUsers());
+        modelMap.addAttribute("userCustomersList", sellerService.getUserCustomers(Long.parseLong(userId)));
         return "userProfile.jsp";
     }
     @RequestMapping(value="customerProfile",method = RequestMethod.GET)
@@ -61,8 +78,12 @@ public class HomeController {
         return "CustomerProfile.jsp";
     }
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
-    public String addCustomerForm(ModelMap modelMap) {
-        modelMap.addAttribute("userList", userService.getUsers());
+    public String addCustomerForm(ModelMap modelMap,@RequestParam Long userId) {
+        if(sellerService.getUserTargetMilkQuantity(userId)==null){
+            modelMap.addAttribute("user", sellerService.getUser(Long.toString(userId)));
+            return "SellerTarget.jsp";
+        }
+        modelMap.addAttribute("userList", sellerService.getUsers());
         return "addCustomerForm.jsp";
     }
 
@@ -105,7 +126,7 @@ public class HomeController {
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId) {
-        modelMap.addAttribute("customerList",userService.getUserCustomers(userId));
+        modelMap.addAttribute("customerList", sellerService.getUserCustomers(userId));
         modelMap.addAttribute("itemList",itemService.getItems());
         modelMap.addAttribute("userId",userId);
         return "itemSubscription.jsp";

@@ -17,8 +17,8 @@ public class Customer {
     private String customer_type;
 
     @ManyToOne
-    @JoinColumn(name="registered_user", nullable=false)
-    private User registered_user;
+    @JoinColumn(name="registered_seller", nullable=false)
+    private Seller registered_seller;
 
     @OneToMany(mappedBy="customer_id",fetch = FetchType.EAGER)
     private Set<Subscription> subscriptions;
@@ -64,12 +64,12 @@ public class Customer {
         this.customer_type = customer_type;
     }
 
-    public User getRegistered_user() {
-        return registered_user;
+    public Seller getRegistered_seller() {
+        return registered_seller;
     }
 
-    public void setRegistered_user(User registered_user) {
-        this.registered_user = registered_user;
+    public void setRegistered_seller(Seller registered_seller) {
+        this.registered_seller = registered_seller;
     }
 
     public Long getId() {

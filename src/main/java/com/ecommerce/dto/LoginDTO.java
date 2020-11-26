@@ -1,10 +1,6 @@
-package com.ecommerce.entity;
+package com.ecommerce.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-@Entity
-public class User {
-    @Id
+public class LoginDTO {
     private String email;
     private String password;
     private  String role;

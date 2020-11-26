@@ -2,10 +2,10 @@ package com.ecommerce.services;
 
 import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.Seller;
 import com.ecommerce.entity.Subscription;
-import com.ecommerce.entity.User;
 import com.ecommerce.repository.CustomerRepository;
-import com.ecommerce.repository.UserRepository;
+import com.ecommerce.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private SellerRepository sellerRepository;
 
     public Long register(CustomerRegisterDTO customerRegisterDTO){
-        User user = userRepository.getUser(customerRegisterDTO.getRegistered_user());
+        Seller seller = sellerRepository.getUser(customerRegisterDTO.getRegistered_user());
         Customer customer=new Customer();
         customer.setId(customerRegisterDTO.getId());
         customer.setCustomer_name(customerRegisterDTO.getCustomer_name());
@@ -30,9 +30,9 @@ public class CustomerService {
         customer.setCustomer_address(customerRegisterDTO.getCustomer_address());
         customer.setCustomer_phone(customerRegisterDTO.getCustomer_phone());
         customer.setCustomer_type(customerRegisterDTO.getCustomer_type());
-        customer.setRegistered_user(user);
+        customer.setRegistered_seller(seller);
         customerRepository.addCustomer(customer);
-        return user.getId();
+        return seller.getId();
     }
 
     public List<Customer> getCustomerList(){

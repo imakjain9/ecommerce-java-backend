@@ -1,10 +1,7 @@
 package com.ecommerce.dto;
 
-import com.ecommerce.entity.Customer;
-
-import java.util.Set;
-
 public class RegisterRequestDTO {
+
     private Long id;
     private String email;
     private String firstName;
