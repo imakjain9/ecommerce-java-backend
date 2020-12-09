@@ -4,6 +4,7 @@ import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Seller;
 import com.ecommerce.entity.SellerTarget;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -25,6 +26,7 @@ public class SellerRepository {
         seller.setEmail(registerRequestDTO.getEmail());
         seller.setLastName(registerRequestDTO.getLastName());
         seller.setPhoneNumber(registerRequestDTO.getPhoneNumber());
+        seller.setPassword(registerRequestDTO.getPassword());
 //        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -53,12 +55,37 @@ public class SellerRepository {
         return  seller.getCustomers();
     }
 
-    public SellerTarget getUserProfessionalDetails(Long userId){
+    public Set<SellerTarget> getUserProfessionalDetails(Long userId){
         Session session = sessionFactory.openSession();
         Seller seller =session.get(Seller.class, userId);
         session.close();
         return seller.getSellerTarget();
 
+    }
+    public Boolean sellerAuthantication(String sellerEmail,String sellerPassword){
+        Session session = sessionFactory.openSession();
+        String sql = "SELECT * FROM Seller WHERE email = :sellerEmail";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Seller.class);
+        query.setParameter("sellerEmail", sellerEmail);
+        Seller seller =(Seller) query.list().get(0);
+        session.close();
+        if(seller==null)
+            return false;
+        if(seller.getPassword().equals(sellerPassword))
+            return  true;
+       return false;
+    }
+
+    public Long sellerIdByEmail(String sellerEmail){
+        Session session = sessionFactory.openSession();
+        String sql = "SELECT * FROM Seller WHERE email = :sellerEmail";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Seller.class);
+        query.setParameter("sellerEmail", sellerEmail);
+        Seller seller =(Seller) query.list().get(0);
+        session.close();
+        return  seller.getId();
     }
 
 }

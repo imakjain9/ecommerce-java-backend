@@ -12,7 +12,7 @@
 		<div class="form-style">
 		<div class="form-style-heading">Provide Item Details</div>
 
-			<form action="${pageContext.request.contextPath}/items?userId=${userId}" method="post">
+			<form action="${pageContext.request.contextPath}/items" method="post">
         
                 <label for="iimage"><span>Item image:</span>
                 <input type="url" class="input-field"  name="url" placeholder="itemImageUrl"><br>

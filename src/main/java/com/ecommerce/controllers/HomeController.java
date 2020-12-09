@@ -40,22 +40,38 @@ public class HomeController {
     public String home(ModelMap modelMap) {
         modelMap.addAttribute("title", "Daily-Hisabh");
         modelMap.addAttribute("userList", sellerService.getUsers());
+
         return "home.jsp";
     }
-
-
-
     @RequestMapping(value = "getlogin",method = RequestMethod.GET)
-    public String loginForm(){
+    public String loginForm(ModelMap modelMap,@RequestParam String role){
+        modelMap.addAttribute("role",role);
         return "LoginForm.jsp";
     }
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(@ModelAttribute("loginDTO") LoginDTO loginDTO){
-        if(loginDTO.getRole()=="admin"){
-            loginService.userAuthantication(loginDTO);
-        }
 
-            return null ;
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    public String login(ModelMap modelMap,@ModelAttribute("loginDTO") LoginDTO loginDTO,@RequestParam String role){
+        if(role.equals("admin")){
+           Boolean auth=loginService.userAuthantication(loginDTO);
+            System.out.println(auth);
+           if(auth) {
+               modelMap.addAttribute("itemList", itemService.getItems());
+               return "redirect:" + "adminProfile";
+           }else{
+               modelMap.addAttribute("role",role);
+               return "error.jsp";
+           }
+        }
+        else {
+            Boolean auth = sellerService.sellerAuthantication(loginDTO);
+            if (auth) {
+                Long id = sellerService.sellerIdByEmail(loginDTO);
+                return "redirect:" + "userProfile?userId=" + id;
+            } else {
+                modelMap.addAttribute("role",role);
+                return "error.jsp";
+            }
+        }
     }
     @RequestMapping(value = "registerForm", method = RequestMethod.GET)
     public String registerForm(ModelMap modelMap) { return "registerForm.jsp"; }
@@ -72,6 +88,11 @@ public class HomeController {
         modelMap.addAttribute("userCustomersList", sellerService.getUserCustomers(Long.parseLong(userId)));
         return "userProfile.jsp";
     }
+    @RequestMapping(value="adminProfile",method = RequestMethod.GET)
+    public String adminProfile(ModelMap modelMap){
+        modelMap.addAttribute("itemList", itemService.getItems());
+        return "AdminProfile.jsp";
+    }
     @RequestMapping(value="customerProfile",method = RequestMethod.GET)
     public String customerrProfile(ModelMap modelMap,@RequestParam Long customerId){
         modelMap.addAttribute("customerId",customerService.getCustomerById(customerId));
@@ -79,8 +100,9 @@ public class HomeController {
     }
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap,@RequestParam Long userId) {
-        if(sellerService.getUserTargetMilkQuantity(userId)==null){
+        if(sellerService.getUserTargetMilkQuantity(userId).isEmpty()){
             modelMap.addAttribute("user", sellerService.getUser(Long.toString(userId)));
+            modelMap.addAttribute("itemList", itemService.getItems());
             return "SellerTarget.jsp";
         }
         modelMap.addAttribute("userList", sellerService.getUsers());
@@ -93,34 +115,38 @@ public class HomeController {
         return "redirect:" + "userProfile?userId="+userId;
     }
 
+    @RequestMapping(value = "sellerTargetSubmit",method = RequestMethod.POST)
+    public String sellerTargetSubmit(@ModelAttribute("sellerTargetDTO")SellerTargetDTO sellerTargetDTO,@ModelAttribute("user") @RequestParam Long user ){
+        sellerTargetService.addUserProfessionalDetails(sellerTargetDTO,user);
+        return  "redirect:" + "userProfile?userId="+user;
+    }
     @RequestMapping(value = "items/new", method = RequestMethod.GET)
-    public String addItem(ModelMap modelMap,@RequestParam Long userId) {
-        modelMap.addAttribute("userId",userId);
+    public String addItem(ModelMap modelMap) {
+
         return "addItem.jsp"; }
 
     @RequestMapping(value = "items", method = RequestMethod.POST)
-    public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam Long userId) {
+    public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO) {
         itemService.register(itemAddDTO);
-        return "redirect:" + "addCustomerSubscription?userId="+userId;
+        return "redirect:" + "adminProfile";
     }
 
     @RequestMapping(value="itemdelete",method=RequestMethod.GET)
-    public String deleteItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId){
+    public String deleteItem(ModelMap modelMap,@RequestParam String itemId){
         modelMap.addAttribute("item",itemService.getItem(itemId));
              itemService.deleteItem(itemId);
-        return "redirect:" + "addCustomerSubscription?userId="+userId;
+        return "redirect:" + "adminProfile";
     }
     @RequestMapping(value = "itemedit", method = RequestMethod.GET)
-    public String editItem(ModelMap modelMap,@RequestParam String itemId,@RequestParam Long userId) {
+    public String editItem(ModelMap modelMap,@RequestParam String itemId) {
         modelMap.addAttribute("item",itemService.getItem(itemId));
-        modelMap.addAttribute("userId",userId);
         return "editItem.jsp";
     }
 
     @RequestMapping(value="updateItem",method = RequestMethod.POST)
-    public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId,@RequestParam Long userId) {
+    public String updateItem(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO,@RequestParam String itemId) {
       itemService.updateItem(itemAddDTO,itemId);
-      return "redirect:" + "addCustomerSubscription?userId="+userId;
+      return "redirect:" + "adminProfile";
     }
 
 

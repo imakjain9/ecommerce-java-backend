@@ -7,7 +7,7 @@ public class RegisterRequestDTO {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-
+    private String password;
 
     public String getEmail() {
         return email;
@@ -41,5 +41,11 @@ public class RegisterRequestDTO {
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber;}
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

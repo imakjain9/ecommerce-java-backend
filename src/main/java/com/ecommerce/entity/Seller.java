@@ -14,11 +14,11 @@ public class Seller {
     private String lastName;
     private  String phoneNumber;
     private String password;
-    @OneToMany(mappedBy="registered_user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="registered_seller",fetch = FetchType.EAGER)
     private Set<Customer> customers;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="sellerTarget")
-    private SellerTarget sellerTarget;
+
+    @OneToMany(mappedBy = "sellerId",fetch = FetchType.LAZY)
+    private Set<SellerTarget> sellerTarget;
 
     public String getEmail() {
         return email;
@@ -64,9 +64,13 @@ public class Seller {
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public SellerTarget getSellerTarget() { return sellerTarget; }
+    public Set<SellerTarget> getSellerTarget() {
+        return sellerTarget;
+    }
 
-    public void setSellerTarget(SellerTarget sellerTarget) { this.sellerTarget = sellerTarget; }
+    public void setSellerTarget(Set<SellerTarget> sellerTarget) {
+        this.sellerTarget = sellerTarget;
+    }
 
     public String getPassword() {
         return password;

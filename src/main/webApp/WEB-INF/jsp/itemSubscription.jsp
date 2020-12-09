@@ -113,7 +113,7 @@ select{
 </head>
 <body>
 	<div class="form-style">
-<div class="form-style-heading"><a href="${pageContext.request.contextPath}/items/new"><button class="addItem">Add</button></a>
+<div class="form-style-heading">
 Items</div>
 <form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}" method="post">
 	<div  id="select-field">
@@ -133,10 +133,7 @@ Items</div>
 
 			<a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
-		 <a class="title" href="${pageContext.request.contextPath}/itemedit?itemId=${item.id}&userId=${userId}">edit</a>
-		 <a class="title" href="${pageContext.request.contextPath}/itemdelete?itemId=${item.id}&userId=${userId}">delete</a>
-
-        <div class="date">
+		 <div class="date">
 		    <div >${item.name}</div>
 		    <div >${item.price}/liter</div>
         </div>

@@ -45,12 +45,12 @@ http://www.springframework.org/schema/mvc
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>
 
-    <bean id="userRepository" class="com.ecommerce.repository.SellerRepository">
+    <bean id="sellerRepository" class="com.ecommerce.repository.SellerRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <bean id="customerRepository" class="com.ecommerce.repository.CustomerRepository">
@@ -68,7 +68,7 @@ http://www.springframework.org/schema/mvc
     <bean id="paymentRepository" class="com.ecommerce.repository.PaymentRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    <bean id="userProfessionaDetailsRepo" class="com.ecommerce.repository.SellerTargetRepository">
+    <bean id="sellerTargetRepository" class="com.ecommerce.repository.SellerTargetRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <bean id="adminRepository" class="com.ecommerce.repository.AdminRepository">

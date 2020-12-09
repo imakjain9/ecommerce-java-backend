@@ -27,7 +27,7 @@
       <nav>
         <ul class="navlinks">
           <li class="link__item">Home</li>
-          <li class="link__item"><a href="${pageContext.request.contextPath}/items/new?userId=${user.id}">Add a Item</a></li>
+
            <li class="link__item"><a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}">Add Subscription</a></li>
         </ul>
       </nav>

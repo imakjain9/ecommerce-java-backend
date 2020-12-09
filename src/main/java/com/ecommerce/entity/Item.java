@@ -1,6 +1,7 @@
 package com.ecommerce.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Item {
@@ -10,6 +11,8 @@ public class Item {
     private  String name;
     private  Double price;
     private String url;
+    @OneToMany(mappedBy = "itemId",fetch = FetchType.LAZY)
+    private Set<SellerTarget> sellerTargets;
 
     public Long getId() {
         return id;

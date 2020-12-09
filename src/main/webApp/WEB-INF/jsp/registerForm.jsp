@@ -28,6 +28,10 @@
                     <input type="tel" class="tel-number-field" name="phoneNumber" pattern="[0-9]{10}" maxlength=10 />
                     </label>
 
+                    <label for="lpass"><span>Password:</span>
+                    <input type="text" class="input-field"  name="password" placeholder="password"><br><br>
+                    </label>
+
                     <label><span> </span><input type="submit" value="Submit" />
     				</label>
 

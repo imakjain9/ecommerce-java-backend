@@ -1,5 +1,6 @@
 package com.ecommerce.services;
 
+import com.ecommerce.dto.LoginDTO;
 import com.ecommerce.dto.RegisterRequestDTO;
 import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Seller;
@@ -33,11 +34,23 @@ public class SellerService {
         Long id=Long.parseLong(userid);
         return sellerRepository.getUser(id);
     }
+
+    public Boolean sellerAuthantication(LoginDTO loginDTO){
+       String sellerEmail= loginDTO.getEmail();
+       String sellerPassword= loginDTO.getPassword();
+       return sellerRepository.sellerAuthantication(sellerEmail,sellerPassword);
+    }
+
+    public Long sellerIdByEmail(LoginDTO loginDTO){
+        String sellerEmail= loginDTO.getEmail();
+        return sellerRepository.sellerIdByEmail(sellerEmail);
+    }
+
     public Set<Customer> getUserCustomers(Long id) {
         return sellerRepository.getUserCustomers(id);
     }
 
-    public SellerTarget getUserTargetMilkQuantity(Long userId){
+    public Set<SellerTarget> getUserTargetMilkQuantity(Long userId){
         return  sellerRepository.getUserProfessionalDetails(userId);
     }
 
