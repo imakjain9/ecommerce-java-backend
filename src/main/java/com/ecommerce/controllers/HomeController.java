@@ -83,6 +83,7 @@ public class HomeController {
     }
     @RequestMapping(value="userProfile",method = RequestMethod.GET)
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
+        modelMap.addAttribute("itemList",itemService.getItems());
         modelMap.addAttribute("user", sellerService.getUser(userId));
         modelMap.addAttribute("userList", sellerService.getUsers());
         modelMap.addAttribute("userCustomersList", sellerService.getUserCustomers(Long.parseLong(userId)));
@@ -100,11 +101,7 @@ public class HomeController {
     }
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap,@RequestParam Long userId) {
-        if(sellerService.getUserTargetMilkQuantity(userId).isEmpty()){
-            modelMap.addAttribute("user", sellerService.getUser(Long.toString(userId)));
-            modelMap.addAttribute("itemList", itemService.getItems());
-            return "SellerTarget.jsp";
-        }
+
         modelMap.addAttribute("userList", sellerService.getUsers());
         return "addCustomerForm.jsp";
     }
@@ -151,16 +148,21 @@ public class HomeController {
 
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId) {
-        modelMap.addAttribute("customerList", sellerService.getUserCustomers(userId));
+    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId) {
+      /*  if(sellerService.getUserTargetMilkQuantity(userId).isEmpty()){
+            modelMap.addAttribute("user", userId);
+            modelMap.addAttribute("itemList", itemService.getItems());
+            return "SellerTarget.jsp";
+        } */
+       modelMap.addAttribute("customerId",customerId);
         modelMap.addAttribute("itemList",itemService.getItems());
         modelMap.addAttribute("userId",userId);
         return "itemSubscription.jsp";
     }
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId) {
-        subscriptionService.addSubscription(subscriptionDTO);
+    public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@RequestParam Long customerId) {
+        subscriptionService.addSubscription(subscriptionDTO,customerId);
         return "redirect:" + "userProfile?userId="+userId;
     }
 

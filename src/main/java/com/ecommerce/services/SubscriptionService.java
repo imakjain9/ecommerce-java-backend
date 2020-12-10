@@ -25,10 +25,10 @@ public class SubscriptionService {
     CustomerRepository customerRepository;
 
 
-    public void addSubscription(SubscriptionDTO subscriptionDTO){
+    public void addSubscription(SubscriptionDTO subscriptionDTO ,Long customerId){
         Subscription subscription=new Subscription();
         Item item=itemRepository.item(subscriptionDTO.getItemId());
-        Customer customer=customerRepository.getCustomerById(subscriptionDTO.getCustomer_id());
+        Customer customer=customerRepository.getCustomerById(customerId);
         subscription.setItemId(item);
         subscription.setQuantity(subscriptionDTO.getQuantity());
         subscription.setCustomer_id(customer);

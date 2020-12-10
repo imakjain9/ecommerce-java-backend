@@ -24,13 +24,7 @@
         </div>
       </div>
       <hr class="border" />
-      <nav>
-        <ul class="navlinks">
-          <li class="link__item">Home</li>
 
-           <li class="link__item"><a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}">Add Subscription</a></li>
-        </ul>
-      </nav>
       <div class="card__insights">
         <div class="card__heading">
           <div class="heading">My Customers</div>
@@ -40,19 +34,28 @@
         </div>
         <div class="insights">
 		<c:forEach var="customer" items="${userCustomersList}">
-		<div class="dropdown">
-          <div class="insight">
-           <div class="number">
-              ${customer.customer_name}
-           </div>
-          </div>
-		  <div class="dropdown-content">
-			<a href="${pageContext.request.contextPath}/getAnomalies?customerId=${customer.id}">Add Anomilies</a>
-			<a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}">Visit Profie</a>
-			<a href="${pageContext.request.contextPath}/getBill?customerId=${customer.id}">Genrate Bill</a>
-			<a href="${pageContext.request.contextPath}/getAllPayments?customerId=${customer.id}">Payment HISTORY</a>
-			</div>
-		</div>
+		<div class="dropdown" style="float:left;">
+                  <div class="insight">
+                   <div class="number">
+                      ${customer.customer_name}
+                   </div>
+                  </div>
+        		  <div class="dropdown-content">
+        			<div class="item-dropdown">
+        			<a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}" class="ancher droplink">Add Subscription</a>
+        				<div class="item-dropdown-content" style="margin-left:180px;margin-top:-43px;">
+        				<c:forEach var="item" items="${itemList}">
+        					<a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}&itemId=${item.id}">${item.name}</a>
+        					</c:forEach>
+        				</div>
+        			</div>
+        			<a href="${pageContext.request.contextPath}/getAnomalies?customerId=${customer.id}" class="ancher">Add Anomilies</a>
+        			<a href="${pageContext.request.contextPath}/customerProfile?customerId=${customer.id}" class="ancher">Visit Profie</a>
+        			<a href="${pageContext.request.contextPath}/getBill?customerId=${customer.id}" class="ancher">Genrate Bill</a>
+        			<a href="${pageContext.request.contextPath}/getAllPayments?customerId=${customer.id}" class="ancher">Payment HISTORY</a>
+        			</div>
+
+        		</div>
 		</c:forEach>
 		</div>
       </div>

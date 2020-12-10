@@ -17,7 +17,7 @@ public class Seller {
     @OneToMany(mappedBy="registered_seller",fetch = FetchType.EAGER)
     private Set<Customer> customers;
 
-    @OneToMany(mappedBy = "sellerId",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sellerId",fetch = FetchType.EAGER)
     private Set<SellerTarget> sellerTarget;
 
     public String getEmail() {

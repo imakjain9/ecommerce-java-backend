@@ -115,13 +115,9 @@ select{
 	<div class="form-style">
 <div class="form-style-heading">
 Items</div>
-<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}" method="post">
+<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}&customerId=${customerId}" method="post">
 	<div  id="select-field">
-		<select name="customer_id" class="select-field">
-		 <c:forEach var="customers" items="${customerList}">
-			<option value=${customers.id}>${customers.customer_name}</option>
-		 </c:forEach>
-		</select>
+
 	</div>
 	<c:forEach var="item" items="${itemList}">
 	<div class="image_block" id="image_block">

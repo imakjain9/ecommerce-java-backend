@@ -11,9 +11,8 @@ public class SellerTarget {
         @ManyToOne
         @JoinColumn(name="sellerId", nullable=false)
     private Seller sellerId;
-
     @ManyToOne
-    @JoinColumn(name="itemId", nullable=false)
+    @JoinColumn(name="itemId",nullable = false)
     private Item itemId;
 
     private  Double targetQuantity;

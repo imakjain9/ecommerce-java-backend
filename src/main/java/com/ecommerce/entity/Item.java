@@ -11,7 +11,7 @@ public class Item {
     private  String name;
     private  Double price;
     private String url;
-    @OneToMany(mappedBy = "itemId",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "itemId",fetch = FetchType.EAGER)
     private Set<SellerTarget> sellerTargets;
 
     public Long getId() {
