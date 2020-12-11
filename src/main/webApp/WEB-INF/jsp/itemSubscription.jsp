@@ -121,14 +121,14 @@ select{
 	<div class="form-style">
 <div class="form-style-heading">
 Add Subsscription for ${item.name} </div>
-<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}&customerId=${customerId}&itemId=${itemId}" method="post">
+<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}&customerId=${customerId}&itemId=${item.id}" method="post">
 	<div  id="select-field">
 
 	</div>
 
 	<div class="image_block" id="image_block">
 		<div class="image_block_inner">
-            <div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="itemId"  /></div>
+            <div class="checkbox_class" id="checkbox_class"><input type="checkbox"  /></div>
                 <a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
 		 <div class="date">

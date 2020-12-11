@@ -58,7 +58,9 @@ public class HomeController {
                modelMap.addAttribute("itemList", itemService.getItems());
                return "redirect:" + "adminProfile";
            }else{
+               modelMap.addAttribute("role",role);
                modelMap.addAttribute("message","Look like you're email or password is wrong");
+               modelMap.addAttribute("action","Login");
                return "redirect:" + "error";
            }
         }
@@ -68,7 +70,9 @@ public class HomeController {
                 Long id = sellerService.sellerIdByEmail(loginDTO);
                 return "redirect:" + "userProfile?userId=" + id;
             } else {
+                modelMap.addAttribute("role",role);
                 modelMap.addAttribute("message","Look like you're email or password is wrong");
+                modelMap.addAttribute("action","Login");
                 return "redirect:" + "error";
             }
         }
@@ -154,6 +158,7 @@ public class HomeController {
             modelMap.addAttribute("itemList", itemService.getItems());
             return "SellerTarget.jsp";
         } */
+
        modelMap.addAttribute("customerId",customerId);
         modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
         modelMap.addAttribute("userId",userId);
@@ -161,19 +166,23 @@ public class HomeController {
     }
 
     @RequestMapping(value = "error",method = RequestMethod.GET )
-    public String error(ModelMap modelMap,@RequestParam String message){
+    public String error(ModelMap modelMap,@RequestParam String message,@RequestParam String action,@RequestParam(required = false)String role){
            modelMap.addAttribute("message",message);
+        modelMap.addAttribute("action",action);
+        if(action.equals("Login")) modelMap.addAttribute("actionUrl","getlogin?role="+role);
+        if(action.equals("stopSubscription"))modelMap.addAttribute("actionUrl","#");
         return "error.jsp";
     }
 
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
+    public String getCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@ModelAttribute("customerId")@RequestParam Long customerId,@ModelAttribute("itemId")@RequestParam Long itemId) {
         try {
-            subscriptionService.addSubscription(subscriptionDTO, customerId,itemId);
+
+            subscriptionService.addSubscription(subscriptionDTO,customerId,itemId);
             return "redirect:" + "userProfile?userId=" + userId;
         }catch (Exception e){
-
-            modelMap.addAttribute("message",e.toString());
+            modelMap.addAttribute("message",e.getMessage());
+            modelMap.addAttribute("action","stopSubscription");
             return  "redirect:" + "error" ;
         }
     }
@@ -194,7 +203,7 @@ public class HomeController {
     @RequestMapping(value = "getPayment",method = RequestMethod.GET)
     public String getPayment(ModelMap modelMap,@RequestParam Long customerId){
        modelMap.addAttribute("customer",customerId);
-        return "payment.jsp";
+       return "payment.jsp";
     }
 
     @RequestMapping(value = "addPayment",method = RequestMethod.POST)

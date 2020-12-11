@@ -54,8 +54,7 @@
         			<a href="${pageContext.request.contextPath}/getBill?customerId=${customer.id}" class="ancher">Genrate Bill</a>
         			<a href="${pageContext.request.contextPath}/getAllPayments?customerId=${customer.id}" class="ancher">Payment HISTORY</a>
         			</div>
-
-        		</div>
+            </div>
 		</c:forEach>
 		</div>
       </div>

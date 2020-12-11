@@ -56,7 +56,7 @@
 
 		<p>please try again </p>
 
-		<a href="${pageContext.request.contextPath}/getlogin?role=${role}"class="link_404">Try Again</a>
+		<a href="${pageContext.request.contextPath}/${actionUrl}"class="link_404">${action}</a>
 
 	</div>
 		</div>
