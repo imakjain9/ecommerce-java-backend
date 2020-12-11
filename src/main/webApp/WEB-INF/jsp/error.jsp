@@ -1,3 +1,6 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType = "text/html; charset = UTF-8" %>
 <!DOCTYPE HTML>
 <html>
 <head><title></title>
@@ -48,12 +51,13 @@
 
 		<div class="contant_box_404">
 		<h3 class="h2">
-		Look like you're email/password is wrong
+		${message}
 		</h3>
 
-		<p>please ensure correct email and password</p>
+		<p>please try again </p>
 
 		<a href="${pageContext.request.contextPath}/getlogin?role=${role}"class="link_404">Try Again</a>
+
 	</div>
 		</div>
 		</div>

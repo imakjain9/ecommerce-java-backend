@@ -42,7 +42,7 @@
                   </div>
         		  <div class="dropdown-content">
         			<div class="item-dropdown">
-        			<a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}" class="ancher droplink">Add Subscription</a>
+        			<a href="#" class="ancher droplink">Add Subscription</a>
         				<div class="item-dropdown-content" style="margin-left:180px;margin-top:-43px;">
         				<c:forEach var="item" items="${itemList}">
         					<a href="${pageContext.request.contextPath}/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}&itemId=${item.id}">${item.name}</a>

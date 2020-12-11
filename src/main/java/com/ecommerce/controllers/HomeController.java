@@ -58,8 +58,8 @@ public class HomeController {
                modelMap.addAttribute("itemList", itemService.getItems());
                return "redirect:" + "adminProfile";
            }else{
-               modelMap.addAttribute("role",role);
-               return "error.jsp";
+               modelMap.addAttribute("message","Look like you're email or password is wrong");
+               return "redirect:" + "error";
            }
         }
         else {
@@ -68,8 +68,8 @@ public class HomeController {
                 Long id = sellerService.sellerIdByEmail(loginDTO);
                 return "redirect:" + "userProfile?userId=" + id;
             } else {
-                modelMap.addAttribute("role",role);
-                return "error.jsp";
+                modelMap.addAttribute("message","Look like you're email or password is wrong");
+                return "redirect:" + "error";
             }
         }
     }
@@ -119,8 +119,8 @@ public class HomeController {
     }
     @RequestMapping(value = "items/new", method = RequestMethod.GET)
     public String addItem(ModelMap modelMap) {
-
-        return "addItem.jsp"; }
+        return "addItem.jsp";
+    }
 
     @RequestMapping(value = "items", method = RequestMethod.POST)
     public String itemSubmit(@ModelAttribute("itemAddDTO") ItemAddDTO itemAddDTO) {
@@ -148,22 +148,34 @@ public class HomeController {
 
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId) {
+    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
       /*  if(sellerService.getUserTargetMilkQuantity(userId).isEmpty()){
             modelMap.addAttribute("user", userId);
             modelMap.addAttribute("itemList", itemService.getItems());
             return "SellerTarget.jsp";
         } */
        modelMap.addAttribute("customerId",customerId);
-        modelMap.addAttribute("itemList",itemService.getItems());
+        modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
         modelMap.addAttribute("userId",userId);
         return "itemSubscription.jsp";
     }
 
+    @RequestMapping(value = "error",method = RequestMethod.GET )
+    public String error(ModelMap modelMap,@RequestParam String message){
+           modelMap.addAttribute("message",message);
+        return "error.jsp";
+    }
+
     @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription( @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@RequestParam Long customerId) {
-        subscriptionService.addSubscription(subscriptionDTO,customerId);
-        return "redirect:" + "userProfile?userId="+userId;
+    public String getCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
+        try {
+            subscriptionService.addSubscription(subscriptionDTO, customerId,itemId);
+            return "redirect:" + "userProfile?userId=" + userId;
+        }catch (Exception e){
+
+            modelMap.addAttribute("message",e.toString());
+            return  "redirect:" + "error" ;
+        }
     }
 
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)

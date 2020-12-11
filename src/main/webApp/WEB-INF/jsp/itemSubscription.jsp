@@ -102,32 +102,34 @@ select{
 			font-weight:bold;
 
 		}
-
+		input[type=checkbox]:checked {
+          height: 50px;
+          width: 50px;
+        }
+        input[type=checkbox]:checked .image_block{
+            border:3px solid red;
+        }
 	</style>
 	<script>
     
     function selected() {
-        document.getElementsByClassName("image_block").style.border="3px solid red";
+        document.getElementById("image_block").style.border="3px solid red";
     }
 </script>
 </head>
 <body>
 	<div class="form-style">
 <div class="form-style-heading">
-Items</div>
-<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}&customerId=${customerId}" method="post">
+Add Subsscription for ${item.name} </div>
+<form action="${pageContext.request.contextPath}/submitCustomerSubscription?userId=${userId}&customerId=${customerId}&itemId=${itemId}" method="post">
 	<div  id="select-field">
 
 	</div>
-	<c:forEach var="item" items="${itemList}">
+
 	<div class="image_block" id="image_block">
 		<div class="image_block_inner">
-
-			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="item_id" value=${item.id} onclick="selected()"/></div>
-
-			<div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="itemId" value=${item.id} onclick="selected()"/></div>
-
-			<a class="image" href=""><img src="${item.url}" /></a>
+            <div class="checkbox_class" id="checkbox_class"><input type="checkbox" name="itemId"  /></div>
+                <a class="image" href=""><img src="${item.url}" /></a>
 		 </div>
 		 <div class="date">
 		    <div >${item.name}</div>
@@ -138,7 +140,7 @@ Items</div>
             <input type="number" id="quantity" name="quantity" min="0.25" max="3" step="0.25">
         </div>
 	</div>
-	 </c:forEach>
+
 	<br>
 	<label><span> </span><input type="submit" value="Subscribe" /></label>
 </form>

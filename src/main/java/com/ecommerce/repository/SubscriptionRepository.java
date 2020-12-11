@@ -2,8 +2,11 @@ package com.ecommerce.repository;
 
 import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Subscription;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class SubscriptionRepository {
 
@@ -26,6 +29,19 @@ public class SubscriptionRepository {
         Subscription subscription=session.get(Subscription.class,id);
         session.close();
         return subscription;
+    }
+
+
+    public List<Subscription> getSubscriptionByCustomerAndItem(Long customerId,Long itemId){
+        Session session = sessionFactory.openSession();
+        String sql = "SELECT * FROM Subscription WHERE customer_id=:customerId and itemId=:itemId";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Subscription.class);
+        query.setParameter("customerId",customerId );
+        query.setParameter("itemId",itemId );
+        List<Subscription> subscriptions =query.list();
+        session.close();
+        return subscriptions;
     }
 
 }

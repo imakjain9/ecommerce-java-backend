@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SubscriptionService {
@@ -25,9 +26,12 @@ public class SubscriptionService {
     CustomerRepository customerRepository;
 
 
-    public void addSubscription(SubscriptionDTO subscriptionDTO ,Long customerId){
+    public void addSubscription(SubscriptionDTO subscriptionDTO ,Long customerId,Long itemId)throws  Exception{
+        List<Subscription> sub= subscriptionRepository.getSubscriptionByCustomerAndItem(customerId,itemId);
+        if(!sub.isEmpty())
+            throw new Exception("Subscription Already Exists");
         Subscription subscription=new Subscription();
-        Item item=itemRepository.item(subscriptionDTO.getItemId());
+        Item item=itemRepository.item(itemId);
         Customer customer=customerRepository.getCustomerById(customerId);
         subscription.setItemId(item);
         subscription.setQuantity(subscriptionDTO.getQuantity());
