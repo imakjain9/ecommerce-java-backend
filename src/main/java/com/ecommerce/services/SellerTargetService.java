@@ -26,6 +26,7 @@ public class SellerTargetService {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
     private CustomerRepository customerRepository;
 
         public  void addUserProfessionalDetails(SellerTargetDTO sellerTargetDTO,Long user,Long itemId){
