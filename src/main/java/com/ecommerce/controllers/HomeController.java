@@ -105,7 +105,6 @@ public class HomeController {
     }
     @RequestMapping(value = "addCustomerForm", method = RequestMethod.GET)
     public String addCustomerForm(ModelMap modelMap,@RequestParam Long userId) {
-
         modelMap.addAttribute("userList", sellerService.getUsers());
         return "addCustomerForm.jsp";
     }
@@ -135,7 +134,7 @@ public class HomeController {
     @RequestMapping(value="itemdelete",method=RequestMethod.GET)
     public String deleteItem(ModelMap modelMap,@RequestParam String itemId){
         modelMap.addAttribute("item",itemService.getItem(itemId));
-             itemService.deleteItem(itemId);
+        itemService.deleteItem(itemId);
         return "redirect:" + "adminProfile";
     }
     @RequestMapping(value = "itemedit", method = RequestMethod.GET)

@@ -32,11 +32,11 @@ public class SellerTargetRepository {
          query.addEntity(SellerTarget.class);
          query.setParameter("itemId", itemId);
          query.setParameter("sellerId", userId);
-         SellerTarget sellerTarget = (SellerTarget) query.list().get(0);
+         List<SellerTarget> sellerTarget =  query.list();
          session.close();
-         if(sellerTarget == null)
+         if(sellerTarget.isEmpty())
              return 0.00;
-         return  sellerTarget.getTargetQuantity();
+         return  sellerTarget.get(0).getTargetQuantity();
 
  }
     public SellerTarget getSellerTarget(Long userId,Long itemId){

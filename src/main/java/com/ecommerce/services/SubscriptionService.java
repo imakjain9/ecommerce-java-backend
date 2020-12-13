@@ -34,7 +34,6 @@ public class SubscriptionService {
         if(!sub.isEmpty())
             throw new Exception("Subscription Already Exists");
         Subscription subscription=new Subscription();
-
         Item item=itemRepository.item(itemId);
         Customer customer=customerRepository.getCustomerById(customerId);
         Double sellerTargetItemQunatity=sellerTargetRepository.sellerTargetItemQunatity(customer.getRegistered_seller().getId(),itemId);

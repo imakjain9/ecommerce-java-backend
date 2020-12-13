@@ -26,9 +26,10 @@ public class SellerTargetService {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
     private CustomerRepository customerRepository;
 
-        public  void addUserProfessionalDetails(SellerTargetDTO sellerTargetDTO,Long user,Long itemId){
+    public  void addUserProfessionalDetails(SellerTargetDTO sellerTargetDTO,Long user,Long itemId){
             Item item=itemRepository.item(itemId);
             Seller seller=sellerRepository.getUser(user);
         SellerTarget sellerTarget =new SellerTarget();
