@@ -69,13 +69,9 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 
 <body><div class="login">
 	<h1>Raj</h1><h2> please fill your Targets</h2>
-    <form action="${pageContext.request.contextPath}/sellerTargetSubmit?user=${user}", method="post">
-            <select>
-             <c:forEach var="item" items="${itemList}">
-                <option name="itemId" value=${item.id}> ${item.name} </option>
-                 </c:forEach>
-             </select>
-    	<input type="number" name="targetQuantity" placeholder="0" required="required" />
+    <form action="${pageContext.request.contextPath}/sellerTargetSubmit?user=${user}&itemId=${itemId}", method="post">
+
+    	<input type="number" name="targetQuantity" placeholder="0.00" min="1.00" max="50.00" step="1.00" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Save</button>
     </form>
 </div>

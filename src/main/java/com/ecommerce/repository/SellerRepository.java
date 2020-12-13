@@ -55,13 +55,6 @@ public class SellerRepository {
         return  seller.getCustomers();
     }
 
-    public Set<SellerTarget> getUserProfessionalDetails(Long userId){
-        Session session = sessionFactory.openSession();
-        Seller seller =session.get(Seller.class, userId);
-        session.close();
-        return seller.getSellerTarget();
-
-    }
     public Boolean sellerAuthantication(String sellerEmail,String sellerPassword){
         Session session = sessionFactory.openSession();
         String sql = "SELECT * FROM Seller WHERE email = :sellerEmail";

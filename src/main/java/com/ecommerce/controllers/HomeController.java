@@ -117,8 +117,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "sellerTargetSubmit",method = RequestMethod.POST)
-    public String sellerTargetSubmit(@ModelAttribute("sellerTargetDTO")SellerTargetDTO sellerTargetDTO,@ModelAttribute("user") @RequestParam Long user ){
-        sellerTargetService.addUserProfessionalDetails(sellerTargetDTO,user);
+    public String sellerTargetSubmit(@ModelAttribute("sellerTargetDTO")SellerTargetDTO sellerTargetDTO,@RequestParam Long user,@RequestParam Long itemId ){
+        sellerTargetService.addUserProfessionalDetails(sellerTargetDTO,user,itemId);
         return  "redirect:" + "userProfile?userId="+user;
     }
     @RequestMapping(value = "items/new", method = RequestMethod.GET)
@@ -153,13 +153,11 @@ public class HomeController {
 
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
-      /*  if(sellerService.getUserTargetMilkQuantity(userId).isEmpty()){
-            modelMap.addAttribute("user", userId);
-            modelMap.addAttribute("itemList", itemService.getItems());
+        if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
+            modelMap.addAttribute("itemId",itemId);
             return "SellerTarget.jsp";
-        } */
-
-       modelMap.addAttribute("customerId",customerId);
+        }
+        modelMap.addAttribute("customerId",customerId);
         modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
         modelMap.addAttribute("userId",userId);
         return "itemSubscription.jsp";
