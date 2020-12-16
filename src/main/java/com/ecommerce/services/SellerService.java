@@ -50,6 +50,6 @@ public class SellerService {
         return sellerRepository.getUserCustomers(id);
     }
 
-
+    public Set<SellerTarget> getSellerTargetList(Long userId){return  sellerRepository.getSellerTargetList(userId);}
 
 }

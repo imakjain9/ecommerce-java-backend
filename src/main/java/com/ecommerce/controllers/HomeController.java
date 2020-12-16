@@ -91,6 +91,7 @@ public class HomeController {
         modelMap.addAttribute("user", sellerService.getUser(userId));
         modelMap.addAttribute("userList", sellerService.getUsers());
         modelMap.addAttribute("userCustomersList", sellerService.getUserCustomers(Long.parseLong(userId)));
+        modelMap.addAttribute("TargetList",sellerService.getSellerTargetList(Long.parseLong(userId)));
         return "userProfile.jsp";
     }
     @RequestMapping(value="adminProfile",method = RequestMethod.GET)
@@ -153,6 +154,8 @@ public class HomeController {
     @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
         if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
+            System.out.println(sellerTargetService.sellerTargetItemQunatity(customerId,itemId));
+            modelMap.addAttribute("user",userId);
             modelMap.addAttribute("itemId",itemId);
             return "SellerTarget.jsp";
         }

@@ -27,21 +27,21 @@ public class SellerTargetRepository {
 
  public Double sellerTargetItemQunatity(Long userId,Long itemId){
          Session session = sessionFactory.openSession();
-         String sql = "SELECT * FROM SellerTarget WHERE itemId = :itemId & sellerId = :sellerId";
+         String sql = "SELECT * FROM SellerTarget WHERE itemId = :itemId and sellerId = :sellerId";
          SQLQuery query = session.createSQLQuery(sql);
          query.addEntity(SellerTarget.class);
          query.setParameter("itemId", itemId);
          query.setParameter("sellerId", userId);
-         List<SellerTarget> sellerTarget =  query.list();
+         List<SellerTarget> sellerTargetList = query.list();
          session.close();
-         if(sellerTarget.isEmpty())
+         if(sellerTargetList.isEmpty()){
              return 0.00;
-         return  sellerTarget.get(0).getTargetQuantity();
-
- }
+         }
+         return  ((SellerTarget)sellerTargetList.get(0)).getTargetQuantity();
+    }
     public SellerTarget getSellerTarget(Long userId,Long itemId){
         Session session = sessionFactory.openSession();
-        String sql = "SELECT * FROM SellerTarget WHERE itemId = :itemId & sellerId = :sellerId";
+        String sql = "SELECT * FROM SellerTarget WHERE itemId = :itemId and sellerId = :sellerId";
         SQLQuery query = session.createSQLQuery(sql);
         query.addEntity(SellerTarget.class);
         query.setParameter("itemId", itemId);

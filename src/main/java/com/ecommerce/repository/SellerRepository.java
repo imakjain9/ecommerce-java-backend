@@ -81,4 +81,11 @@ public class SellerRepository {
         return  seller.getId();
     }
 
+   public Set<SellerTarget> getSellerTargetList(Long id){
+       Session session = sessionFactory.openSession();
+       Seller seller =session.get(Seller.class, id);
+       session.close();
+      return seller.getSellerTarget();
+   }
+
 }
