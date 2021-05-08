@@ -44,4 +44,12 @@ public class SubscriptionRepository {
         return subscriptions;
     }
 
+    public void removeSubscription(Subscription subscription){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        subscription.setActive(false);
+        session.update(subscription);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

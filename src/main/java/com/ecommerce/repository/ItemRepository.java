@@ -23,6 +23,7 @@ public class ItemRepository {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        //session.saveOrUpdate(item);
         session.save(item);
         session.getTransaction().commit();
         session.close();

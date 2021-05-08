@@ -48,7 +48,7 @@ public class HomeController {
         modelMap.addAttribute("role",role);
         return "LoginForm.jsp";
     }
-
+    //this method is for login from user
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public String login(ModelMap modelMap,@ModelAttribute("loginDTO") LoginDTO loginDTO,@RequestParam String role){
         if(role.equals("admin")){
@@ -89,7 +89,6 @@ public class HomeController {
     public String userProfile(ModelMap modelMap, @RequestParam String userId){
         modelMap.addAttribute("itemList",itemService.getItems());
         modelMap.addAttribute("user", sellerService.getUser(userId));
-        modelMap.addAttribute("userList", sellerService.getUsers());
         modelMap.addAttribute("userCustomersList", sellerService.getUserCustomers(Long.parseLong(userId)));
         modelMap.addAttribute("TargetList",sellerService.getSellerTargetList(Long.parseLong(userId)));
         return "userProfile.jsp";
@@ -151,41 +150,8 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value ="addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId) {
-        if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
-            System.out.println(sellerTargetService.sellerTargetItemQunatity(customerId,itemId));
-            modelMap.addAttribute("user",userId);
-            modelMap.addAttribute("itemId",itemId);
-            return "SellerTarget.jsp";
-        }
-        modelMap.addAttribute("customerId",customerId);
-        modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
-        modelMap.addAttribute("userId",userId);
-        return "itemSubscription.jsp";
-    }
 
-    @RequestMapping(value = "error",method = RequestMethod.GET )
-    public String error(ModelMap modelMap,@RequestParam String message,@RequestParam String action,@RequestParam(required = false)String role){
-           modelMap.addAttribute("message",message);
-        modelMap.addAttribute("action",action);
-        if(action.equals("Login")) modelMap.addAttribute("actionUrl","getlogin?role="+role);
-        if(action.equals("stopSubscription"))modelMap.addAttribute("actionUrl","#");
-        return "error.jsp";
-    }
 
-    @RequestMapping(value = "submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO")SubscriptionDTO subscriptionDTO,@RequestParam Long userId,@ModelAttribute("customerId")@RequestParam Long customerId,@ModelAttribute("itemId")@RequestParam Long itemId) {
-        try {
-
-            subscriptionService.addSubscription(subscriptionDTO,customerId,itemId);
-            return "redirect:" + "userProfile?userId=" + userId;
-        }catch (Exception e){
-            modelMap.addAttribute("message",e.getMessage());
-            modelMap.addAttribute("action","stopSubscription");
-            return  "redirect:" + "error" ;
-        }
-    }
 
     @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
     public String getAnomailes(ModelMap modelMap,@RequestParam Long customerId) {
@@ -193,7 +159,14 @@ public class HomeController {
     modelMap.addAttribute("customerId",customerId);
         return "dailyAnomilies.jsp";
     }
-
+    @RequestMapping(value = "error",method = RequestMethod.GET )
+    public String error(ModelMap modelMap,@RequestParam String message,@RequestParam String action,@RequestParam(required = false)String role){
+        modelMap.addAttribute("message",message);
+        modelMap.addAttribute("action",action);
+        if(action.equals("Login")) modelMap.addAttribute("actionUrl","getlogin?role="+role);
+        if(action.equals("stopSubscription"))modelMap.addAttribute("actionUrl","#");
+        return "error.jsp";
+    }
     @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
     public String addAnomalies(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO,@ModelAttribute("customerId")@RequestParam Long customerId)throws Exception{
       Long userId=  anomaliesService.register(anomaliesDTO,customerId);

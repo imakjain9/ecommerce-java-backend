@@ -30,8 +30,8 @@ public class SubscriptionService {
     @Autowired
     SellerTargetRepository sellerTargetRepository;
     public void addSubscription(SubscriptionDTO subscriptionDTO ,Long customerId,Long itemId)throws  Exception{
-        List<Subscription> sub= subscriptionRepository.getSubscriptionByCustomerAndItem(customerId,itemId);
-        if(!sub.isEmpty())
+       List<Subscription> subList= subscriptionRepository.getSubscriptionByCustomerAndItem(customerId,itemId);
+        if(subList!=null && !subList.isEmpty())
             throw new Exception("Subscription Already Exists");
         Subscription subscription=new Subscription();
         Item item=itemRepository.item(itemId);
@@ -57,6 +57,9 @@ public class SubscriptionService {
 
     public Subscription getSubscriptionById(Long id){ return  subscriptionRepository.getSubscriptionById(id);}
 
-
+    public void removeCustomerSubscription(Long itemId,Long customerId){
+        Subscription subscription=subscriptionRepository.getSubscriptionByCustomerAndItem(customerId,itemId).get(0);
+        subscriptionRepository.removeSubscription(subscription);
+    }
 
 }
