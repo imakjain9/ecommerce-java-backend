@@ -2,6 +2,7 @@ package com.ecommerce.controllers;
 
 import com.ecommerce.dto.SubscriptionDTO;
 import com.ecommerce.services.ItemService;
+import com.ecommerce.services.SellerTargetService;
 import com.ecommerce.services.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,19 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    @Autowired
+    private SellerTargetService sellerTargetService;
+
+
     @RequestMapping(value ="/addCustomerSubscription", method = RequestMethod.GET)
     public String addCustomerSubscription(ModelMap modelMap, @RequestParam Long userId, @RequestParam Long customerId, @RequestParam Long itemId) {
-       /* if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
+        if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
             System.out.println(sellerTargetService.sellerTargetItemQunatity(customerId,itemId));
             modelMap.addAttribute("user",userId);
             modelMap.addAttribute("itemId",itemId);
             return "SellerTarget.jsp";
-        } */
+        }
+
         modelMap.addAttribute("customerId",customerId);
         modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
         modelMap.addAttribute("userId",userId);

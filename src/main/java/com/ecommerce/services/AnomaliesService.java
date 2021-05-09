@@ -6,6 +6,7 @@ import com.ecommerce.entity.Subscription;
 import com.ecommerce.repository.AnomaliesRepository;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.SubscriptionRepository;
+import com.ecommerce.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class AnomaliesService {
         Long userId=customerRepository.getCustomerRegisteredUserId(id);
         anomalies.setSubscription_id(subscription);
         anomalies.setQuantity(anomaliesDTO.getQuantity());
-        DateFormat format = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
-        Date date = format.parse(anomaliesDTO.getDate());
-        anomalies.setDate(date);
+        Date date = DateUtil.stringToDate(anomaliesDTO.getDate());
+        if(subscription.getActive())
+            anomalies.setDate(date);
         anomaliesRepository.addAnomalies(anomalies);
         return userId;
     }

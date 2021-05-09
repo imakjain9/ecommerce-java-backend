@@ -96,20 +96,27 @@ body {
 #container button:hover{transform: translatey(2px);}
 #container button:active{transform: translatey(5px);}
 	</style>
+	<script>
+	    $(document).ready( function() {
+            $('#datePicker').val(new Date().toDateInputValue());
+        });​
+	</script>
 </head>
 <body>
 	<div id="container"><h2>FOR</h2>
-    	<form action="${pageContext.request.contextPath}/addAnomalies?customerId=${customerId}" method="post">
+    	<form action="${pageContext.request.contextPath}/anomaly/addAnomalies?customerId=${customerId}" method="post">
       <select id="subscriptionName" placeholder="something" name="subscription_id">
         <c:forEach var="subscription" items="${customerSubscriptionList}">
     	<option class="subscriptionOption" name="subscription_id" value=${subscription.id}> ${subscription.subscriptionName} </option>
          </c:forEach>
     	</select>
-    	<p>fill <input type="date" name="date" /> anomalies</p>
+
+    	<p>fill <input id="datePicker" type="date" name="date" /> anomalies</p>
     	<input type="number" id="quantity" name="quantity" min="0.25" max="3" step="0.25" placeholder="0.00" required>
     			<br>
     		<button type="submit">SAVE</button>
     	</form>
     </div>
+
 </body>
 </html>

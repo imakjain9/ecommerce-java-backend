@@ -52,4 +52,15 @@ public class SubscriptionRepository {
         session.getTransaction().commit();
         session.close();
     }
+    public List<Subscription> getSubscriptionByCustomer(Long customerId){
+        Session session = sessionFactory.openSession();
+        String sql = "SELECT * FROM Subscription WHERE customer_id=:customerId";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Subscription.class);
+        query.setParameter("customerId",customerId );
+        List<Subscription> subscriptions =query.list();
+        session.close();
+        return subscriptions;
+    }
+
 }

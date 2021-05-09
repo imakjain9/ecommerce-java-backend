@@ -74,4 +74,7 @@ http://www.springframework.org/schema/mvc
     <bean id="adminRepository" class="com.ecommerce.repository.AdminRepository">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    <bean id="billRepository" class="com.ecommerce.repository.BillRepo">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

@@ -27,6 +27,9 @@ public class Subscription {
     @OneToMany(mappedBy = "subscription_id",fetch = FetchType.EAGER)
     private Set<Anomalies> anomalies;
 
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    private Date paidUpto;
+
      private Double price;
     private Double quantity;
 
@@ -99,5 +102,13 @@ public class Subscription {
 
     public void setAnomalies(Set<Anomalies> anomalies) {
         this.anomalies = anomalies;
+    }
+
+    public Date getPaidUpto() {
+        return paidUpto;
+    }
+
+    public void setPaidUpto(Date paidUpto) {
+        this.paidUpto = paidUpto;
     }
 }

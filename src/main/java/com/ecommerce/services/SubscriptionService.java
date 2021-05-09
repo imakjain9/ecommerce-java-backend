@@ -48,6 +48,7 @@ public class SubscriptionService {
         subscription.setCustomer_id(customer);
         subscription.setActive(true);
         subscription.setStartDate(new Date());
+        subscription.setPaidUpto(subscription.getStartDate());
         String subscriptionName= customer.getCustomer_name()+"_"+item.getName()+"_"+subscriptionDTO.getQuantity()+"_"+item.getPrice();
         subscription.setSubscriptionName(subscriptionName);
         subscription.setPrice(item.getPrice());
@@ -60,6 +61,10 @@ public class SubscriptionService {
     public void removeCustomerSubscription(Long itemId,Long customerId){
         Subscription subscription=subscriptionRepository.getSubscriptionByCustomerAndItem(customerId,itemId).get(0);
         subscriptionRepository.removeSubscription(subscription);
+    }
+
+    public List<Subscription> getSubscriptionByCustomerId(Long customerId){
+       return subscriptionRepository.getSubscriptionByCustomer(customerId);
     }
 
 }

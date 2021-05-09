@@ -38,7 +38,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
-        modelMap.addAttribute("title", "Daily-Hisabh");
+        modelMap.addAttribute("title", "Saare Subscription");
         modelMap.addAttribute("userList", sellerService.getUsers());
 
         return "home.jsp";
@@ -150,15 +150,6 @@ public class HomeController {
     }
 
 
-
-
-
-    @RequestMapping(value = "getAnomalies",method = RequestMethod.GET)
-    public String getAnomailes(ModelMap modelMap,@RequestParam Long customerId) {
-    modelMap.addAttribute("customerSubscriptionList",customerService.getCustomerSubscriptions(customerId));
-    modelMap.addAttribute("customerId",customerId);
-        return "dailyAnomilies.jsp";
-    }
     @RequestMapping(value = "error",method = RequestMethod.GET )
     public String error(ModelMap modelMap,@RequestParam String message,@RequestParam String action,@RequestParam(required = false)String role){
         modelMap.addAttribute("message",message);
@@ -167,11 +158,7 @@ public class HomeController {
         if(action.equals("stopSubscription"))modelMap.addAttribute("actionUrl","#");
         return "error.jsp";
     }
-    @RequestMapping(value = "addAnomalies",method = RequestMethod.POST)
-    public String addAnomalies(@ModelAttribute("anomaliesDTO")AnomaliesDTO anomaliesDTO,@ModelAttribute("customerId")@RequestParam Long customerId)throws Exception{
-      Long userId=  anomaliesService.register(anomaliesDTO,customerId);
-        return "redirect:" + "userProfile?userId="+userId;
-    }
+
 
     @RequestMapping(value = "getPayment",method = RequestMethod.GET)
     public String getPayment(ModelMap modelMap,@RequestParam Long customerId){
