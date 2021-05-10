@@ -160,16 +160,5 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = "getPayment",method = RequestMethod.GET)
-    public String getPayment(ModelMap modelMap,@RequestParam Long customerId){
-       modelMap.addAttribute("customer",customerId);
-       return "payment.jsp";
-    }
 
-    @RequestMapping(value = "addPayment",method = RequestMethod.POST)
-    public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO,@ModelAttribute("customer")@RequestParam Long customer){
-
-        paymentService.register(paymentDTO,customer);
-        return "redirect:" + "customerProfile?customerId="+customer;
-    }
 }

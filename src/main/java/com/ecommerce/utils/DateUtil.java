@@ -17,4 +17,15 @@ public class DateUtil {
         }
         return  null;
     }
+
+    public static Date stringToYearlyDate(String date){
+        try {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            return format.parse(date);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return  null;
+    }
 }

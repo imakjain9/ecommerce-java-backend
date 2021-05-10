@@ -1,14 +1,17 @@
 package com.ecommerce.services;
 
+import com.ecommerce.dto.BillEntryDTO;
 import com.ecommerce.dto.PaymentDTO;
 import com.ecommerce.entity.Customer;
 import com.ecommerce.entity.Payment;
+import com.ecommerce.entity.Subscription;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -17,7 +20,13 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
     @Autowired
+    private  SubscriptionService subscriptionService;
+
+    @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    BillService billService;
 
     public void register(PaymentDTO paymentDTO,Long customerId){
         Payment payment=new Payment();
@@ -26,5 +35,17 @@ public class PaymentService {
         payment.setDate(new Date());
         payment.setCustomer(customer);
         paymentRepository.addPayment(payment);
+        calPaidUptoAndBalance(customerId,payment);
+    }
+
+    private void  calPaidUptoAndBalance(Long customerId,Payment payment){
+       List<Subscription> subscriptionList = subscriptionService.getSubscriptionByCustomerId(customerId);
+       double balance=0.0;
+        for(Subscription subscription: subscriptionList) {
+            BillEntryDTO billEntryDTO = billService.createBillEntryDTO(subscription);
+           if(billEntryDTO.getSubTotal()>payment.getAmount())
+               balance=billEntryDTO.getSubTotal()-payment.getAmount();
+
+        }
     }
 }

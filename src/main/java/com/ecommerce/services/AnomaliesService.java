@@ -33,7 +33,7 @@ public class AnomaliesService {
         Long userId=customerRepository.getCustomerRegisteredUserId(id);
         anomalies.setSubscription_id(subscription);
         anomalies.setQuantity(anomaliesDTO.getQuantity());
-        Date date = DateUtil.stringToDate(anomaliesDTO.getDate());
+        Date date = DateUtil.stringToYearlyDate(anomaliesDTO.getDate());
         if(subscription.getActive())
             anomalies.setDate(date);
         anomaliesRepository.addAnomalies(anomalies);

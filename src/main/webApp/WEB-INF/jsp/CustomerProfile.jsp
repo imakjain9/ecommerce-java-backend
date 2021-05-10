@@ -206,7 +206,7 @@ button:hover {
 					<p>11 Jan 2020</p>
         </div>                
   <div>
-     <button id="btn_change"><a href="${pageContext.request.contextPath}/getPayment?customerId=${customerId.id}">Payment</a></button>
+     <button id="btn_change"><a href="${pageContext.request.contextPath}/payment/get?customerId=${customerId.id}">Payment</a></button>
      <div class="profileFooter">
          <div class="contains-Txt">
              <i class="fab fa-facebook-f"></i>

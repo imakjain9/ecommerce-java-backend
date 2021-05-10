@@ -50,14 +50,14 @@ public class AnomalyController {
     @RequestMapping(value = "/addAnomalies",method = RequestMethod.POST)
     public String addAnomalies(ModelMap modelMap,@ModelAttribute("anomaliesDTO") AnomaliesDTO anomaliesDTO, @ModelAttribute("customerId")@RequestParam Long customerId)throws Exception{
         Subscription subscription=subscriptionRepository.getSubscriptionById(anomaliesDTO.getSubscription_id());
-        Date anomalyDate= DateUtil.stringToDate(anomaliesDTO.getDate());
+        Date anomalyDate= DateUtil.stringToYearlyDate(anomaliesDTO.getDate());
         Date subStartDate=subscription.getStartDate();
         Date currentDate= new Date();
-
         if(subscription.getActive() && anomalyDate.after(subStartDate) && anomalyDate.before(currentDate)) {
             Long userId = anomaliesService.register(anomaliesDTO, customerId);
-            return "redirect:" + "userProfile?userId=" + userId;
+            return "redirect:" + "/userProfile?userId=" + userId;
         }
+
         modelMap.addAttribute("message","Invalid Date");
         modelMap.addAttribute("action","getAnomalies");
         modelMap.addAttribute("customerId",customerId);
