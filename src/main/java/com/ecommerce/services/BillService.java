@@ -25,6 +25,9 @@ public class BillService {
     @Autowired
     SellerService sellerService;
 
+    @Autowired
+    PaymentService paymentService;
+
    private int price=0;
    private double amt=0;
     private double grandTotal=0.0;
@@ -32,16 +35,17 @@ public class BillService {
 
 
     public BillDTO gentrateBill(Long customerId){
+        BillEntryDTO billEntryDTO=null;
         List<Subscription> subList=subscriptionService.getSubscriptionByCustomerId(customerId);
         BillDTO billDTO=new BillDTO();
         List<BillEntryDTO> billEntryDTOList=new ArrayList<BillEntryDTO>();
         billDTO.setSellerName(sellerService.getUser((customerService.getRegisteredUser(customerId)).toString()).getFirstName()) ;
-        for(Subscription subscription: subList){
-            BillEntryDTO billEntryDTO=createBillEntryDTO(subscription);
-            grandTotal=grandTotal+billEntryDTO.getSubTotal();
+        for(Subscription subscription: subList) {
+            billEntryDTO = createBillEntryDTO(subscription);
+            grandTotal = grandTotal + billEntryDTO.getSubTotal();
             billEntryDTOList.add(billEntryDTO);
         }
-        billDTO.setGrandTotal(grandTotal);
+        billDTO.setGrandTotal(grandTotal-paymentService.getBalanceByCustomerId(customerId));
         billDTO.setBillEntryDTOList(billEntryDTOList);
         billDTO.setCustomerName(customerService.getCustomerById(customerId).getCustomer_name());
         return billDTO;

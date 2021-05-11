@@ -8,6 +8,7 @@ public class PaymentDTO {
     private Long customer;
     private Date date;
     private Double amount;
+    private double balance;
 
     public Long getCustomer() {
         return customer;
@@ -31,5 +32,13 @@ public class PaymentDTO {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

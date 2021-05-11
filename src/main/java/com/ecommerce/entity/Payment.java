@@ -17,6 +17,8 @@ public class Payment {
     private Date date;
     private Double amount;
 
+    private double balance;
+
     public Customer getCustomer() {
         return customer;
     }
@@ -48,4 +50,8 @@ public class Payment {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public double getBalance() { return balance; }
+
+    public void setBalance(double balance) { this.balance = balance; }
 }

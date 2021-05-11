@@ -34,18 +34,33 @@ public class PaymentService {
         payment.setAmount(paymentDTO.getAmount());
         payment.setDate(new Date());
         payment.setCustomer(customer);
+        payment.setBalance(calPaidUptoAndBalance(customerId,payment));
         paymentRepository.addPayment(payment);
-        calPaidUptoAndBalance(customerId,payment);
+      //  calPaidUptoAndBalance(customerId,payment);
     }
 
-    private void  calPaidUptoAndBalance(Long customerId,Payment payment){
+    private double  calPaidUptoAndBalance(Long customerId,Payment payment){
        List<Subscription> subscriptionList = subscriptionService.getSubscriptionByCustomerId(customerId);
        double balance=0.0;
+       double amt=0.0;
+        amt=payment.getAmount();
         for(Subscription subscription: subscriptionList) {
             BillEntryDTO billEntryDTO = billService.createBillEntryDTO(subscription);
-           if(billEntryDTO.getSubTotal()>payment.getAmount())
-               balance=billEntryDTO.getSubTotal()-payment.getAmount();
+            if(billEntryDTO.getSubTotal()<=amt) {
+                balance = amt-billEntryDTO.getSubTotal() ;
+                subscription.setPaidUpto(new Date());
+                amt=balance;
+            }
+            else {
+                balance = +amt;
 
+            }
         }
+        balance= -balance;
+        return balance;
+    }
+
+    public double getBalanceByCustomerId(Long customerId){
+        return  paymentRepository.getBalanceAmountByCustomerId(customerRepository.getCustomerById(customerId));
     }
 }

@@ -1,8 +1,5 @@
 package com.ecommerce.dto;
-
 import com.ecommerce.entity.Anomalies;
-
-import java.util.List;
 import java.util.Set;
 
 public class BillEntryDTO {
