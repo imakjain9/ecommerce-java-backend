@@ -45,7 +45,10 @@ public class PaymentRepository {
 
         Query query = session.createQuery("SELECT pay.balance FROM Payment pay WHERE pay.customer=:customer");
         query.setParameter("customer", customer);
-        query.getFirstResult();
+       double res;
+        res = (double) query.getFirstResult();
+        session.close();
+        return res;
     }
 
 
