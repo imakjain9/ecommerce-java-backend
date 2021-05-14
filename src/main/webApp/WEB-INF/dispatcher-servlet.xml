@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <context:component-scan base-package="com.ecommerce.*"/>
+
+
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+
+    </bean>
+
+    <mvc:resources mapping="/resource/**" location="/resource/" />
+
+    <mvc:annotation-driven />
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/ecommerce"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Sweety@1999"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.ecommerce.entity.Seller</value>
+                <value>com.ecommerce.entity.Customer</value>
+                <value>com.ecommerce.entity.Item</value>
+                <value>com.ecommerce.entity.Subscription</value>
+                <value>com.ecommerce.entity.Anomalies</value>
+                <value>com.ecommerce.entity.Payment</value>
+                <value>com.ecommerce.entity.SellerTarget</value>
+                <value>com.ecommerce.entity.User</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="sellerRepository" class="com.ecommerce.repository.SellerRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="customerRepository" class="com.ecommerce.repository.CustomerRepository">
+    <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="itemRepository" class="com.ecommerce.repository.ItemRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="subscriptionRepository" class="com.ecommerce.repository.SubscriptionRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="anomaliesRepository" class="com.ecommerce.repository.AnomaliesRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="paymentRepository" class="com.ecommerce.repository.PaymentRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="sellerTargetRepository" class="com.ecommerce.repository.SellerTargetRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="adminRepository" class="com.ecommerce.repository.AdminRepository">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="billRepository" class="com.ecommerce.repository.BillRepo">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+</beans>
