@@ -37,8 +37,6 @@ public class PaymentRepository {
 
         return payment.getBalance();
     }
-
-
 */
     public double getBalanceAmountByCustomerId(Customer customer){
         Session session=sessionFactory.openSession();

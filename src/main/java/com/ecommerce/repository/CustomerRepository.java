@@ -8,6 +8,7 @@ import com.ecommerce.entity.Seller;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Set;
 
@@ -53,5 +54,15 @@ public class CustomerRepository {
        session.close();
         Seller seller = customer.getRegistered_seller();
         return seller.getId();
+    }
+
+    public Long getIdByCustomerName(String customerName){
+        Session session=sessionFactory.openSession();
+        Query query = session.createQuery("SELECT id FROM Customer WHERE customer_name =:customer_name");
+        query.setParameter("customer_name", customerName);
+        Long res;
+        res = (long) query.getFirstResult();
+        session.close();
+        return res;
     }
 }

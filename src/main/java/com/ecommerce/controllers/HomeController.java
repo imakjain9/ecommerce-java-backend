@@ -38,7 +38,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
-        modelMap.addAttribute("title", "Saare Subscription");
+        modelMap.addAttribute("title", "F");
         modelMap.addAttribute("userList", sellerService.getUsers());
 
         return "home.jsp";

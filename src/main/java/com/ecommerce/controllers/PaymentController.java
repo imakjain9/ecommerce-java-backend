@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
@@ -20,13 +22,14 @@ public class PaymentController {
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     public String getPayment(ModelMap modelMap, @RequestParam Long customerId){
         modelMap.addAttribute("customer",customerId);
+        modelMap.addAttribute("date",new Date());
         return "payment.jsp";
     }
 
-    @RequestMapping(value = "/addPayment",method = RequestMethod.POST)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String addPayment(@ModelAttribute("paymentDTO") PaymentDTO paymentDTO, @ModelAttribute("customer")@RequestParam Long customer){
 
         paymentService.register(paymentDTO,customer);
-        return "redirect:" + "customerProfile?customerId="+customer;
+        return "redirect:" + "/customerProfile?customerId="+customer;
     }
 }

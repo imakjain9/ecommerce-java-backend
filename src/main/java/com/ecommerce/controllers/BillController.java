@@ -23,6 +23,8 @@ public class BillController {
     public String getBill(ModelMap modelMap, @RequestParam Long customerId){
         BillDTO billDTO=billService.gentrateBill( customerId);
         modelMap.addAttribute("billDto",billDTO);
+        modelMap.addAttribute("outstandingBalance",billService.getOutstandingBalance(billDTO));
+        modelMap.addAttribute("customerPay",billService.customerNeedToPay(billDTO));
         return "bill.jsp";
     }
 

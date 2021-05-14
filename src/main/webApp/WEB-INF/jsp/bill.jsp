@@ -293,11 +293,11 @@ button:hover {
                 </tr>
                 <tr>
                   <td><span style="display:inline-block;margin-right:10px;"><strong>Due:</strong></span></td>
-                  <td><span id="InvoiceSumExVat">900</span> <span id="InvoiceCurrency2">KR</span></td>
+                  <td><span id="InvoiceSumExVat">${outstandingBalance}</span> <span id="InvoiceCurrency2">RS.</span></td>
                 </tr>
                 <tr>
                   <td><span style="display:inline-block;margin-right:10px;"><strong>you need to pay :</strong></span></td>
-                  <td><span id="ProductCost">1102</span> <span id="InvoiceCurrency3">KR</span></td>
+                  <td><span id="ProductCost">${customerPay}</span> <span id="InvoiceCurrency3">Rs.</span></td>
                 </tr>
               </table>
             </div>

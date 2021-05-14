@@ -28,14 +28,14 @@ public class BillService {
     @Autowired
     PaymentService paymentService;
 
-   private int price=0;
-   private double amt=0;
-    private double grandTotal=0.0;
+
+
     private double qtySub=0.0;
 
-
+   private BillEntryDTO billEntryDTO;
     public BillDTO gentrateBill(Long customerId){
-        BillEntryDTO billEntryDTO=null;
+         billEntryDTO=null;
+         double grandTotal=0.0;
         List<Subscription> subList=subscriptionService.getSubscriptionByCustomerId(customerId);
         BillDTO billDTO=new BillDTO();
         List<BillEntryDTO> billEntryDTOList=new ArrayList<BillEntryDTO>();
@@ -48,16 +48,19 @@ public class BillService {
         billDTO.setGrandTotal(grandTotal-paymentService.getBalanceByCustomerId(customerId));
         billDTO.setBillEntryDTOList(billEntryDTOList);
         billDTO.setCustomerName(customerService.getCustomerById(customerId).getCustomer_name());
+
         return billDTO;
     }
 
     public BillEntryDTO createBillEntryDTO(Subscription subscription){
+        int price=0;
+        double amt=0;
         long diff = new Date().getTime() - subscription.getPaidUpto().getTime();
         int days= (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         System.out.println("days"+days);
         Set<Anomalies> anomaliesSet= subscription.getAnomalies();
         days=days-anomaliesSet.size();
-        qtySub=qtySub+days*subscription.getQuantity();
+        qtySub=days*subscription.getQuantity();
         BillEntryDTO billEntryDTO=new BillEntryDTO();
         amt= days*subscription.getPrice()*subscription.getQuantity();
         for(Anomalies anomalies: anomaliesSet){
@@ -72,6 +75,15 @@ public class BillService {
         return  billEntryDTO;
     }
 
+    public double getOutstandingBalance(BillDTO billDTO){
 
+       return paymentService.getBalanceByCustomerId(customerService.getCustomerIdByCustomerName(billDTO.getCustomerName()));
+    }
+
+    public  double customerNeedToPay(BillDTO billDTO){
+       double outStanding= getOutstandingBalance(billDTO);
+       double grandttl=billDTO.getGrandTotal();
+       return  grandttl-outStanding;
+    }
 
 }

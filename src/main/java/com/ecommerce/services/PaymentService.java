@@ -46,17 +46,17 @@ public class PaymentService {
         amt=payment.getAmount();
         for(Subscription subscription: subscriptionList) {
             BillEntryDTO billEntryDTO = billService.createBillEntryDTO(subscription);
-            if(billEntryDTO.getSubTotal()<=amt) {
-                balance = amt-billEntryDTO.getSubTotal() ;
-                subscription.setPaidUpto(new Date());
-                amt=balance;
+            if(billEntryDTO.getSubTotal()<=amt) {           //17670<=1000     36<=17670
+                balance = amt-billEntryDTO.getSubTotal() ;                     //balance=1000-36
+                subscription.setPaidUpto(new Date());                           //13-05-2021
+                amt=balance;                                                    //amt=964
             }
             else {
-                balance = +amt;
+                balance = +amt;             //balance=17670
 
             }
         }
-        balance= -balance;
+        balance= -balance;                                                      //balance=-964
         return balance;
     }
 

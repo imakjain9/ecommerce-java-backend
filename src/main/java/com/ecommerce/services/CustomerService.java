@@ -49,5 +49,7 @@ public class CustomerService {
         return customerRepository.getCustomerRegisteredUserId(id);
     }
 
-
+    public Long getCustomerIdByCustomerName(String customerName){
+        return customerRepository.getIdByCustomerName(customerName);
+    }
 }
