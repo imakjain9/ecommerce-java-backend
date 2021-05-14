@@ -7,10 +7,7 @@ import com.ecommerce.entity.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -45,45 +42,45 @@ public class BillService {
             grandTotal = grandTotal + billEntryDTO.getSubTotal();
             billEntryDTOList.add(billEntryDTO);
         }
-        billDTO.setGrandTotal(grandTotal-paymentService.getBalanceByCustomerId(customerId));
+        billDTO.setGrandTotal(grandTotal);
         billDTO.setBillEntryDTOList(billEntryDTOList);
         billDTO.setCustomerName(customerService.getCustomerById(customerId).getCustomer_name());
 
         return billDTO;
     }
 
-    public BillEntryDTO createBillEntryDTO(Subscription subscription){
-        int price=0;
-        double amt=0;
+    public BillEntryDTO createBillEntryDTO(Subscription subscription) {
+        int price = 0;
+        double amt = 0;
         long diff = new Date().getTime() - subscription.getPaidUpto().getTime();
-        int days= (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        System.out.println("days"+days);
-        Set<Anomalies> anomaliesSet= subscription.getAnomalies();
-        days=days-anomaliesSet.size();
-        qtySub=days*subscription.getQuantity();
-        BillEntryDTO billEntryDTO=new BillEntryDTO();
-        amt= days*subscription.getPrice()*subscription.getQuantity();
-        for(Anomalies anomalies: anomaliesSet){
-            price= (int) (price+anomalies.getQuantity()*subscription.getPrice());
-            qtySub=qtySub+anomalies.getQuantity();
+        int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        System.out.println("days" + days);
+        Set<Anomalies> anomaliesSet = subscription.getAnomalies();
+        days = days - anomaliesSet.size();
+        qtySub = days * subscription.getQuantity();
+        BillEntryDTO billEntryDTO = new BillEntryDTO();
+        amt = days * subscription.getPrice() * subscription.getQuantity();
+        Set<Anomalies> anomaliesAfterPaidUpto = new HashSet<Anomalies>();
+        for (Anomalies anomalies : anomaliesSet) {
+            if (anomalies.getDate().after(subscription.getPaidUpto())) {
+                price = (int) (price + anomalies.getQuantity() * subscription.getPrice());
+                System.out.println(price);
+                qtySub = qtySub + anomalies.getQuantity();
+                anomaliesAfterPaidUpto.add(anomalies);
+            }
+
         }
-        billEntryDTO.setAnomalies(subscription.getAnomalies());
+        billEntryDTO.setAnomalies(anomaliesAfterPaidUpto);
         billEntryDTO.setPrice(subscription.getPrice());
         billEntryDTO.setItemName(subscription.getItemId().getName());
-        billEntryDTO.setSubTotal(price+amt);
+        billEntryDTO.setSubTotal(price + amt - subscription.getBalance());
         billEntryDTO.setQuantity(qtySub);
-        return  billEntryDTO;
+        return billEntryDTO;
     }
 
-    public double getOutstandingBalance(BillDTO billDTO){
 
-       return paymentService.getBalanceByCustomerId(customerService.getCustomerIdByCustomerName(billDTO.getCustomerName()));
-    }
-
-    public  double customerNeedToPay(BillDTO billDTO){
-       double outStanding= getOutstandingBalance(billDTO);
-       double grandttl=billDTO.getGrandTotal();
-       return  grandttl-outStanding;
+    public double customerNeedToPay(BillDTO billDTO){
+      return billDTO.getGrandTotal();
     }
 
 }

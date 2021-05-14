@@ -37,6 +37,16 @@ public class Subscription {
     private Date startDate;
     private Boolean active;
 
+    private double balance;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public Long getId() {
         return id;
     }

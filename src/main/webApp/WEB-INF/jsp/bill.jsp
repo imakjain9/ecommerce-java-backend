@@ -261,7 +261,7 @@ button:hover {
                 <span id="AccountName">${billEntryDto.price}</span><br>
               </div>
               <div class="equalHW eq infoblock info-block">
-                <span id="">${billEntryDto.quantity}:</span> <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
+                <span id="">${billEntryDto.quantity}</span> <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
               </div>
             </div>
           </div>
@@ -290,10 +290,6 @@ button:hover {
                 <tr>
                   <td><span style="display:inline-block;margin-right:10px;"><strong>Grand Total:</strong></span></td>
                   <td><span id="InvoceTotalVat">${billDto.grandTotal}</span> <span id="InvoiceCurrency1">RS.</span><br></td>
-                </tr>
-                <tr>
-                  <td><span style="display:inline-block;margin-right:10px;"><strong>Due:</strong></span></td>
-                  <td><span id="InvoiceSumExVat">${outstandingBalance}</span> <span id="InvoiceCurrency2">RS.</span></td>
                 </tr>
                 <tr>
                   <td><span style="display:inline-block;margin-right:10px;"><strong>you need to pay :</strong></span></td>

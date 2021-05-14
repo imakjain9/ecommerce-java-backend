@@ -1,6 +1,8 @@
 package com.ecommerce.repository;
 
+import com.ecommerce.dto.ItemAddDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.Item;
 import com.ecommerce.entity.Subscription;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -61,6 +63,15 @@ public class SubscriptionRepository {
         List<Subscription> subscriptions =query.list();
         session.close();
         return subscriptions;
+    }
+
+    public Subscription updateSubscription(Subscription subscription){
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(subscription);
+        session.getTransaction().commit();
+        session.close();
+        return subscription;
     }
 
 }

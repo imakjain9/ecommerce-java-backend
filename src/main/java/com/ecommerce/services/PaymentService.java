@@ -7,10 +7,12 @@ import com.ecommerce.entity.Payment;
 import com.ecommerce.entity.Subscription;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.PaymentRepository;
+import com.ecommerce.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -26,6 +28,9 @@ public class PaymentService {
     private CustomerRepository customerRepository;
 
     @Autowired
+    private SubscriptionRepository subscriptionRepository;
+
+    @Autowired
     BillService billService;
 
     public void register(PaymentDTO paymentDTO,Long customerId){
@@ -34,33 +39,29 @@ public class PaymentService {
         payment.setAmount(paymentDTO.getAmount());
         payment.setDate(new Date());
         payment.setCustomer(customer);
-        payment.setBalance(calPaidUptoAndBalance(customerId,payment));
         paymentRepository.addPayment(payment);
-      //  calPaidUptoAndBalance(customerId,payment);
+        calPaidUptoAndBalance(customerId,payment);
     }
 
-    private double  calPaidUptoAndBalance(Long customerId,Payment payment){
-       List<Subscription> subscriptionList = subscriptionService.getSubscriptionByCustomerId(customerId);
-       double balance=0.0;
-       double amt=0.0;
-        amt=payment.getAmount();
-        for(Subscription subscription: subscriptionList) {
+    private void calPaidUptoAndBalance(Long customerId, Payment payment) {
+        List<Subscription> subscriptionList = subscriptionService.getSubscriptionByCustomerId(customerId);
+        double amt = 0.0;
+        amt = payment.getAmount();
+        Iterator<Subscription> subscriptionIterator = subscriptionList.iterator();
+        while (subscriptionIterator.hasNext()) {
+            Subscription subscription = subscriptionIterator.next();
             BillEntryDTO billEntryDTO = billService.createBillEntryDTO(subscription);
-            if(billEntryDTO.getSubTotal()<=amt) {           //17670<=1000     36<=17670
-                balance = amt-billEntryDTO.getSubTotal() ;                     //balance=1000-36
-                subscription.setPaidUpto(new Date());                           //13-05-2021
-                amt=balance;                                                    //amt=964
+            amt = amt - billEntryDTO.getSubTotal();
+            subscription.setBalance(amt);
+            subscription.setPaidUpto(new Date());
+            if (amt < 0) {
+                subscriptionRepository.updateSubscription(subscription);
+                break;
             }
-            else {
-                balance = +amt;             //balance=17670
-
+            if(amt>0 && subscriptionIterator.hasNext()){
+                subscription.setBalance(0);
             }
+            subscriptionRepository.updateSubscription(subscription);
         }
-        balance= -balance;                                                      //balance=-964
-        return balance;
-    }
-
-    public double getBalanceByCustomerId(Long customerId){
-        return  paymentRepository.getBalanceAmountByCustomerId(customerRepository.getCustomerById(customerId));
     }
 }
