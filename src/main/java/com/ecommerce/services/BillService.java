@@ -56,24 +56,29 @@ public class BillService {
         int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         System.out.println("days" + days);
         Set<Anomalies> anomaliesSet = subscription.getAnomalies();
-        days = days - anomaliesSet.size();
-        qtySub = days * subscription.getQuantity();
-        BillEntryDTO billEntryDTO = new BillEntryDTO();
-        amt = days * subscription.getPrice() * subscription.getQuantity();
         Set<Anomalies> anomaliesAfterPaidUpto = new HashSet<Anomalies>();
+        System.out.println("quantity before for loop : "+qtySub);
         for (Anomalies anomalies : anomaliesSet) {
             if (anomalies.getDate().after(subscription.getPaidUpto())) {
+
                 price = (int) (price + anomalies.getQuantity() * subscription.getPrice());
-                System.out.println(price);
                 qtySub = qtySub + anomalies.getQuantity();
                 anomaliesAfterPaidUpto.add(anomalies);
             }
 
         }
+        days = days - anomaliesAfterPaidUpto.size();
+        qtySub = days * subscription.getQuantity();
+        BillEntryDTO billEntryDTO = new BillEntryDTO();
+        amt = days * subscription.getPrice() * subscription.getQuantity();
+
+
+        System.out.println("quantity after for loop: "+qtySub);
         billEntryDTO.setAnomalies(anomaliesAfterPaidUpto);
         billEntryDTO.setPrice(subscription.getPrice());
         billEntryDTO.setItemName(subscription.getItemId().getName());
         billEntryDTO.setSubTotal(price + amt - subscription.getBalance());
+        billEntryDTO.setBalance(subscription.getBalance());
         billEntryDTO.setQuantity(qtySub);
         return billEntryDTO;
     }

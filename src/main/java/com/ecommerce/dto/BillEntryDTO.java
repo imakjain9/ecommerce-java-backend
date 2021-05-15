@@ -10,6 +10,8 @@ public class BillEntryDTO {
 
     Double quantity;
 
+    Double balance;
+
     Double subTotal;
 
     Set<Anomalies> anomalies;
@@ -52,5 +54,13 @@ public class BillEntryDTO {
 
     public void setAnomalies(Set<Anomalies> anomalies) {
         this.anomalies = anomalies;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 }

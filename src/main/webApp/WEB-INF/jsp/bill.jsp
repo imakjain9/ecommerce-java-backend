@@ -248,7 +248,7 @@ button:hover {
               Price
             </div>
             <div class="equalHW eq nomargin-nopadding title info-block">
-              Quantity<span class="right">#<span id="InvoiceNumber">Subtotal</span></span><br>
+              Quantity<span class="right"><span id="InvoiceNumber">Balance</span><span id="InvoiceNumber">Subtotal</span></span><br>
             </div>
           </div>
           <c:forEach var="billEntryDto" items="${billDto.billEntryDTOList}">
@@ -261,7 +261,9 @@ button:hover {
                 <span id="AccountName">${billEntryDto.price}</span><br>
               </div>
               <div class="equalHW eq infoblock info-block">
-                <span id="">${billEntryDto.quantity}</span> <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
+                <span id="">${billEntryDto.quantity}</span>
+                <span id="">${billEntryDto.balance}</span>
+                 <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
               </div>
             </div>
           </div>
