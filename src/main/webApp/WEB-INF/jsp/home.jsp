@@ -26,16 +26,16 @@
 <body>
 <header >
     <div  class="container" id="containerContent">
-        <span style="font-size:30px;cursor:pointer;margin-right:10px;display:inline-block;color:#111;" onclick="openNav()">&#9776;</span>
+        <span style="font-size:30px;cursor:pointer;margin-right:10px;display:inline-block;color:#111;" onclick="openNav()"><b>&#9776;</b></span>
             <h1  id="logo"><img height="80px"  src="${pageContext.request.contextPath}/resource/images/logo-solid.png"></h1>
                 <nav>
                     <ul>
-                        <li><a href="#">signin</li>
+
                         <li>
-                        <a href="${pageContext.request.contextPath}/getlogin?role=admin">Admin</a>
+                        <a href="${pageContext.request.contextPath}/getlogin?role=admin"><b>Admin</b></a>
 
                         </li>
-                        <li><a href="${pageContext.request.contextPath}/getlogin?role=user">User</a>
+                        <li><a href="${pageContext.request.contextPath}/getlogin?role=user"><b>User</b></a>
                         </li>
                     </ul>
     </div>
@@ -64,10 +64,10 @@
                  <div class="tm-site-name-container">
                    <div class="tm-site-name-container-inner">
                      <h1 class="text-uppercase tm-text-primary tm-site-name">
-                       New
+                       Freshness
                      </h1>
                      <p class="tm-text-primary tm-site-description">
-                       way to live life
+                      @doorstep
                      </p>
                    </div>
                  </div>
@@ -84,7 +84,11 @@
                  <div class="tm-section-text-container">
                    <i class="tm-text-white">
                      <p class="mb-0">
-                       Nullam eget dignissim orci. Donec tincidunt blandit libero iaculis fermentum. Aliquam erat volutpat. Interger suscipit aliquam augue ac rutrum. Phasellus sit amet erat id sapien efficitur euismod.</p>
+                     Why not create a living style where there is not a need of preservatives anymore
+                     Why would you When we Freshness@doorstep are here to give you a <b><i>"new way to  live"</i></b>
+                      We Freshness@doorstep belive in spreading happiness through providing your house daily utilities in cost friendly and eco friendly manner, at
+                      your doorstep . We love to serve customer and welcome sellers who can make the regular customer forget worries of daily utilities.
+                      </p>
                    </i>
                  </div>
                </div>
@@ -110,8 +114,8 @@
                    </h2>
                    <div class="tm-text-gray">
                      <p class="mb-4">
-                     	Sided Bootstrap v4.2.1 template has 3 HTML pages. <a href="index.html">Index</a>, <a href="page-2.html">Page 2</a> and <a href="page-3.html">Page 3</a>.
-                       You may share this Sided template or <a rel="nofollow" href="https://www.facebook.com/templatemo">our templatemo page</a> to your friends. Pellentesque commodo malesuada est.
+                     	The cow and buffalow . <a href="index.html">Dairy Milk</a> are best for health
+                        and so there self hand made other dairy products. For Milk, Bread, Butter, Lassi etc... you can count on us.
                        </p>
                      <p class="mb-0">
                        We deal with daily diary fresh products, that
@@ -254,7 +258,7 @@
                          <i class="fas fa-envelope tm-contact-icon"></i>
                        </span>
                      </span>
-                     <span class="media-body"> info@company.com </span>
+                     <span class="media-body"> freshness@doorstep.com </span>
                    </a>
                  </div>
                  <div class="media">
@@ -322,13 +326,13 @@
                <div class="col-sm-12 col-md-6">
                  <div class="tm-section-text-container-5 tm-text-white">
                    <p>
-                     Fusce a porttitor augue. Phasellus nec faucibus erat, vitae
-                     sagittis arcu. Quisque viverra dui purus, at rutrum nibh
-                     suscipit ut.
+                     The Tech. lifestyle we live in the modern era
+                     is not safe for our health.
+                     Adding preservatives is a solution?
                    </p>
                    <i
-                     >&ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing
-                     elit. Duis cursus ac mauris maximus auctor.&rdquo;</i
+                     >Why not create a living style where there is not a need of preservatives anymore
+                     Why would you When we Freshness@doorstep are here to give you a "new way to  live"</i
                    >
                  </div>
                </div>
@@ -360,9 +364,9 @@
              <div class="row">
                <footer class="col-sm-12 col-md-6 offset-md-6 px-md-0">
                  <p class="tm-copyright-text mb-0 tm-text-primary">
-                   Copyright &copy; 2019 Company Name
+                   Copyright &copy;
 
-                   - Design: <a rel="nofollow" href="https://www.facebook.com/templatemo">TemplateMo</a>
+                   - 1880 : <a rel="nofollow" href="${pageContext.request.contextPath}/">Freshness@doorstep</a>
                  </p>
                </footer>
              </div>
@@ -371,8 +375,5 @@
        </div>
 
 </div>
-
-
-
 </body>
 </html>

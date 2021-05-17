@@ -49,11 +49,10 @@
                   </div>
         		  <div class="dropdown-content">
         			<div class="item-dropdown">
-        			<a href="#" class="ancher droplink">Add Subscription</a>
+        			<a href="#" class="ancher droplink">Subscription</a>
         				<div class="item-dropdown-content" style="margin-left:180px;margin-top:-43px;">
-        				<c:forEach var="item" items="${itemList}">
-        					<a href="${pageContext.request.contextPath}/subscription/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}&itemId=${item.id}">${item.name}</a>
-        					</c:forEach>
+                            <a href="${pageContext.request.contextPath}/subscription/addCustomerSubscription?userId=${user.id}&customerId=${customer.id}">Start</a>
+        					<a href="${pageContext.request.contextPath}/subscription/removeCustomerSubscription?userId=${user.id}&customerId=${customer.id}">Stop</a>
         				</div>
         			</div>
 

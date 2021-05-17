@@ -131,17 +131,12 @@ div#columns figure figcaption {
 <body>
 	<div id="wrap">
 	<div id="columns" class="columns_4">
-	<c:forEach var="item" items="${items}">
+	<c:forEach var="subscription" items="${subscriptionList}">
   <figure>
-  <form action="${pageContext.request.contextPath}/subscription/submitCustomerSubscription?userId=${userId}&customerId=${customerId}" method="post">
-
-  <img src="${item.url}">.
-	<figcaption>${item.name}</figcaption>
-    <span class="price">Rs. ${item.price}</span>
-	<input type="text" name="quantity">
-    <Button id="button_${item.name}" name="itemId" value="${item.id}" type="submit"  hidden ></Button>
-	<label for="button_${item.name}" class="button">Subscribe</label>
-	</form>
+    <img src="${subscription.itemId.url}">.
+	<figcaption>${subscription.itemId.name}</figcaption>
+    <span class="price">Rs. ${subscription.price}</span>
+	<a class="button" href="${pageContext.request.contextPath}/subscription/stop?userId=${userId}&customerId=${customerId}&subscriptionId=${subscription.id}">Unsubscribe Now</a>
 	</figure>
 	 </c:forEach>
 </div>

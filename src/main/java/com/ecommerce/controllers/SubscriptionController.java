@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.dto.SubscriptionDTO;
+import com.ecommerce.entity.Subscription;
 import com.ecommerce.services.ItemService;
 import com.ecommerce.services.SellerTargetService;
 import com.ecommerce.services.SubscriptionService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -28,24 +31,26 @@ public class SubscriptionController {
 
 
     @RequestMapping(value ="/addCustomerSubscription", method = RequestMethod.GET)
-    public String addCustomerSubscription(ModelMap modelMap, @RequestParam Long userId, @RequestParam Long customerId, @RequestParam Long itemId) {
-        if(sellerTargetService.sellerTargetItemQunatity(customerId,itemId)==0.00) {
-            System.out.println(sellerTargetService.sellerTargetItemQunatity(customerId,itemId));
-            modelMap.addAttribute("user",userId);
-            modelMap.addAttribute("itemId",itemId);
-            return "SellerTarget.jsp";
-        }
-
+    public String addCustomerSubscription(ModelMap modelMap, @RequestParam Long userId, @RequestParam Long customerId) {
         modelMap.addAttribute("customerId",customerId);
-        modelMap.addAttribute("item",itemService.getItem(itemId.toString()));
         modelMap.addAttribute("userId",userId);
+        modelMap.addAttribute("items",itemService.getItems());
         return "itemSubscription.jsp";
     }
 
     @RequestMapping(value = "/removeCustomerSubscription",method = RequestMethod.GET)
-    public String removeCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long itemId){
-        subscriptionService.removeCustomerSubscription(itemId,customerId);
-        return "redirect:" + "userProfile?userId="+userId;
+    public String removeCustomerSubscription(ModelMap modelMap,@RequestParam Long userId,@RequestParam Long customerId){
+        List<Subscription> subList= subscriptionService.getSubscriptionByCustomerId(customerId);
+        modelMap.addAttribute("customerId",customerId);
+       modelMap.addAttribute("userId",userId);
+       modelMap.addAttribute("subscriptionList",subList);
+        return "stopSubscription.jsp";
+    }
+
+    @RequestMapping(value = "/stop",method = RequestMethod.GET)
+    public String stopSubscription(@RequestParam Long userId,@RequestParam Long customerId,@RequestParam Long subscriptionId){
+        subscriptionService.removeCustomerSubscription(subscriptionId);
+        return "redirect:" + "/userProfile?userId="+userId;
     }
     @RequestMapping(value = "error",method = RequestMethod.GET )
     public String error(ModelMap modelMap,@RequestParam String message,@RequestParam String action,@RequestParam(required = false)String role){
@@ -57,10 +62,19 @@ public class SubscriptionController {
     }
 
     @RequestMapping(value = "/submitCustomerSubscription", method = RequestMethod.POST)
-    public String getCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO") SubscriptionDTO subscriptionDTO, @RequestParam Long userId, @ModelAttribute("customerId")@RequestParam Long customerId, @ModelAttribute("itemId")@RequestParam Long itemId) {
+    public String submitCustomerSubscription(ModelMap modelMap, @ModelAttribute("subscriptionDTO") SubscriptionDTO subscriptionDTO, @RequestParam Long userId,@RequestParam Long customerId) {
+        System.out.println("Subscription itemId: " + subscriptionDTO.getItemId());
+        if(sellerTargetService.sellerTargetItemQunatity(customerId,subscriptionDTO.getItemId())==0.00) {
+            System.out.println(sellerTargetService.sellerTargetItemQunatity(customerId,subscriptionDTO.getItemId()));
+            modelMap.addAttribute("user",userId);
+            modelMap.addAttribute("itemId",subscriptionDTO.getItemId());
+            return "SellerTarget.jsp";
+        }
+
+
         try {
 
-            subscriptionService.addSubscription(subscriptionDTO,customerId,itemId);
+            subscriptionService.addSubscription(subscriptionDTO,customerId);
             return "redirect:" + "/userProfile?userId=" + userId;
         }catch (Exception e){
             modelMap.addAttribute("message",e.getMessage());

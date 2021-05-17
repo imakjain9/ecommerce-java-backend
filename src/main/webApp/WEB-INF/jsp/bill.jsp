@@ -226,10 +226,10 @@ button:hover {
   </div>
   <div class="invoice-box">
     <div class="container">
-      <div class="row">
+      <div class="row"
         <div class="equalHWrap eqWrap top">
           <div class="equalHW eq center logo-block">
-            <a href=""><img src="http://sequra.no/wp-content/uploads/2017/10/Sequra-Pure-logo.png" style="width:100%; max-width:55px;"></a>
+            <a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resource/images/logo-solid.png" style="width:100%; max-width:165px;"></a>
           </div>
           <div class="equalHW eq contact-info-block">
             <span id="AccountEmail">${billDto.sellerName}</span><br>
@@ -247,8 +247,14 @@ button:hover {
             <div class="equalHW eq nomargin-nopadding title from-block">
               Price
             </div>
+            <div class="equalHW eq nomargin-nopadding title from-block">
+               Quantity
+              </div>
+              <div class="equalHW eq nomargin-nopadding title from-block">
+                 Balance
+              </div>
             <div class="equalHW eq nomargin-nopadding title info-block">
-              Quantity<span class="right"><span id="InvoiceNumber">Balance</span><span id="InvoiceNumber">Subtotal</span></span><br>
+            <span class="right">Subtotal</span><br>
             </div>
           </div>
           <c:forEach var="billEntryDto" items="${billDto.billEntryDTOList}">
@@ -260,10 +266,14 @@ button:hover {
               <div class="equalHW eq infoblock from-block">
                 <span id="AccountName">${billEntryDto.price}</span><br>
               </div>
+              <div class="equalHW eq infoblock from-block">
+                  <span id="AccountName">${billEntryDto.quantity}</span><br>
+              </div>
+              <div class="equalHW eq infoblock from-block">
+                  <span id="AccountName">${billEntryDto.balance}</span><br>
+               </div>
               <div class="equalHW eq infoblock info-block">
-                <span id="">${billEntryDto.quantity}</span>
-                <span id="">${billEntryDto.balance}</span>
-                 <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
+                <span class="right" id="CreatedDate">${billEntryDto.subTotal}</span><br>
               </div>
             </div>
           </div>

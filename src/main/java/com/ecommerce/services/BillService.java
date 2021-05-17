@@ -26,18 +26,18 @@ public class BillService {
     PaymentService paymentService;
 
 
+    private double qtySub = 0.0;
 
-    private double qtySub=0.0;
+    private BillEntryDTO billEntryDTO;
 
-   private BillEntryDTO billEntryDTO;
-    public BillDTO gentrateBill(Long customerId){
-         billEntryDTO=null;
-         double grandTotal=0.0;
-        List<Subscription> subList=subscriptionService.getSubscriptionByCustomerId(customerId);
-        BillDTO billDTO=new BillDTO();
-        List<BillEntryDTO> billEntryDTOList=new ArrayList<BillEntryDTO>();
-        billDTO.setSellerName(sellerService.getUser((customerService.getRegisteredUser(customerId)).toString()).getFirstName()) ;
-        for(Subscription subscription: subList) {
+    public BillDTO gentrateBill(Long customerId) {
+        billEntryDTO = null;
+        double grandTotal = 0.0;
+        List<Subscription> subList = subscriptionService.getSubscriptionByCustomerId(customerId);
+        BillDTO billDTO = new BillDTO();
+        List<BillEntryDTO> billEntryDTOList = new ArrayList<BillEntryDTO>();
+        billDTO.setSellerName(sellerService.getUser((customerService.getRegisteredUser(customerId)).toString()).getFirstName());
+        for (Subscription subscription : subList) {
             billEntryDTO = createBillEntryDTO(subscription);
             grandTotal = grandTotal + billEntryDTO.getSubTotal();
             billEntryDTOList.add(billEntryDTO);
@@ -52,29 +52,31 @@ public class BillService {
     public BillEntryDTO createBillEntryDTO(Subscription subscription) {
         int price = 0;
         double amt = 0;
-        long diff = new Date().getTime() - subscription.getPaidUpto().getTime();
-        int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        System.out.println("days" + days);
-        Set<Anomalies> anomaliesSet = subscription.getAnomalies();
-        Set<Anomalies> anomaliesAfterPaidUpto = new HashSet<Anomalies>();
-        System.out.println("quantity before for loop : "+qtySub);
-        for (Anomalies anomalies : anomaliesSet) {
-            if (anomalies.getDate().after(subscription.getPaidUpto())) {
-
-                price = (int) (price + anomalies.getQuantity() * subscription.getPrice());
-                qtySub = qtySub + anomalies.getQuantity();
-                anomaliesAfterPaidUpto.add(anomalies);
-            }
-
-        }
-        days = days - anomaliesAfterPaidUpto.size();
-        qtySub = days * subscription.getQuantity();
         BillEntryDTO billEntryDTO = new BillEntryDTO();
-        amt = days * subscription.getPrice() * subscription.getQuantity();
+        if (subscription.getActive()) {
+            long diff = new Date().getTime() - subscription.getPaidUpto().getTime();
 
+            int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            System.out.println("days" + days);
+            Set<Anomalies> anomaliesSet = subscription.getAnomalies();
+            Set<Anomalies> anomaliesAfterPaidUpto = new HashSet<Anomalies>();
+            System.out.println("quantity before for loop : " + qtySub);
+            for (Anomalies anomalies : anomaliesSet) {
+                if (anomalies.getDate().after(subscription.getPaidUpto())) {
 
-        System.out.println("quantity after for loop: "+qtySub);
-        billEntryDTO.setAnomalies(anomaliesAfterPaidUpto);
+                    price = (int) (price + anomalies.getQuantity() * subscription.getPrice());
+                    qtySub = qtySub + anomalies.getQuantity();
+                    anomaliesAfterPaidUpto.add(anomalies);
+                }
+
+            }
+            days = days - anomaliesAfterPaidUpto.size();
+            qtySub = days * subscription.getQuantity();
+            billEntryDTO.setAnomalies(anomaliesAfterPaidUpto);
+            amt = days * subscription.getPrice() * subscription.getQuantity();
+        }
+
+        System.out.println("quantity after for loop: " + qtySub);
         billEntryDTO.setPrice(subscription.getPrice());
         billEntryDTO.setItemName(subscription.getItemId().getName());
         billEntryDTO.setSubTotal(price + amt - subscription.getBalance());
@@ -84,8 +86,8 @@ public class BillService {
     }
 
 
-    public double customerNeedToPay(BillDTO billDTO){
-      return billDTO.getGrandTotal();
+    public double customerNeedToPay(BillDTO billDTO) {
+        return billDTO.getGrandTotal();
     }
 
 }

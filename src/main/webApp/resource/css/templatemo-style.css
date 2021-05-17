@@ -7,7 +7,7 @@ https://templatemo.com/tm-527-sided
 
 
     Primary color         #99ccff
-    Primary bright color  #3399FF
+    Primary bright color  #511281 --> 3399FF
     Gray bg               #f6f6f6
     Dark Gray bg          #eeeeee
 */
@@ -64,8 +64,9 @@ p {
 .columns-bg {
   background-image: linear-gradient(
     to right,
-    #99ccff,
-    #99ccff 50%,
+    #325288,
+    #325288,
+    #325288 50%,
     #ffffff 50%
   );
 }
@@ -117,19 +118,19 @@ p {
 }
 
 .tm-bg-primary {
-  background-color: #99ccff;
+  background-color: #325288;
 }
 
 .tm-text-primary {
-  color: #99ccff;
+  color: #325288;
 }
 
 .tm-text-primary-bright {
-  color: #3399ff;
+  color: #511281;
 }
 
 .tm-hr-primary-bright {
-  border-color: #3399ff;
+  border-color: #511281;
 }
 
 .tm-hr-white {
@@ -145,7 +146,7 @@ p {
 }
 
 .tm-text-accent {
-  color: #3698cc;
+  color: #325288;
 }
 
 .tm-section-title-2 {
@@ -154,7 +155,7 @@ p {
 }
 
 .tm-section-title-underline {
-  border-top: 1px solid black;
+  border-top: 1px solid #325288;
   max-width: 500px;
   margin-right: 0;
   width: 85%;
@@ -164,7 +165,7 @@ p {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: 1px solid #99ccff;
+  border-bottom: 1px solid #325288;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -406,7 +407,7 @@ figure.effect-duke:hover p {
 .tm-contact-icon-container {
   display: inline-block;
   background-color: white;
-  color: #99ccff;
+  color: #325288;
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -424,7 +425,7 @@ figure.effect-duke:hover p {
   cursor: pointer;
   width: 62px;
   height: 62px;
-  background-color: #99ccff;
+  background-color: #325288;
   border-radius: 50%;
   display: inline-block;
   text-align: center;
@@ -496,7 +497,7 @@ figure.effect-duke:hover p {
 }
 
 .tm-copyright-link {
-  color: #99ccff;
+  color: #325288;
 }
 
 .tm-p-2-section-1 {
@@ -528,18 +529,18 @@ figure.effect-duke:hover p {
 }
 
 .btn-primary {
-  background-color: #99ccff;
-  border-color: #99ccff;
+  background-color: #325288;
+  border-color: #325288;
 }
 
 .btn-secondary {
   background-color: white;
   border-color: white;
-  color: #3399ff;
+  color: #511281;
 }
 
 .btn-secondary:hover {
-  color: #3399ff;
+  color: #511281;
   background-color: #c5c7ca;
   border-color: #c5c7ca;
 }
@@ -743,7 +744,7 @@ hr {
   #intro,
   #section_4,
   #contact {
-    background-color: #99ccff;
+    background-color: #325288;
   }
 
   #our_place {
@@ -794,7 +795,7 @@ hr {
   }
 
   #outro .tm-text-white {
-    color: #99ccff;
+    color: #325288;
   }
 
   .tm-contact-left,
@@ -845,7 +846,7 @@ hr {
   }
 
   .tm-sm-bg-blue {
-    background-color: #99ccff;
+    background-color: #325288;
   }
 
   .tm-section-icon-container {
