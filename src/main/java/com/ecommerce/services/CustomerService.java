@@ -2,6 +2,7 @@ package com.ecommerce.services;
 
 import com.ecommerce.dto.CustomerRegisterDTO;
 import com.ecommerce.entity.Customer;
+import com.ecommerce.entity.Payment;
 import com.ecommerce.entity.Seller;
 import com.ecommerce.entity.Subscription;
 import com.ecommerce.repository.CustomerRepository;
@@ -51,5 +52,10 @@ public class CustomerService {
 
     public Long getCustomerIdByCustomerName(String customerName){
         return customerRepository.getIdByCustomerName(customerName);
+    }
+
+    public Set<Payment> getPaymentListByCustomerId(Long customerId){
+         Customer customer=customerRepository.getCustomerById(customerId);
+        return customer.getPayments();
     }
 }

@@ -25,7 +25,7 @@
         <div class="card__button">
                <ul>  <b>My Targets</b><br/>
                   <c:forEach var="sellerTarget" items="${TargetList}">
-        			    <li><span>Milk:  </span>${sellerTarget.targetQuantity}</li>
+        			    <li><span>${sellerTarget.itemId.name}  </span>${sellerTarget.targetQuantity}</li>
         		    </c:forEach>
         	     </ul>
         </div>

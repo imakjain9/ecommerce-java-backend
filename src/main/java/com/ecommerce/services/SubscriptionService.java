@@ -62,11 +62,11 @@ public class SubscriptionService {
 
     public void removeCustomerSubscription(Long subscription){
         Subscription sub=subscriptionRepository.getSubscriptionById(subscription);
-        System.out.println(sub.getBalance());
-        billService.createBillEntryDTO(sub);
-        System.out.println(sub.getBalance());
-      subscriptionRepository.removeSubscription(sub);
-    }
+        sub.setBalance(billService.createBillEntryDTO(sub).getSubTotal());
+        sub.setActive(false);
+        sub.setPaidUpto(new Date());
+       subscriptionRepository.updateSubscription(sub);
+       }
 
     public List<Subscription> getSubscriptionByCustomerId(Long customerId){
        return subscriptionRepository.getSubscriptionByCustomer(customerId);

@@ -11,9 +11,7 @@ import com.ecommerce.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PaymentService {
@@ -22,7 +20,7 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
     @Autowired
-    private  SubscriptionService subscriptionService;
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -31,16 +29,19 @@ public class PaymentService {
     private SubscriptionRepository subscriptionRepository;
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
     BillService billService;
 
-    public void register(PaymentDTO paymentDTO,Long customerId){
-        Payment payment=new Payment();
-        Customer customer=customerRepository.getCustomerById(customerId);
+    public void register(PaymentDTO paymentDTO, Long customerId) {
+        Payment payment = new Payment();
+        Customer customer = customerRepository.getCustomerById(customerId);
         payment.setAmount(paymentDTO.getAmount());
         payment.setDate(new Date());
         payment.setCustomer(customer);
         paymentRepository.addPayment(payment);
-        calPaidUptoAndBalance(customerId,payment);
+        calPaidUptoAndBalance(customerId, payment);
     }
 
     private void calPaidUptoAndBalance(Long customerId, Payment payment) {
@@ -50,18 +51,24 @@ public class PaymentService {
         Iterator<Subscription> subscriptionIterator = subscriptionList.iterator();
         while (subscriptionIterator.hasNext()) {
             Subscription subscription = subscriptionIterator.next();
+
             BillEntryDTO billEntryDTO = billService.createBillEntryDTO(subscription);
-            amt = amt - billEntryDTO.getSubTotal();
+              amt = amt - billEntryDTO.getSubTotal();
             subscription.setBalance(amt);
             subscription.setPaidUpto(new Date());
+
             if (amt < 0) {
-                subscriptionRepository.updateSubscription(subscription);
-                break;
-            }
-            if(amt>0 && subscriptionIterator.hasNext()){
-                subscription.setBalance(0);
-            }
-            subscriptionRepository.updateSubscription(subscription);
+               subscriptionRepository.updateSubscription(subscription);
+             break;
         }
+          if(amt>0 && subscriptionIterator.hasNext()){
+        subscription.setBalance(0);
+        }
+        subscriptionRepository.updateSubscription(subscription);
     }
+
+}
+
+
+
 }

@@ -43,10 +43,10 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
+  <a href="#main">About</a>
   <a href="${pageContext.request.contextPath}/registerForm">Register</a>
 
-  <a href="#">Contact</a>
+  <a href="#contact">Contact</a>
     <hr>
   <h3 style="color:#a6a6a6;font-size:21px;margin-bottom:10px;">Admin</h3>
       <c:forEach var="user" items="${userList}">
